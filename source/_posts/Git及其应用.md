@@ -16,7 +16,7 @@ sidebar:
 tag:
   - 代码工具
   - Git
-categories: 分组
+categories: 工作流
 keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/22.webp
@@ -52,7 +52,7 @@ summary: git和github
 {%endwarning%}
 ![git工作机制](/image/git_1.png)
 
-git的修改是先删除修改的那一行，然后重写，所以提示信息是一行新增，一行删除
+
 ### 2.Git基本操作
 {%list%}
 在git bash中进行操作，可以使用linux命令和操作，如tab补全、ctrl+滚轮调整大小等
@@ -72,12 +72,18 @@ git config --global user.email [用户邮箱]
 会在该文件夹下创建一个.git文件夹
 {%endlist%}
 >`git add [添加对象]`：将对象添加到**暂存区**
-
+{%list%}
+使用git add -A将所有改动添加
+{%endlist%}
 >`git commit -m "[版本描述信息]" [提交对象]`：将对象提交到**本地库**
-
+{%list%}
+若不指定提交对象，则将暂存区所有改动提交
+{%endlist%}
 #### 2.3查看状态
 >`git status`：查看**分支**以及**该分支下显示未添加、未提交文件**等信息
-
+{%list%}
+git的修改是先删除修改的那一行，然后重写，所以提示信息是一行新增，一行删除
+{%endlist%}
 >`git reflog`：查看**本地库的提交信息**
 {%list%}
 每次提交最前面的黄色字符串就是版本号
@@ -97,7 +103,7 @@ git config --global user.email [用户邮箱]
 
 >`git checkout [分支名]`：**切换**分支
 
->`git merge [分支名]`：将指定分支**合并到当前分支**
+>`git merge [分支名]`：将**指定分支**合并到**当前分支**
 {%list%}
 合并分支只会影响当前分支，对指定分支无影响，即将指定分支的对应版本提交到当前分支
 {%endlist%}
