@@ -1,5 +1,5 @@
 ---
-title: Vim工作流（一）
+title: NeoVim工作流（一）
 seo_title: seo名称
 toc: true
 indent: true
