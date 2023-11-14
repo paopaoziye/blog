@@ -29,8 +29,9 @@ summary: NeoVim编辑器使用
 {%list%}
 以Ubuntu系统为例
 {%endlist%}
+**①包管理器安装**
 >在**命令行**中输入`sudo snap install nvim --classic`即可，下载完后，输入`nvim`即可打开**NeoVim**
 {%right%}
-使用snap能下载到最新版本，或者自己去官网下载
+使用snap能下载到最新版本
 {%endright%}
-#### 1.2
+#### 1.2配置文件
