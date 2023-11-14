@@ -42,28 +42,28 @@ body {
 }
 
 h1 {
-    margin: 24px 0 20px -5px;
+    margin: 36px 0 15px -5px; /*24 20*/
     font-size: 2.0rem;
     font-weight: bold;
     line-height: 2.0rem;
 }
 
 h2 {
-    margin: 21px 0 17px -5px;
+    margin: 15px 0 12px -5px;
     font-size: 1.8rem;
     font-weight: bold;
     line-height: 1.8rem;
 }
 
 h3 {
-    margin: 4px 0 4px -4px;
+    margin: 12px 0 9px -4px;
     font-size: 1.6rem;
     font-weight: bold;
     line-height: 1.7rem;
 }
 
 h4 {
-    margin: 16px 0 12px -4px;
+    margin: 9px 0 9px -4px;
     font-size: 1.45rem;
     font-weight: bold;
     line-height: 1.45rem;
@@ -88,9 +88,9 @@ p {
 }
 
 hr {
-    margin: 10px 0;
+    margin: 20px 0;
     border: 0;
-    border-top: 1px solid #ccc;
+    border-top: 4px dashed #87CEFA; /*#87CEFA*/
 }
 
 blockquote {
