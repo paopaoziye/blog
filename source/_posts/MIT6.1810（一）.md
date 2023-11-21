@@ -32,8 +32,8 @@ summary: 手搓操作系统
 {%endlist%}
 >在**命令行**输入**以下代码**
 ```
-sudo apt-get update 
-sudo apt-get upgrade
+sudo apt-get update  //更新软件包来源
+sudo apt-get upgrade //更新所有能更新的软件
 sudo apt-get install git build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu
 ```
 >`git`：**版本控制**工具，并且可以将**Lab文件夹**保存到**github**
@@ -59,3 +59,4 @@ cd xv6-labs-2023
 make qemu
 ```
 ### 2.Lab1实现
+
