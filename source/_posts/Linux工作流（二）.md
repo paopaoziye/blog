@@ -23,8 +23,8 @@ img: /medias/featureimages/41.webp
 date:
 summary: 实用工具
 ---
-# Linux工作流（二）
-## 实用工具
+# Linux工作流
+## Linux实用工具
 ### 1.VIM编辑器
 #### 1.1工作模式
 >**普通模式**：**刚进入**`VIM`或者**从其他模式**按下`ESC`退出
@@ -234,47 +234,183 @@ gcc -shared -o libTest.so test.o
 
 >`f`：**切换**函数的**栈帧**
 
-⑤辅助功能
+**⑤辅助功能**
 
 >`run [参数1] [参数2]...[参数N]`：进行命令行传参，传递给`argv[1] argv[2]...argv[N]`
 
 >`set`：**修改/创建**变量
 
-任务调度
->指定系统在**指定时间**执行**指定脚本/指令**
-crontab [选项]
--e 打开任务列表，便于编辑任务
--l 查询任务列表
--r 删除任务 缺省删除全部
-chmod u+x
-service crond restart
-`* * * * * [指令]/[脚本文件路径]`
-脚本文件需要有执行权限
-其中每个*都有其特殊含义，第一个表示一个小时的第几分钟（0-59），第二个表示一天中的第几个小时（0-23），第三个表示一个月中的第几天（1-31），第四个表示一年中的第几个月（1-12），第五个表示一周中的星期几（）
-`*`表示任何时间，如第一个*表示一小时的每分钟
-`,`表示不连续的时间，`0,30 1 * * *`表示每天的一点和一点半
-`-`表示连续的时间，如`0-30 1 * * *`，每天的一点到一点半
-`*/n`表示每隔多久执行一次，如`*/10 1 * * *`表示每天的一点到两点每隔十分钟执行一次
+### 3.VSCode
+#### 3.1引言
+**①概述**
+>一款**轻量级且跨平台**的**IDE**
 
-at [选项] [时间]
-回车后输入指令，随后输入两次ctrl+D结束输入即可
--m 执行完给用户发送邮件
+**②打开**
+>**终端**中输入`code [工程目录路径]`，或者直接在**UI界面**打开**工程目录**
 
+**③界面组成**
+{%list%}
+主要由菜单栏、侧边栏、状态栏和编辑区组成，主要使用的是侧边栏，其余主要使用快捷键替代
+{%endlist%}
+>**资源管理器**：显示**工程目录**、**已打开文件**、**操作历史**
 
-时间：
-hh:mm当天的hh小时mm分钟，如果今天已经过去 ，则在第二天执行
-hh:mm 日.月.年
-now+n 时间单位 minutes hours days weeks，现在多久多久之后
-atrm 编号删除对应任务
-atq查看所有任务
+>**搜索**：搜索对应**文件**、**变量**等对象
+{%right%}
+支持大小写区分、全字匹配和正则表达式，手动开启关闭
+{%endright%}
+>**Git**：版本控制，需要**安装Git依赖**
 
+>**Debug**：运行与调试，需要**安装GDB等依赖**
 
+>**扩展**：安装**插件**，如**C/C++**、**CMake**、**CMake Tools**、**Python**等
 
+#### 3.2常用快捷键
+**①窗口显示**
+>`ctrl+反引号`：打开**终端**
+{%list%}
+反引号即`
+{%endlist%}
+>`ctrl+shift+E/F/G/D/U`：显示侧边栏中的**资源管理器/搜索/Git/Debug/Output**
+{%list%}
+均采用ctrl+b关闭或者再次开启
+{%endlist%}
+>`ctrl+n/w`：**新建/关闭**当前文件
+{%list%}
+加上shift则是新建/关闭一个VSCode窗口
+{%endlist%}
+>`ctrl+p`：显示**跳转窗口**
+{%list%}
+再加上shift则是打开命令面板
+{%endlist%}
+>`ctrl+\`：**新建**一个**编辑器**并**分屏**，仅有**当前文件**，位于**窗口左边**
+**②跳转窗口**
+{%list%}
+在跳转窗口输入不同的提示符会显示不同的内容
+{%endlist%}
+>`?`：显示当前**可执行的操作**
 
+>`!`：显示`Errors`或`Warnings`
+{%list%}
+按下F8跳转到下一个
+{%endlist%}
+>`:`：后接**数字**，跳转**当前文件**的**对应行**
 
+>`#`：显示**所有**的`symbol`
 
-ctrl+D结束at命令的输入
- 一次性定时任务
-需要保证atd程序
-ps -ef|grep atd显示当前所有进程
-每隔一分钟检查任务队列
+>`@`：显示**当前文件**的`symbol`
+
+**③选取操作**
+>`Home/End`：将光标置于**行首/尾**
+{%list%}
+加上ctrl则是将光标置于文件首/尾部
+{%endlist%}
+
+>`shift+Home/End`：选择从**光标处**到**行首/尾**的所有内容
+{%list%}
+加上ctrl则是选择从光标处到文件首/尾部的所有内容
+{%endlist%}
+
+>`alt+UP/Down`：将**光标所在行**上下移
+
+>`ctrl+shift+l`：同时选中**所有**和**已选中内容相同**的字段
+
+>`shift+alt+Left/Right`：**扩展/缩小**选取范围
+
+**④辅助功能**
+
+>`shift+alt+f`：代码**格式化**
+
+>`F2`：同时修改**所有对应变量**，先**选中对应变量**再按下`F2`
+
+>`F12`：跳转到**变量定义处**，先**选中对应变量**再按下`F12`
+
+>`ctrl+tab`：在**已打开文件**中进行**切换**
+
+>`ctrl+c/v/s/f/z`：**复制/粘贴/保存/查找/撤销**
+{%list%}
+ctrl+shift+f表示在整个工程目录下查找
+{%endlist%}
+
+#### 3.3配置文件
+**①常用宏**
+>`${workspaceFolder}`：**当前工程目录**的绝对路径
+
+>`${fileDirname}`：**当前文件**所在**目录路径**
+
+>`${fileBasenameNoExtension}`：**当前文件**的**文件名**
+
+**②`launch.json`文件**
+>在**Debug侧边栏**创建，进入`launch.json`文件并点击**右下角**的**添加配置**按钮
+{%list%}
+用于配置该项目的调试功能，此处选择的配置为(gdb) 管道启动
+{%endlist%}
+>修改`program`为**需要调试的可执行文件**的绝对路径
+{%right%}
+如果后续需要添加task.json文件，则需要添加preLaunchTask项，其后跟task.json的label项
+{%endright%}
+```
+{
+    "configurations": [
+    {
+        "name": "(gdb) 启动",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/test",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "为 gdb 启用整齐打印",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            },
+            {
+                "description": "将反汇编风格设置为 Intel",
+                "text": "-gdb-set disassembly-flavor intel",
+                "ignoreFailures": true
+            }
+        ]
+    }
+    ]
+}
+```
+**③`task.json`文件**
+{%list%}
+设置调试前进行的构建工作，以便于修改文件后立马进行调试
+{%endlist%}
+>在**命令窗口中**输入`task`，选择`Tasks:Configure Task`，在根据**编译器**选择**对应模板**即可
+{%right%}
+task.json的本质就是一条命令，以下为以g++的例子，如果需要执行Cmake也是类似
+{%endright%}
+>`args`为传给`command`的**命令行参数**，以下`task`文件相当于执行`g++ -g [文件路径] -o [输出文件]`
+
+```
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++ 生成活动文件",
+			"command": "/usr/bin/g++",
+			"args": [
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "编译器: /usr/bin/g++"
+		}
+	]
+}
+```

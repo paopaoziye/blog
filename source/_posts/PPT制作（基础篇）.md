@@ -15,7 +15,7 @@ sidebar:
   - toc
 tag:
   - PPT
-categories: 软技能
+categories: 工作流
 keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/12.webp

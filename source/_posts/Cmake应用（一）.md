@@ -16,7 +16,7 @@ sidebar:
 tag:
   - 代码工具
   - Cmake
-categories: 软技能
+categories: 工具链
 keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/23.webp

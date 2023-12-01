@@ -15,7 +15,7 @@ sidebar:
   - toc
 tag:
   - NeoVim编辑器
-categories: 工作流
+categories: 工具链
 keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/15.webp

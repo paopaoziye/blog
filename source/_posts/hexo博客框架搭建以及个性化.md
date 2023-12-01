@@ -16,7 +16,7 @@ sidebar:
 tag:
   - Hexo
   - 静态博客框架
-categories: 软技能
+categories: 工作流
 keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/18.webp
