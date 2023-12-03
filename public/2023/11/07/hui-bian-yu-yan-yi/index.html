@@ -412,26 +412,45 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="汇编语言（一）"><a href="#汇编语言（一）" class="headerlink" title="汇编语言（一）"></a>汇编语言（一）</h1><h2 id="汇编语言启蒙"><a href="#汇编语言启蒙" class="headerlink" title="汇编语言启蒙"></a>汇编语言启蒙</h2><div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 以下内容主要以8086CPU为例，该CPU是16位结构，注意这个大前提</div>
-<h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1.引言"></a>1.引言</h3><h4 id="1-1汇编语言"><a href="#1-1汇编语言" class="headerlink" title="1.1汇编语言"></a>1.1汇编语言</h4><p><strong>①组成</strong></p>
+<h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1.引言"></a>1.引言</h3><h4 id="1-1汇编语言"><a href="#1-1汇编语言" class="headerlink" title="1.1汇编语言"></a>1.1汇编语言</h4><p><strong>①机器语言</strong></p>
 <blockquote>
-<p><strong>汇编指令</strong>：机器指令便于记忆的格式，有对应的<strong>机器码</strong><br><strong>伪指令</strong>：没有对应的机器码，由<strong>编译器执行</strong>，计算机并不执行<br><strong>符号</strong>：由<strong>编译器识别</strong>，没有对应的机器码</p>
+<p><strong>机器指令</strong>的集合，<strong>机器指令</strong>是一串<strong>二进制数字</strong></p>
 </blockquote>
-<p><strong>②机器语言</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> CPU将机器指令转化为一系列高低电平，以驱动电子器件</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 每一种微处理器都有其机器指令集，对应的机器语言和汇编语言可能是不同的</div>
+
+<p><strong>②汇编语言</strong></p>
 <blockquote>
-<p><strong>机器指令</strong>的集合，机器指令是一系列<strong>二进制数字</strong>，计算机将机器指令转化为一系列的<strong>高低电平</strong>，使电子器件受到驱动</p>
+<p><strong>汇编指令</strong>：<strong>机器指令</strong>便于记忆的格式，有对应的<strong>机器码</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这个工作由微处理器（如CPU）完成，每一种微处理器都有其机器指令集</div>
+<blockquote>
+<p><strong>伪指令</strong>：<strong>没有</strong>对应的<strong>机器码</strong>，由<strong>编译器执行</strong>，计算机并<strong>不执行</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>符号</strong>：由<strong>编译器识别</strong>，<strong>没有</strong>对应的<strong>机器码</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 汇编语言可以看作是机器语言的抽象，同理高级语言可以看作是汇编语言的抽象</div>
+
 
 <h4 id="1-2指令与数据"><a href="#1-2指令与数据" class="headerlink" title="1.2指令与数据"></a>1.2指令与数据</h4><div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 两者本质上都是一串二进制数据，也并没有特殊的格式区别它们，取决于CPU如何解释它们</div>
 <p><strong>①进制</strong></p>
 <blockquote>
-<p><strong>二进制</strong>：以字母<code>B</code>结尾<br><strong>八进制</strong>：以字母<code>O</code>或者<code>Q</code>结尾<br><strong>十进制</strong>：以字母<code>D</code>结尾，或者没有结尾字母<br><strong>十六进制</strong>：以字母<code>H</code>结尾</p>
+<p><strong>二进制</strong>：以字母<code>B</code>结尾</p>
+</blockquote>
+<blockquote>
+<p><strong>八进制</strong>：以字母<code>O</code>或者<code>Q</code>结尾</p>
+</blockquote>
+<blockquote>
+<p><strong>十进制</strong>：以字母<code>D</code>结尾，或者没有结尾字母</p>
+</blockquote>
+<blockquote>
+<p><strong>十六进制</strong>：以字母<code>H</code>结尾</p>
 </blockquote>
 <div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 十六进制的数据，在汇编源程序中不能以字母开头，需要在前面加0，如A000H需要改为0A000H</div>
 
 <p><strong>②ASCLL编码</strong></p>
 <blockquote>
-<p>用<strong>单引号</strong><code>''</code>表示对应信息<strong>按照字符</strong>给出，<strong>编译器</strong>将其转化为对应的<code>ASCLL</code>编码<br><code>'unIX'</code>等价于<code>75H,6EH,49H,58H</code></p>
+<p>用<strong>单引号</strong><code>''</code>包围，表示其<strong>按照字符</strong>给出，<strong>编译器</strong>将其转化为对应的<code>ASCLL</code><strong>编码</strong><br><code>'unIX'</code>等价于<code>75H,6EH,49H,58H</code></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 小写字母的ASCLL码比对应大写字母的ASCLL码大20H</div>
 
@@ -453,11 +472,20 @@ or al,01000000 ;将第6位设为1<span aria-hidden="true" class="line-numbers-ro
 
 <h4 id="1-3相关硬件概念"><a href="#1-3相关硬件概念" class="headerlink" title="1.3相关硬件概念"></a>1.3相关硬件概念</h4><p><strong>①主板和接口卡</strong></p>
 <blockquote>
-<p><strong>主板</strong>：主板上一些主要器件通过<strong>总线</strong>相连，如<strong>CPU</strong>、<strong>存储器</strong>、<strong>外围芯片组</strong>和<strong>扩展插槽</strong>等<br><strong>接口卡</strong>：插在<strong>扩展插槽</strong>上，CPU通过控制接口卡控制<strong>外部设备</strong>，如鼠标、屏幕和键盘等</p>
+<p><strong>主板</strong>：一些<strong>主要器件</strong>的集成，如<strong>CPU</strong>、<strong>存储器</strong>、<strong>外围芯片组</strong>和<strong>扩展插槽</strong>等，通过<strong>总线</strong>相连</p>
+</blockquote>
+<blockquote>
+<p><strong>接口卡</strong>：插在<strong>扩展插槽</strong>上，连接一些<strong>外部设备</strong>，CPU通过<strong>控制接口卡</strong>控制<strong>外部设备</strong></p>
 </blockquote>
 <p><strong>②CPU</strong></p>
 <blockquote>
-<p><strong>组成</strong><br><strong>运算器</strong>：信息处理<br><strong>寄存器</strong>：信息存储，一般能存储的<strong>位数不高</strong>，主要都是<strong>和CPU密切相关的信息</strong><br><strong>控制器</strong>：控制各种器件工作</p>
+<p><strong>运算器</strong>：信息处理</p>
+</blockquote>
+<blockquote>
+<p><strong>寄存器</strong>：信息存储，一般能存储的<strong>位数不高</strong>，主要都是<strong>和CPU密切相关的信息</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>控制器</strong>：控制各种器件工作</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 出于兼容性的考虑，一个寄存器可分多个寄存器，通常最小单位8位（因为一个内存单元是8位），如一个16位寄存器ax可以看成两个8位寄存器al和ah</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以通过改变寄存器内容实现对CPU的控制</div>
@@ -834,18 +862,18 @@ int 21H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/hui-bian-yu-yan-er/">
+                <a href="/2023/11/07/shu-xing-jie-gou-shang/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/27.webp" class="responsive-img" alt="汇编语言（二）">
+                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="树形结构（上）">
                         
-                        <span class="card-title">汇编语言（二）</span>
+                        <span class="card-title">树形结构（上）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            汇编语言
+                            树形结构
                         
                     </div>
                     <div class="publish-info">
@@ -856,8 +884,8 @@ int 21H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    计算机基础
                                 </a>
                             
                             
@@ -867,12 +895,16 @@ int 21H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">汇编语言</span>
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">计算机基础</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%8A%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E3%80%8B/">
-                        <span class="chip bg-color">《汇编语言》</span>
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">数据结构与算法</span>
+                    </a>
+                    
+                    <a href="/tags/%E3%80%8Ahello-%E7%AE%97%E6%B3%95%E3%80%8B/">
+                        <span class="chip bg-color">《hello 算法》</span>
                     </a>
                     
                 </div>

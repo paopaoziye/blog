@@ -441,6 +441,7 @@
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 响应报文包含接收方的IP地址和MAC地址</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> APR协议不能跨网络使用</div>
 
+<hr>
 <h4 id="1-2IP地址应用"><a href="#1-2IP地址应用" class="headerlink" title="1.2IP地址应用"></a>1.2IP地址应用</h4><div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 以IPv4地址为例</div>
 <p><strong>①表示</strong></p>
 <blockquote>
@@ -474,6 +475,7 @@
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 根据每个网络所需的IP地址数量决定主机号位数，从而决定子网掩码的格式</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 子网掩码只是一种划分方法</div>
 
+<hr>
 <h4 id="1-3IP数据报的传递"><a href="#1-3IP数据报的传递" class="headerlink" title="1.3IP数据报的传递"></a>1.3IP数据报的传递</h4><p><strong>①路由器</strong></p>
 <blockquote>
 <p><strong>路由器</strong>的<strong>不同接口</strong>连接<strong>不同网络</strong>，接口的<strong>IP地址</strong>也被称为<strong>默认网关</strong></p>
@@ -493,6 +495,7 @@
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 将目的地址，和表项的地址掩码相与，若结果和表项网络地址一致，则找到目的网络</div>
 <p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/JW_8.png" alt="IP数据报的传递"></p>
+<hr>
 <h4 id="1-4路由选择协议"><a href="#1-4路由选择协议" class="headerlink" title="1.4路由选择协议"></a>1.4路由选择协议</h4><p><strong>①引言</strong></p>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 为了实现信息在路由器之间传递，需要向路由表中填充信息，包含目的网络地址、对应接口和辅助信息</div>
 <blockquote>
@@ -539,7 +542,37 @@
 <blockquote>
 <p><strong>BGP发言人</strong>之间通过建立<strong>TCP连接</strong>交换<strong>路由信息</strong>，并从中找出<strong>到达各自自治系统</strong>的<strong>不存在回路</strong>的路由</p>
 </blockquote>
-<h4 id="1-5虚拟专用网"><a href="#1-5虚拟专用网" class="headerlink" title="1.5虚拟专用网"></a>1.5虚拟专用网</h4><h3 id="2-运输层"><a href="#2-运输层" class="headerlink" title="2.运输层"></a>2.运输层</h3><h4 id="2-1概述"><a href="#2-1概述" class="headerlink" title="2.1概述"></a>2.1概述</h4><p><strong>①任务</strong></p>
+<hr>
+<h4 id="1-5虚拟专用网VPN"><a href="#1-5虚拟专用网VPN" class="headerlink" title="1.5虚拟专用网VPN"></a>1.5虚拟专用网VPN</h4><p><strong>①引言</strong></p>
+<blockquote>
+<p><strong>多个主机</strong>使用<strong>同一个公有IP地址</strong>，形成一个<strong>专用网</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> IP地址可分为专用地址和共用地址，专用地址无需申请即可使用，同时也不是唯一的</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 专用网的公有地址通常对应的是其中的一个路由器接口</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 使用专用地址的主机无法在因特网上通信，只能在专用网内通信，且专用网外的主机无法主动联系专用网内的主机</div>
+
+
+<p><strong>②工作原理</strong></p>
+<blockquote>
+<p>若只在<strong>专用网内通信</strong>，则使用<strong>专用地址</strong>即可</p>
+</blockquote>
+<blockquote>
+<p>若需要在<strong>因特网</strong>上进行<strong>数据传输</strong>，<strong>发送方</strong>对数据报<strong>加密</strong>并传递给<strong>发送方路由器</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>接收方路由器</strong>接收到后，<strong>解密</strong>数据报，并<strong>传递</strong>给<strong>对应专用网主机</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若需要访问专用网，则需要接入因特网访问其公有地址</div>
+<p><strong>③网络地址转换NAT</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 有些专用网路由器中不止一个公用IP地址，但是远少于其专用地址，便于主机上网</div>
+<blockquote>
+<p>当<strong>专用网一台主机</strong>需要<strong>接入因特网</strong>时，根据其<strong>专用地址</strong>从<strong>路由器的公用IP地址</strong>中<strong>申请一个</strong>用于互联网通信</p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 这样，专用地址和共用地址为一对一的关系，效率较低</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 使用运输层的端口号和IP地址进行转换，这样一个公用地址可以对应多个专用地址</div>
+
+<hr>
+<h3 id="2-运输层"><a href="#2-运输层" class="headerlink" title="2.运输层"></a>2.运输层</h3><h4 id="2-1概述"><a href="#2-1概述" class="headerlink" title="2.1概述"></a>2.1概述</h4><p><strong>①任务</strong></p>
 <blockquote>
 <p>为运行在<strong>不同主机</strong>上的<strong>进程</strong>提供直接的<strong>通信服务</strong></p>
 </blockquote>
@@ -598,6 +631,7 @@
 <blockquote>
 <p><strong>填充字段</strong>：由于有些内容<strong>长度可变</strong>，需要使用填充<strong>使报文段首部能被4整除</strong></p>
 </blockquote>
+<hr>
 <h4 id="2-2TCP连接"><a href="#2-2TCP连接" class="headerlink" title="2.2TCP连接"></a>2.2TCP连接</h4><p><strong>①创建</strong></p>
 <blockquote>
 <p><strong>被请求方</strong>首先<strong>创建传输控制块</strong>，随后进入<strong>监听状态</strong>，称为<strong>被动打开连接</strong></p>
@@ -640,6 +674,7 @@
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 该报文段ACK置1，设置序号u+1以及确认号w+1，对TCP连接释放报文段2进行确认</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> MSL为最长报文寿命，等待这么长时间防止确认报文段丢失</div>
 <p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/JW_11.png" alt="TCP连接的释放"></p>
+<hr>
 <h4 id="2-3TCP功能"><a href="#2-3TCP功能" class="headerlink" title="2.3TCP功能"></a>2.3TCP功能</h4><p><strong>①流量控制</strong></p>
 <blockquote>
 <p><strong>控制</strong>发送方的<strong>发送速率</strong>，<strong>便于</strong>接收方<strong>接收</strong></p>
@@ -679,6 +714,8 @@
 <p><strong>接收方</strong>：只有落入<strong>接收窗口</strong>的<strong>字节</strong>才能被<strong>接收</strong>，每当<strong>收到数据</strong>，会发送<strong>确认分组</strong>，确认号为<strong>最小的失序字节序号</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 易知可靠传输主要依靠接收方的确认分组实现，所以除了每次收到数据，每隔一段时间也要发送确认分组</div>
+
+<hr>
 <h3 id="3-应用层"><a href="#3-应用层" class="headerlink" title="3.应用层"></a>3.应用层</h3><h4 id="3-1引言"><a href="#3-1引言" class="headerlink" title="3.1引言"></a>3.1引言</h4><p><strong>①任务</strong></p>
 <blockquote>
 <p>通过<strong>应用进程的交互</strong>，实现<strong>特定网络应用</strong>，也是<strong>设计和建设计算机网络</strong>的<strong>最终目的</strong></p>
@@ -693,6 +730,7 @@
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可扩展性好，成本低</div>
 
+<hr>
 <h4 id="3-2域名系统DNS"><a href="#3-2域名系统DNS" class="headerlink" title="3.2域名系统DNS"></a>3.2域名系统DNS</h4><div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 将域名转化为IP地址，这样就可以通过便于记忆的域名寻找对应主机了</div>
 <p><strong>①域名结构</strong></p>
 <blockquote>
@@ -732,6 +770,7 @@
 <blockquote>
 <p><strong>本地域名服务器</strong>先向<strong>根域名服务器</strong>查询，得到对应的<strong>顶级域名服务器</strong>地址，随后从对应<strong>顶级域名服务器</strong>获得对应<strong>权限域名服务器</strong>地址，最后从<strong>权限域名服务器</strong>查找到<strong>目的域名的IP地址</strong></p>
 </blockquote>
+<hr>
 <h4 id="3-3电子邮件"><a href="#3-3电子邮件" class="headerlink" title="3.3电子邮件"></a>3.3电子邮件</h4><p><strong>①组成</strong></p>
 <blockquote>
 <p><strong>用户代理</strong>：<strong>用户</strong>与<strong>电子邮件系统</strong>的接口，即<strong>客户端软件</strong></p>
@@ -755,6 +794,8 @@
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 邮件读取协议有POP和IMAP，前者只能从邮件服务器下载文件，后者可以在自己的计算机上操控邮件服务的邮箱</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 若发送时采用了MIME，接收时也需要使用MIME将ASCLL码文本数据转化为非ASCLL码文本数据</div>
+
+<hr>
 <h4 id="3-4万维网"><a href="#3-4万维网" class="headerlink" title="3.4万维网"></a>3.4万维网</h4><p><strong>①引言</strong></p>
 <blockquote>
 <p><strong>定义</strong>：一个<strong>大规模</strong>、<strong>联机式</strong>的<strong>信息储藏所</strong>，是运行在因特网上的一个<strong>分布式应用</strong></p>
@@ -798,6 +839,7 @@
 <blockquote>
 <p>下次用户<strong>再访问该网页</strong>，会向<strong>HTTP请求报文</strong>中添加对应的<strong>Cookie识别码</strong>，<strong>网页服务端</strong>识别<strong>Cookie识别码</strong>后<strong>根据记录信息</strong>返回<strong>特定的网页</strong></p>
 </blockquote>
+<hr>
 <h4 id="3-5其他常见协议"><a href="#3-5其他常见协议" class="headerlink" title="3.5其他常见协议"></a>3.5其他常见协议</h4><p><strong>①动态主机配置协议DHCP</strong></p>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 各个主机从DHCP服务器请求IP地址、子网掩码、默认网关等网络配置信息</div>
 <blockquote>
@@ -985,6 +1027,10 @@
                         <span class="chip bg-color">数据结构与算法</span>
                     </a>
                     
+                    <a href="/tags/%E3%80%8Ahello-%E7%AE%97%E6%B3%95%E3%80%8B/">
+                        <span class="chip bg-color">《hello 算法》</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -996,12 +1042,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/10/shu-ju-jie-gou-yu-suan-fa-wu/">
+                <a href="/2023/11/10/shu-xing-jie-gou-xia/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="数据结构与算法（五）">
+                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="树形结构（下）">
                         
-                        <span class="card-title">数据结构与算法（五）</span>
+                        <span class="card-title">树形结构（下）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

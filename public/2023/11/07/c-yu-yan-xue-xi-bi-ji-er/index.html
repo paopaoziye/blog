@@ -411,86 +411,142 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="C语言学习笔记（二）"><a href="#C语言学习笔记（二）" class="headerlink" title="C语言学习笔记（二）"></a>C语言学习笔记（二）</h1><h2 id="C语言基础"><a href="#C语言基础" class="headerlink" title="C语言基础"></a>C语言基础</h2><h3 id="1-指针"><a href="#1-指针" class="headerlink" title="1.指针"></a>1.指针</h3><h4 id="1-1内存和地址"><a href="#1-1内存和地址" class="headerlink" title="1.1内存和地址"></a>1.1内存和地址</h4><p><strong>①比特/位</strong></p>
-<blockquote>
-<p>计算机的<strong>最小存储单位</strong>，可以存储1和0</p>
+                <h1 id="C语言学习笔记（二）"><a href="#C语言学习笔记（二）" class="headerlink" title="C语言学习笔记（二）"></a>C语言学习笔记（二）</h1><h2 id="C语言基础"><a href="#C语言基础" class="headerlink" title="C语言基础"></a>C语言基础</h2><h3 id="1-指针"><a href="#1-指针" class="headerlink" title="1.指针"></a>1.指针</h3><h4 id="1-1引言"><a href="#1-1引言" class="headerlink" title="1.1引言"></a>1.1引言</h4><blockquote>
+<p><strong>比特/位</strong>：计算机的<strong>最小存储单位</strong>，可以存储<strong>1和0</strong></p>
 </blockquote>
-<p><strong>②字节</strong></p>
-<blockquote>
-<p>一个字节包含<strong>8个比特</strong>，包含存储<strong>一个字符</strong>所需要的位数，是计算机的<strong>最小寻址单位</strong></p>
-</blockquote>
-<p><strong>③字</strong></p>
-<blockquote>
-<p>每个字由<strong>2（16位机器）或者4（32位机器）个字节</strong>组成，每个字的地址是其<strong>最左边或者最右边</strong>的字节的地址，每台机器规定不同</p>
-</blockquote>
-<p><strong>④寻址</strong></p>
-<blockquote>
-<p>高级语言一般通过<strong>变量名</strong>而不是地址访问内存位置，<strong>变量名和地址的关系由编译器提供</strong>，<strong>硬件还是通过地址</strong>访问内存位置</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 边界对齐：整型值存储的起始位置只能是某些特定的字节，通常是2和4的倍数</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 每个内存位置中存储的时一连串1和0，被解释为什么数据类型取决于我们的使用方式和声明方式，有些时候值可能是一样的但是被解释为了不同的数据类型</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 数据以比特流的形式存储，被解释为什么取决于我们的使用方式和声明方式</div>
 
-<h4 id="1-2指针变量"><a href="#1-2指针变量" class="headerlink" title="1.2指针变量"></a>1.2指针变量</h4><p><strong>①声明格式</strong></p>
 <blockquote>
-<p><code>[指向变量的数据类型] *[指针变量名] = &amp;[指向的变量]</code><br><code>*</code>为<strong>间接访问操作符</strong>，可以通过它<strong>访问指针指向的地址</strong><br><code>&amp;</code>为<strong>取址符</strong>，通过它可以<strong>获得变量的地址</strong></p>
+<p><strong>字节</strong>：<strong>一个字节</strong>包含<strong>8个比特</strong>，存储<strong>一个字符</strong>所需要的<strong>位数</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 对*指针变量进行操作相当于对其指向的变量进行操作</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 指针数据类型取决于指向的变量的数据类型，比如假设整数a的地址是100，不能使用*100 = 10对a进行赋值，因为100是字面量，缺省情况下是整型而不是指针变量，应该写为*（int*）100 = 10，该技巧只有在需要访问特定地址时才使用</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 字节是计算机的最小寻址单位</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 一些数据类型（如整型）的存储的起始位置只能是某些特定的字节，通常是2和4的倍数</div>
+<blockquote>
+<p><strong>字</strong>：<strong>一个字</strong>由<strong>2/4个字节</strong>组成</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每个字的地址是其最左边或者最右边的字节的地址，每台机器规定不同</div>
+
+<blockquote>
+<p><strong>寻址</strong>：<strong>高级语言</strong>一般通过<strong>变量名</strong>访问<strong>内存位置</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 变量名和地址的关系由编译器提供，硬件还是通过地址访问内存位置</div>
+
+<h4 id="1-2指针变量"><a href="#1-2指针变量" class="headerlink" title="1.2指针变量"></a>1.2指针变量</h4><p><strong>①声明格式</strong>：</p>
+<blockquote>
+<p><code>[指向变量的数据类型] *[指针变量名] = &amp;[指向的变量]</code></p>
+</blockquote>
+<blockquote>
+<p><code>*</code>为<strong>间接访问操作符</strong>，可以通过它<strong>访问指针指向的地址</strong></p>
+</blockquote>
+<blockquote>
+<p><code>&amp;</code>为<strong>取址符</strong>，通过它可以<strong>获得变量的地址</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 对（*指针变量）进行操作相当于对其指向的变量进行操作</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 指针不是一个整型，其数据类型取决于指向的变量的数据类型</div>
+<blockquote>
+<p>假设<strong>整数</strong><code>a</code>的<strong>地址</strong>是<code>100</code>，不能使用<code>*100 = 10</code>对<code>a</code>进行<strong>赋值</strong>，因为<code>100</code>是<strong>字面量</strong>，<strong>缺省情况</strong>下是<strong>整型</strong>而不是<strong>指针变量</strong>，应该写为<code>*（int*）100 = 10</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以使用该技巧访问特定地址</div>
+
 <p><strong>②未初始化的指针</strong></p>
+<blockquote>
+<p>使用<strong>未初始化的指针</strong>会<strong>引发错误</strong></p>
+</blockquote>
 <pre class="line-numbers language-none"><code class="language-none">int *a;
 *a = 12;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 指针需要进行初始化，因为声明一个指针并不会创建一个存储空间，所以其指向也未知，可能指向非法地址（内存错误）或者导致储存地址处于错误的边界（总线错误），所以一定要对指针进行初始化*可以初始化为空指针，但是要进行空指针检查）</div>
-<p><strong>③NULL指针</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若指针变量没有被初始化，则其值可能为一垃圾值（动态变量）或者0（静态变量）</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 未初始化指针可能指向非法地址（内存错误）或者导致储存地址处于错误的边界（总线错误）</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以先将指针初始化为空指针NULL，但是注意要进行空指针检查，因为对空指针引用也是错误的</div>
+
+<p><strong>③指针的指针</strong></p>
 <blockquote>
-<p>表示这个指针<strong>没有指向任何地方</strong></p>
+<p><code>int** a = &amp;b</code>：其中<code>b</code>是一个<strong>指向整型变量的指针</strong>，<code>a</code>表示一<strong>个指向指向整型变量指针的指针</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 注意对NULL指针进行引用是错误的，所以在对指针解引用时需要检查其是否为空指针</div>
-<p><strong>④指针的指针</strong></p>
-<blockquote>
-<p><code>int** a = &amp;b</code>：其中b是一个指向整型变量的指针，a表示一个指向指向整型变量指针的指针</p>
-</blockquote>
-<p><strong>1.3指针与左右值</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 依此类推，也称为多重指针</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 尽量少使用多重指针</div>
+<p><strong>④指针与左右值</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">int a = 10；
 int* b = &amp;a；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><strong>①</strong>其中当<code>a</code>、<code>*b</code>（变量名）作为右值时，代表的是“10”，即对应位置储存的数据，作为左值时代表对应位置的地址<br><strong>②</strong><code>&amp;a</code>作为右值代表a的地址，不能作为左值，因为<code>&amp;a</code><strong>不能代表内存中某一特定位置</strong><br><strong>③</strong><code>b</code>作为右值是表示的是<code>a</code>的地址，作为左值表示的是<code>b</code>的地址<br><strong>1.4指针表达式</strong><br><strong>①</strong><code>*b+1</code>：表示对<code>a</code>中的数据加1，只能作为右值，<code>*（b+1）</code>相当于<code>a</code>后面一个内存的标识符，作为左值代表对应的地址，作为右值代表对应位置存储的数据。<br><strong>②</strong><code>++b</code>：作为右值表示该指针指向位置的后一个位置的地址，作为左值是非法的<br><strong>③</strong><code>b++</code>：作为右值表示的该指针指向位置的地址，随后该指针加一，作为左值是非法的，因为他是一个数值而不是一个容器<br><strong>④</strong><code>*++b</code>：作为右值表示该指针指向位置后一个位置存放的数据，作为的左值表示的是该指针指向位置后一个位置<br><strong>⑤</strong><code>*b++</code>：作为右值表示的是该指针指向位置存放的数据，作为左值表示的是该指针指向变量，随后该指针变量加一<br><strong>⑥</strong><code>++*b</code>：作为右值表示的是b指向变量存放数据的值加一</p>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> ++/--的优先级高于*</div>
-<p><strong>1.5指针的运算</strong><br><strong>①与整数加减法</strong>：当对指针加减一个整数n时，该指针会<strong>根据其指向的数据的类型调整自身大小</strong>（也适用于malloc分配的内存）</p>
 <blockquote>
-<p>比如某台机器上<code>float</code>占4个字节，对一个指向<code>float</code>变量的指针+n，该指针的大小会增加4n</p>
+<p><code>*b</code>相当于<code>a</code>，作为<strong>右值</strong>代表的是<code>10</code>，作为<strong>左值</strong>时代表<code>a</code>的<strong>内存位置</strong></p>
 </blockquote>
-<p><strong>②<code>==</code>与<code>!=</code></strong></p>
 <blockquote>
-<p>可以用于任意两个指针，判断两个指针是否相同</p>
+<p><code>&amp;a</code>作为<strong>右值</strong>代表<strong>a的地址</strong>，<strong>不能作为左值</strong>，因为<code>&amp;a</code><strong>不能代表内存中某一特定位置</strong></p>
 </blockquote>
-<p><strong>③指针之间的减法</strong></p>
 <blockquote>
-<p>只有当两个指针都指向<strong>同一数组</strong>中的元素时，才允许用一个指针减去另一个指针，得到的数据类型是<strong>ptrdiff_t</strong>，这是一种有符号整数，表示两个指针指向位置的距离（以数组元素的长度为单位）</p>
+<p><code>b</code>作为<strong>右值</strong>代表<code>a</code>的<strong>地址</strong>，作为<strong>左值</strong>表示的是<code>b</code><strong>自身的地址</strong></p>
 </blockquote>
-<p><strong>④关系运算（大于/小于）</strong>：只能用于<strong>同一个数组</strong>内的元素</p>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> ③④中同一数组的元素还包括数组末尾后一位元素，但是不包括数组开头前一位元素</div>
+<h4 id="1-3指针表达式"><a href="#1-3指针表达式" class="headerlink" title="1.3指针表达式"></a>1.3指针表达式</h4><p><strong>①单操作符</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> ++/--的优先级高于*，*的优先级高于+/-</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 注意++/--操作符和+/-1的不同，前者会改变变量，后者不会</div>
+<blockquote>
+<p><code>*b+1</code>：作为<strong>左值</strong>是<strong>非法</strong>的，作为<strong>右值</strong>表示对<strong>变量</strong><code>a</code>中的<strong>数据加1</strong></p>
+</blockquote>
+<blockquote>
+<p><code>*（b+1）</code>：相当于<code>b</code><strong>后一个内存</strong>的<strong>标识符</strong>，作为<strong>左值</strong>代表对应的<strong>内存位置</strong>，作为<strong>右值</strong>代表对应位置<strong>存储的数据</strong>。</p>
+</blockquote>
+<blockquote>
+<p><code>++b</code>：作为<strong>左值</strong>是<strong>非法</strong>的，作为<strong>右值</strong>表示<code>b</code>后一个<strong>内存位置</strong></p>
+</blockquote>
+<blockquote>
+<p><code>b++</code>：作为<strong>左值</strong>是<strong>非法</strong>的，作为<strong>右值</strong>表示<code>b</code>对应的<strong>内存位置</strong>，随后<strong>该指针变量指向后一个内存位置</strong></p>
+</blockquote>
+<blockquote>
+<p><code>*++b</code>：作为的<strong>左值</strong>表示的是<code>b</code><strong>指向内存单元的后一个内存单元</strong>，作为<strong>右值</strong>表示<code>b</code><strong>指向位置后一个位置存放的数据</strong></p>
+</blockquote>
+<blockquote>
+<p><code>*b++</code>：作为<strong>左值</strong>表示的是该<strong>指针指向的内存位置</strong>，随后<strong>该指针变量加一</strong>，作为<strong>右值</strong>表示的是<strong>该指针指向位置存放的数据</strong>，随后<strong>该数据加一</strong></p>
+</blockquote>
+<blockquote>
+<p><code>++*b</code>：作为<strong>左值</strong>是<strong>非法</strong>的，作为<strong>右值</strong>表示的是<strong>b指向变量存放数据</strong>的值<strong>加一</strong></p>
+</blockquote>
+<p><strong>②加减法</strong></p>
+<blockquote>
+<p><strong>与整数加减法</strong>：当对<strong>指针</strong>加减一个<strong>整数</strong><code>n</code>时，该指针会<strong>根据其指向的数据的类型调整自身大小</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如某台机器上float占4个字节，对一个float类型指针+n，该指针的大小会增加4n个字节</div>
+<blockquote>
+<p><strong>指针之间的减法</strong>：只有当<strong>两个指针</strong>都指向<strong>同一数组中的元素</strong>时，才允许进行<strong>减法</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 得到的数据类型是ptrdiff_t，是一种有符号整数，表示两个指针指向位置的距离（以数组元素的长度为单位）</div>
+<p><strong>③比较</strong></p>
+<blockquote>
+<p><strong><code>==</code>与<code>!=</code><strong>：可以用于</strong>任意两个指针</strong>，判断两个指针<strong>是否相同</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>大小比较</strong>：只能用于<strong>同一个数组</strong>内的元素</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 同一数组的元素还包括数组末尾后一位元素，但是不包括数组开头前一位元素</div>
 
-<p><strong>1.6函数指针</strong><br><strong>①格式</strong>：<code>返回类型 (*f)()</code></p>
+<h4 id="1-4函数指针"><a href="#1-4函数指针" class="headerlink" title="1.4函数指针"></a>1.4函数指针</h4><p><strong>①格式</strong></p>
 <blockquote>
-<p>可以解释为<code>f</code>被间接引用后是一个函数，该函数的返回值是一个整型，所以f为一个函数指针<br><code>()</code>为函数调用操作符，<code>f()</code>的结果是函数的返回值</p>
+<p><code>返回类型 (*f)(参数列表)</code></p>
 </blockquote>
-<p><strong>②初始化：</strong><code>返回类型 (*f)(参数列表) = 函数名</code></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> ()为函数调用操作符，f()的结果是函数f的返回值</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以解释为f被间接引用后是一个函数，该函数的返回值是一个整型，所以f为一个函数指针</div>
+
+<p><strong>②初始化</strong></p>
+<blockquote>
+<p><code>返回类型 (*f)(参数列表) = 函数名</code></p>
+</blockquote>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 在函数指针初始化时，其参数列表需要与之对应</div>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 其中函数名在编译时会被转换为函数指针，故可以不用取址符号</div>
 
-<p><strong>③函数指针数组</strong>：<code>返回类型 (*f[]) ();</code></p>
+<p><strong>③函数指针数组</strong></p>
 <blockquote>
-<p><code>()</code>和<code>[]</code>均为第一优先级，结合性<strong>从左向右</strong>，优先级均高于<code>*</code></p>
+<p><code>返回类型 (*f[]) ();</code></p>
 </blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> ()和[]均为同一优先级，结合性从左向右，优先级均高于*</div>
 <pre class="line-numbers language-none"><code class="language-none">double  (*oper_func[])(double,double) = {a,b,c...};
 result = oper_func[1](i,j);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p><strong>④用途</strong>：构造泛型函数</p>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 泛型函数：可以处理不同数据类型的函数</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 函数指针可以作为一个参数提供给另一个函数，使得该函数可以在另一个函数中使用，这些函数被称为回调函数</div>
+<p><strong>④用途</strong></p>
 <blockquote>
-<p>将函数中与数据类型相关的操作替换为<strong>一系列等价的函数</strong>，需要使用哪一类数据类型的对应操作，传递对应的函数指针即可<br>将传递给<strong>函数以及回调函数</strong>的数据类型替换<code>*void</code>，<code>*void</code>用于接收不同数据类型的指针</p>
+<p><strong>函数指针</strong>可以作为<strong>参数</strong>提供给<strong>另一个函数</strong>，以便在<strong>另一个函数</strong>中使用，也被称为<strong>回调函数</strong></p>
 </blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 将函数中与数据类型相关的操作替换为一系列等价的函数，需要使用哪类数据类型的对应操作，传递对应的函数指针</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 将传递给函数以及回调函数的数据类型采用*void，用于接收不同数据类型的指针</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 在使用这些数据的指针时，必须要强制转换为正确的数据类型</div>
 <pre class="line-numbers language-none"><code class="language-none">/*比较函数的整数版本
 int compare_ints(void const *a,void const *b)
@@ -503,32 +559,54 @@ int compare_ints(void const *a,void const *b)
 
 
 
-<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h3><p><strong>2.1源文件格式</strong></p>
+<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h3><h4 id="2-1格式"><a href="#2-1格式" class="headerlink" title="2.1格式"></a>2.1格式</h4><p><strong>①源文件</strong></p>
+<blockquote>
+<p><code>return</code>语句<strong>不一定</strong>出现在<strong>末尾</strong>，没有<code>return</code>语句的函数称为<strong>过程</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 函数中的形参是实参的一个副本，修改形参不能修改实参，如果想要修改实参，需要传递实参的地址</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当本该有参数的地方没有参数时，可以使用void占据位置</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 函数要考虑异常情况，并进行异常处理</div>
 <pre class="line-numbers language-none"><code class="language-none">返回类型 函数名（形参类型1 形参名1，...形参类型n 形参名n）
 {
 	statement；
     return expression；
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p><code>return</code>语句不一定出现在末尾，没有<code>return</code>语句的函数称为<strong>过程</strong><br><strong>类型、形参和statement</strong>都不是必须的，因此最简单的函数可以写为</p>
+<p><strong>类型</strong>、<strong>形参</strong>和<strong>statement</strong>都<strong>不是必须</strong>的，因此<strong>最简单的函数</strong>如下</p>
 </blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 这种函数可以达到存根的目的,即为尚未编写的代码“占好位置”，可以保持程序在结构上的完整性</div>
 <pre class="line-numbers language-none"><code class="language-none">void function （void）
 {
 
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这种函数可以达到存根的目的,即为尚未编写的代码“占好位置”，可以保持程序在结构上的完整性，以便于你编译和测试程序的其他部分</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 函数要考虑异常情况</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 函数中的形参是实参的一个副本，修改形参不能修改实参，如果想要修改实参，需要传递实参的地址</div>
-<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 当本该有参数的地方没有参数时，必须要使用void占据位置</div>
 
-<p><strong>2.2函数声明</strong><br><strong>①格式</strong>：<code>返回类型 函数名(形参类型n 形参名n);</code></p>
+<p><strong>②函数声明</strong></p>
 <blockquote>
-<p>向编译器<strong>提供函数相关信息</strong>，如果没有对应的函数声明，函数会被调用，但是传递给函数的参数会进行<strong>缺省参数提升</strong>（<code>char</code>和<code>short</code>被转换为<code>int</code>，<code>float</code>被转化为<code>double</code>），且默认返回一个<strong>整型</strong><br>函数声明的结尾是有一个<strong>分号</strong>的，而函数定义没有</p>
+<p><strong>格式</strong>：<code>返回类型 函数名(形参类型n 形参名n);</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 大部分时候将函数定义在单独的C文件中，然后将函数声明置于同一个头文件中，主函数文件使用include命令调用即可</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 当调用函数时输入的变量类型不匹配，编译器会根据函数声明强制转换变量类型</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 向编译器提供函数相关信息，当调用函数时传入参数与形参的类型不匹配，编译器会根据函数声明强制转换变量类型</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以将函数定义在单独的C文件中，并将函数声明置于同一个头文件中，主函数文件使用include命令调用即可</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若没有对应的函数声明，函数会被调用，但是传递给函数的参数会进行缺省参数提升</div>
+<blockquote>
+<p><code>char</code>和<code>short</code>被转换为<code>int</code>，<code>float</code>被转化为<code>double</code>，且默认返回一个<strong>整型</strong></p>
+</blockquote>
 <div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 函数原型不要写在代码块中，因为代码块中的函数原型有代码块作用域，可能会覆盖原来的函数声明</div>
-<p><strong>2.3利用函数实现黑盒</strong>：利用<code>static</code>关键字修饰<strong>函数内置数据和函数</strong>，使其变为函数文件私有，外界不能访问<br><strong>2.4递归函数</strong>：直接或者间接<strong>调用自身</strong>的函数，当递归函数<strong>不再满足某个条件</strong>时，便停止调用自身<br>以下为递归函数的例子</p>
+
+
+<p><strong>③黑盒</strong></p>
+<blockquote>
+<p>利用<code>static</code>关键字修饰<strong>函数内置数据和函数</strong>，使其变为<strong>函数文件私有</strong>，<strong>外界不能访问</strong></p>
+</blockquote>
+<h4 id="2-递归函数"><a href="#2-递归函数" class="headerlink" title="2.递归函数"></a>2.递归函数</h4><p><strong>①定义</strong></p>
+<blockquote>
+<p>直接或者间接<strong>调用自身</strong>的函数，当递归函数<strong>不再满足某个条件</strong>时，便<strong>停止</strong>调用自身</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 递归函数需要设置限制条件，且每次递归调用之后就越接近该限制条件</div>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 递归的计算代价非常大，如果可以使用循环等解决问题，不要使用递归</div>
+<p><strong>②例子</strong></p>
+<blockquote>
+<p>输入<code>value</code>为<code>4267</code></p>
+</blockquote>
 <pre class="line-numbers language-none"><code class="language-none">binary_to_ascii(unsigned int value)
 {
 	unsigned int a;
@@ -537,13 +615,47 @@ int compare_ints(void const *a,void const *b)
 		binary_to_ascii(a)
 	putchar(value%10+‘0)’;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③实现过程</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每次函数调用，都会创建一个栈帧，存放临时变量和返回地址等，并压入程序栈中，直到函数调用结束才会弹出</div>
+<blockquote>
+<p><strong>第一次调用</strong>，在<strong>堆栈</strong>中压入了<code>value1 = 4267</code>和<code>a1 = 426</code></p>
+</blockquote>
+<blockquote>
+<p><code>a!=0</code>，进行<strong>第二次调用</strong>，压入<code>value2 = 426</code>、<code>a2 = 42</code></p>
+</blockquote>
+<blockquote>
+<p><code>a!=0</code>，进行<strong>第三次调用</strong>，压入<code>value3 = 42</code>，<code>a3 = 4</code></p>
+</blockquote>
+<blockquote>
+<p><code>a!=0</code>，进行<strong>第四次调用</strong>，压入<code>value[4] = 4</code>，<code>a[4] = 0</code></p>
+</blockquote>
+<blockquote>
+<p><code>a=0</code>，<strong>递归停止</strong>，开始<strong>从堆栈中弹出并打印</strong>变量<code>a4</code>、<code>a3</code>、<code>a2</code>、<code>a1</code></p>
+</blockquote>
+<h4 id="2-3可变参数列表"><a href="#2-3可变参数列表" class="headerlink" title="2.3可变参数列表"></a>2.3可变参数列表</h4><p><strong>①实现</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 需要引入stdarg.h头文件</div>
+<blockquote>
+<p>该<strong>头文件</strong>中声明了一个<code>va_list</code><strong>类型</strong>和<strong>三个宏</strong><code>va_start</code>、<code>va_arg</code>和<code>va_end</code></p>
+</blockquote>
+<p><strong>②用法</strong></p>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 注意函数形参部分的写法，可变参数列表用...代替，在书写函数声明时，也需要注意</div>
+<blockquote>
+<p>在<strong>函数体内部</strong>定义<code>va_list</code>类型参数，代表<strong>可变参数列表</strong></p>
+</blockquote>
+<blockquote>
+<p>使用<code>va_statr</code>宏<strong>初始化</strong><code>va_list</code>类型参数</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 该宏第一个参数是va_list类型参数number_n，第二个参数是可变参数列表的前一个参数n_value</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 要使用该宏，则函数必须至少有一个已确定的参数，如下例中的value</div>
+<blockquote>
+<p>使用<code>va_arg</code><strong>代替可变参数</strong>进行计算</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 该宏接收的第一个参数是va_list类型参数number_n，第二个参数是可变参数列表的数据类型</div>
 
 <blockquote>
-<p>递归的<strong>实现过程</strong>（假设一开始<code>value</code>的值为4267）<br>①当函数被调用时，变量创建在堆栈中，之前调用函数的变量依旧保持在堆栈之中，但是<strong>被新函数的变量掩盖所以不能被访问</strong>（堆栈的特性）<br>②所以当递归函数调用自身时，每次新的调用都会创建一批新的变量掩盖原来的变量<br>③函数刚调用时，堆栈中出现了<code>value[1] = 4267</code>和<code>a[1] = 426</code><br>④当函数判断条件符合，又对函数进行第二次调用，堆栈中<code>value[2] = 426</code>、<code>a[2] = 42</code>掩盖了原先的<code>value</code>和<code>a</code><br>⑤第三次调用，<code>value[3] = 42</code>，<code>a[3] = 4</code><br>⑥第四次调用，<code>value[4] = 4</code>，<code>a[4] = 0</code>，至此，停止递归，然后函数开始打印输出，并开始释放销毁堆栈中的对应变量，<strong>从顶端的变量开始释放</strong>（堆栈的特性），从<code>[4]</code>到<code>[3]</code>到<code>[2]</code>再到<code>[1]</code></p>
+<p>使用<code>va_end</code><strong>注销</strong>可变参数列表</p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 递归函数需要设置限制条件，且每次递归调用之后就越接近该限制条件</div>
-<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 递归的计算代价非常大，如果可以使用循环等解决问题，不要使用递归</div>
-<p><strong>2.5可变参数列表</strong><br><strong>①实现</strong>：通过宏实现，定义于<code>stdarg.h</code>头文件中，该头文件中声明了一个<code>va_list</code>类型和三个宏<code>va_start</code>、<code>va_arg</code>和<code>va_end</code><br><strong>②用法</strong>：</p>
+<p><strong>③例子</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">#include&lt;stdarg.h&gt;
 
 /*用于计算输入数字的平均数
@@ -560,101 +672,267 @@ float average (int n_value,...)
 	va_end(number_n);
 	return sum/n_value;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="3-数组"><a href="#3-数组" class="headerlink" title="3.数组"></a>3.数组</h3><h4 id="3-1引言"><a href="#3-1引言" class="headerlink" title="3.1引言"></a>3.1引言</h4><p><strong>①格式</strong></p>
 <blockquote>
-<p>在函数体内部定义<code>va_list</code>类型参数，该参数代表可变参数列表<br>使用<code>va_statr</code>初始化<code>va_list</code>类型参数，该宏接收的第一个参数是<code>va_list</code>类型参数<code>number_n</code>，第二个参数是可变参数列表的前一个参数<code>n_value</code><br>使用<code>va_arg</code>代替可变参数进行计算，该宏接收的第一个参数是<code>va_list</code>类型参数<code>number_n</code>，第二个参数是可变参数列表的<strong>数据类型</strong><br>使用<code>va_end</code>注销可变参数列表</p>
+<p><code>数据类型 数组名[数组大小]</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 要使用该宏，则函数必须要有一个已确定的参数（上例中的n_value）</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 注意函数形参部分的写法，可变参数列表用...代替，在书写函数声明时，也需要注意</div>
-
-<h3 id="3-数组"><a href="#3-数组" class="headerlink" title="3.数组"></a>3.数组</h3><p><strong>3.1声明格式</strong>：<code>数据类型 数组名[数组大小]</code><br><strong>①数组名</strong>：数组名的值是一个<strong>指针常量</strong>（注意是常量，所以不能改变），指向数组的起始位置</p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> C语言中，数组的长度一开始就要确定</div>
+<p><strong>②数组名</strong></p>
 <blockquote>
-<p>数组名不仅仅只是一个指针常量，还包含了<strong>数组长度</strong>等信息，在创建数组的时候编译器会根据其长度为<strong>数组</strong>划分对应的内存空间，随后为数组名划分内存；而创建指针的时候，<strong>只为指针本身划分内存</strong></p>
+<p><strong>本质</strong>上是一个<strong>指针常量</strong>，指向<strong>数组的起始位置</strong>，同时还包含<strong>数组长度等信息</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 只有数组名在表达式中被使用了，编译器才会创建对应的指针常量</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 数组名在一些情况下不是一个指针，而是代表整个数组，比如sizeof（数组名）会返回整个数组的长度，&amp;数组名产生的是一个数组的指针，而不是一个指向指针的指针</div>
-<p><strong>②下标引用</strong>：<code>a[b]</code>相当于<code>*(a+b)</code>，<strong>所以下标从0开始</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 创建数组时编译器会根据其长度为数组划分对应的内存空间，随后为数组名划分内存</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 只有数组名在表达式中被使用了，编译器才会创建对应的指针常量</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 数组名大部分情况下可作为指针常量使用，但是有些情况下代表整个数组</div>
 <blockquote>
-<p>在C语言中，下标引用可以应用于<strong>所有的指针</strong>，不仅仅局限于数组</p>
+<p>比如<code>sizeof(数组名)</code>会返回<strong>整个数组的长度</strong>，<code>&amp;数组名</code>产生的是一个<strong>数组的指针</strong>，而<strong>不是</strong>一个<strong>指向指针的指针</strong></p>
+</blockquote>
+<p><strong>③下标引用</strong></p>
+<blockquote>
+<p><code>a[b]</code>相当于<code>*(a+b)</code>，<strong>所以下标从0开始</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 指针间接访问的效率大于等于下标引用效率，详细见《C与指针》p145-p150</div>
-<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 注意检查数组越界问题</div>
-<p><strong>3.2数组与函数</strong>：数组做为<strong>形参</strong>，格式可以是<code>(数据类型 数组名[])</code>也可以是指针类型<code>(数据类型 *指针名)</code></p>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> C语言中，下标引用可以应用于所有的指针，不仅仅局限于数组名</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 注意检查数组越界问题</div>
+<p><strong>④作为形参传递</strong></p>
 <blockquote>
-<p>函数在声明数组参数时不需要指定他的长度，因为他只接受数组的地址，而不为其分配内存，所以如果需要知道数组的<strong>大小</strong>，还需要<strong>另一个形参</strong></p>
+<p><strong>格式</strong>：<code>数据类型 数组名[]</code>或者<code>数据类型 *指针名</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 数组名传给形参是以传值的形式传递的，所以在函数中，对应指针变量是可以被修改的，但是不会影响到原来的数组名的值</div>
-<p><strong>3.3初始化</strong><br><strong>①格式</strong>：<code>数据类型 数组名[] = {值1,值2,…}</code></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 函数在声明数组参数时，不需要指明他的长度，因为函数只接受数组的地址，而不为其分配内存</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 如果需要知道数组的大小，还需要传递另一个参数</div>
+
+<h4 id="3-2初始化"><a href="#3-2初始化" class="headerlink" title="3.2初始化"></a>3.2初始化</h4><p><strong>②格式</strong></p>
 <blockquote>
-<p>当数组为<strong>静态变量</strong>时，在<strong>程序执行前</strong>便被初始化，缺省情况下为<strong>0</strong><br>数组为<strong>自动变量</strong>（存储在堆栈中），在缺省情况下<strong>无法被初始化</strong>（因为每次程序流经过堆栈，堆栈中变量的位置是不固定的）</p>
+<p><code>数据类型 数组名[] = {值1,值2,…}</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 被初始化后，每次执行流经过数组的作用域时，数组又会被初始化一次（因为之前在作用域结束后被销毁），所以，对于那些非常大的数组 ，可以考虑将其设为static，减少其初始化次数</div>
+<blockquote>
+<p>当数组为<strong>静态变量</strong>时，在<strong>程序执行前</strong>便被初始化，<strong>缺省情况</strong>下<strong>全部初始化</strong>为<strong>0</strong></p>
+</blockquote>
+<blockquote>
+<p>当数组为<strong>动态变量</strong>时，在<strong>缺省情况</strong>下各个元素的<strong>值是随机的</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 若程序执行流将多次经过一数组，可以将其设置为静态变量，减少其初始化次数</div>
+
 <p><strong>②不完整的初始化</strong></p>
 <blockquote>
-<p>缺少元素：<strong>优先填充前面的</strong>，缺少的被命名为0<br>缺少数组长度：编译器将其设置为刚好能够<strong>容纳所有初始值</strong>的大小</p>
+<p><strong>缺少元素</strong>：<strong>优先填充前面的</strong>，<strong>其余</strong>的被<strong>初始化</strong>为<code>0</code></p>
 </blockquote>
-<p><strong>③字符数组的初始化</strong>:<code>char a[] = “b”</code>相当于<code>char a = {'b',0}</code></p>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 只有在初始化字符数组时“b”才代表一个初始化列表，其他场合都为字符串常量，如下，message1是一个字符数组，message2是一个指向字符串字面值的指针</div>
+<blockquote>
+<p><strong>缺少数组长度</strong>：<strong>编译器</strong>将其<strong>设置为</strong>刚好能够<strong>容纳所有初始值</strong>的大小</p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 只有在显示初始化时才能缺少数组长度</div>
+
+<p><strong>③字符数组的初始化</strong></p>
+<blockquote>
+<p><code>char a[] = “b”</code>相当于<code>char a = {'b',NUL}</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 只有在初始化字符数组时“b”才代表一个初始化列表，其他场合均为字符串常量</div>
+<blockquote>
+<p>如下，<code>message1</code>是一个<strong>字符数组</strong>，<code>message2</code>是一个<strong>指向字符串字面值的指针</strong></p>
+</blockquote>
 <pre class="line-numbers language-none"><code class="language-none">char message1[] = "hello";
 char *message2 = "hello";<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><strong>3.4多维数组</strong><br><strong>①声明</strong>：<code>数据类型 数组名 [维度1][维度2]…[维度N]</code></p>
+<h4 id="3-3多维数组"><a href="#3-3多维数组" class="headerlink" title="3.3多维数组"></a>3.3多维数组</h4><p><strong>①定义</strong></p>
 <blockquote>
-<p><code>int a [3][6][9]</code>：可以解读为a数组有包含3个变量，这3个变量是个包含6个变量的数组，同时这6个变量又是包含9个变量的数组</p>
+<p><code>数据类型 数组名 [维度1][维度2]…[维度N]</code>，如<code>int a [3][4]</code></p>
 </blockquote>
-<p><strong>②存储形式</strong>：按照<strong>最右边的下标</strong>率先变化，比如<code>int *b = &amp;a[1][3]</code>,<code>b++</code>为<code>a[2][0]</code><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/C_1.png" alt="a[3][4]"><br><strong>③数组名</strong>：类比一维数组，将n维数组看为一个<strong>元素是n-1维数组的一维数组</strong>，数组名即<strong>指向第一个n-1维数组的指针</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 可以解读为a数组有三个元素，每个元素又是一个包含4个元素的数组</div>
 <blockquote>
-<p><code>int a[3][4]</code>，将其看成有三个包含四个元素的一维数组<br><code>a</code>：一个指向第一个包含<strong>四个整型元素的数组</strong>的指针<br><code>a+1</code>:指向的<strong>第二个四元素的一维数组</strong>的指针（指针的加减法法则是根据指针的类型决定的）<br><code>*(a+1)</code>：指向第二个包含四个元素数组的<strong>第一个整型元素的指针</strong>,注意这个还不是其中所包含的数据<br><code>*a+1</code>:指向第一个包含四个元素数组的第二个元素的指针<br><code>*(*a+1)</code>：为第一个包含四个元素数组的<strong>第二个元素</strong></p>
+<p><strong>存储形式</strong>：按照<strong>最右边的下标</strong>率先变化，比如<code>int *b = &amp;a[1][3]</code>,<code>b++</code>为<code>a[2][0]</code></p>
+</blockquote>
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/C_1.png" alt="多维数组的存储"></p>
+<p><strong>②数组名</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 类比一维数组，将n维数组看为一个元素是n-1维数组的一维数组，数组名即指向第一个n-1维数组的指针</div>
+<blockquote>
+<p><code>a</code>：指向第一个包含<strong>四个整型元素的数组</strong></p>
+</blockquote>
+<blockquote>
+<p><code>a+1</code>:指向的<strong>第二个四元素一维数组</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 指针的加减法根据指针的类型决定</div>
+
+<blockquote>
+<p><code>*(a+1)</code>：指向<strong>第二个四个元素数组</strong>的<strong>第一个整型元素的指针</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 注意这还不是其中所包含的数据，而是一个指针常量</div>
+<blockquote>
+<p><code>*a+1</code>:指向<strong>第一个四个元素数</strong>组的<strong>第二个元素</strong></p>
+</blockquote>
+<blockquote>
+<p><code>*(*a+1)</code>：为<strong>第一个四个元素数组</strong>的<strong>第二个元素</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 一层一层解引用，n维数组要解引用n次，才能获得数据</div>
-<p><strong>④多维数组的初始化</strong></p>
+<p><strong>③初始化</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 以二维数组a为例</div>
 <blockquote>
-<p>以二维数组为例<br><code>int a[][] = {元素1、元素2…};</code><br>定义后，通过<code>a[i][j] = 数值;</code>，一个一个赋值<br><code>int a[][] = {{数组1}，{数组2}…};</code> </p>
+<p><code>int a[][] = {元素1、元素2…};</code>，元素按照其<strong>存储顺序</strong>排列</p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 层层套娃</div>
-
-<p><strong>3.5多维数组与指针</strong><br><strong>①指向数组的指针</strong>：<code>数组元素数据类型 (*指针名)[数组元素个数] = 二维数组名</code></p>
 <blockquote>
-<p><strong>下标引用的优先级比间接访问高</strong>，但是由于括号的存在，先执行的是间接访问，这样就将<code>p</code>定义为一个指针，<strong>它指向的对象进行下标引用得到的是一个整型</strong>，所以他是一个指向一维数组的指针，指向二维数组的第一行，该指针进行加法时，是<strong>以一个数组为单位移动</strong>的</p>
+<p><code>int a[][] = {{数组1}，{数组2}…};</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 这里的数组元素个数与之对应，如int (*p)[4] = a;</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 将数组传递给一个函数，本质上是传递一个对应的指针，对于多维数组，就是传递一个指向数组的指针，对应函数原型应写为`void func1(int (*a)[4])`或者`void func1(int a[][4])`</div>
-<p><strong>②指向元素的指针</strong>：<code>数组元素数据类型 *p = &amp;数组名[0][0]</code>或者<code>数组元素数据类型 *p = 数组名[0]</code>（以二维数组为例）</p>
+<blockquote>
+<p>通过<code>a[i][j] = 值ij;</code>，<strong>一个个赋值</strong></p>
+</blockquote>
+<p><strong>④多维数组与指针</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 以二维数组a为例</div>
+<blockquote>
+<p><strong>多维数组的指针</strong>：<code>数组元素数据类型 (*p)[数组元素个数] = 二维数组名</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 对*p进行下标引用，得到一个数据，所以*p是一个一维数组，故p为一个指向一维数组的指针，也就是二维数组名</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 这里的数组元素个数与之对应，如int (*p)[4] = a;，且要记得加上括号，因为下标引用的优先级高于引用</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 将数组传递给一个函数，本质上是传递其元素类型的指针，对于多维数组，就是传递一个指向数组的指针</div>
+<blockquote>
+<p><strong>接收二维数组的形参</strong>应写为<code>void func1(int (*a)[4])</code>或者<code>void func1(int a[][4])</code></p>
+</blockquote>
+<blockquote>
+<p><strong>指向元素的指针</strong>：<code>数组元素数据类型 *p = &amp;数组名[0][0]</code>或者<code>数组元素数据类型 *p = 数组名[0]</code></p>
+</blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 注意后者是没有&amp;符号的，因为后者就是一个指向元素的指针！</div>
-<p><strong>③指针数组</strong>：<code>数据类型* 数组名[个数]</code></p>
+<blockquote>
+<p><strong>指针数组</strong>：<code>数据类型* 数组名[元素个数]</code></p>
+</blockquote>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 与指向数组的指针仅仅只有一个括号之差</div>
 
+<h4 id="3-4字符串"><a href="#3-4字符串" class="headerlink" title="3.4字符串"></a>3.4字符串</h4><p><strong>①定义</strong></p>
+<blockquote>
+<p>以<code>'/0'</code><strong>结尾</strong>的<strong>字符数组</strong> </p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> '/0'的位模式全为0，也叫NUL字节，是字符串的终止符，字符串长度不包括终止符的长度</div>
 
-<h3 id="4-结构"><a href="#4-结构" class="headerlink" title="4.结构"></a>4.结构</h3><p><strong>4.1格式</strong><br><strong>①定义</strong></p>
+<p><strong>②基本操作</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 需要包含string.h头文件</div>
+<blockquote>
+<p><code>strlen()</code>：<strong>测量字符串长度</strong>，即字符串包含的<strong>字符个数</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 该函数返回的长度的数据类型为size_t，是一个无符号数</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 大部分字符串相关函数都是根据终止符判断字符串长度，故要确保操作后字符串不会溢出，否则会缺少终止符</div>
+<blockquote>
+<p><code>strcpy()</code>：<strong>复制字符串</strong>，若其长度<strong>超出了容器的限度</strong>，则会<strong>覆盖其后面的内存空间</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 大部分字符串函数不允许两个字符数组参数重叠，否则函数的返回值是未定义的</div>
+<blockquote>
+<p><code>strcat()</code>：<strong>连接字符串</strong>，将<strong>一个字符串</strong>添加到<strong>另一个字符串后面</strong></p>
+</blockquote>
+<blockquote>
+<p><code>strcmp()</code>：<strong>字符串比较</strong>，进行的是<strong>字典比较</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 字典比较：对两个字符串的逐个字符从头进行比较，只要比较出一个字符大小即可判断结果，'/0'小于任何字符</div>
+
+<blockquote>
+<p><strong>长度受限的字符串函数</strong>：为了<strong>防止目标数组溢出</strong>，定义了<strong>对应函数</strong>的<strong>长度受限版本</strong>，接受一个<strong>长度参数</strong>，用于<strong>限制操作的字符个数</strong>，如<code>strncpy()</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 但是这些函数可能导致目标数组不是以'/0'结尾，可能会导致程序崩溃</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以在函数调用完后将字符数组的最后一个元素改为NUL</div>
+
+<p><strong>③字符查找</strong></p>
+<blockquote>
+<p><code>strchr()</code>：返回对应字符<strong>第一次</strong>出现的下标</p>
+</blockquote>
+<blockquote>
+<p><code>strrchr()</code>：返回对应字符<strong>最后一次</strong>出现的下标</p>
+</blockquote>
+<blockquote>
+<p><code>strpbrk()</code>：返回<strong>一组字符中任意一个字符第一次</strong>出现的下标</p>
+</blockquote>
+<p><strong>④字串查找</strong></p>
+<blockquote>
+<p><code>strstr()</code>：返回<strong>子串</strong>第一次出现的<strong>起始位置</strong></p>
+</blockquote>
+<blockquote>
+<p><code>strtok()</code>：<strong>删除</strong>字符串中的所有<strong>标记字符</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 通常以字符串形式传递多个标记字符</div>
+
+<blockquote>
+<p><code>strcspn()</code>:检索<strong>字符串中标记字符第一次出现</strong>的下标</p>
+</blockquote>
+<p><strong>⑤字符操作</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 需要包含ctype.h头文件</div>
+<blockquote>
+<p><strong>字符分类</strong>：根据对应<strong>分类函数</strong>定义，判断<strong>字符</strong>是否为<strong>该类型</strong>，如<code>isspace()</code>判断其是否为<strong>空白字符</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>字符转换</strong>：转换<strong>字符</strong>的<strong>大小写</strong>等形式，如<code>tolower()</code>将<strong>字符</strong>转化为<strong>小写形式</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 直接测试或者操纵字符可能会影响程序的移植性，推荐使用对应的字符操作函数</div>
+<blockquote>
+<p>比如<code>if(ch&gt;='A' &amp;&amp; ch&lt;='Z')</code>判断<code>ch</code>是否为<strong>大写字母</strong>，在使用<strong>EBCDIC字符集</strong>上的机器上将<strong>失败</strong></p>
+</blockquote>
+<h3 id="4-结构"><a href="#4-结构" class="headerlink" title="4.结构"></a>4.结构</h3><h4 id="4-1格式"><a href="#4-1格式" class="headerlink" title="4.1格式"></a>4.1格式</h4><p><strong>①定义</strong></p>
+<blockquote>
+<p><strong>声明格式</strong>：<code>struct 结构类型名称 结构名</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 结构变量是标量类型，所以相同的结构变量可以相互赋值</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 将结构定义在一个头文件中，使用include包含即可</div>
 <pre class="line-numbers language-none"><code class="language-none">struct [结构类型名称]
 {
-	结构成员表(每个成员的类型和名字);
-};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 结构变量是标量类型，所以相同的结构变量可以相互赋值</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以将结构定义在一个头文件中，使用include包含即可</div>
-
-<p><strong>②声明</strong>：<code>struct 结构类型名称 结构名</code></p>
+	/*每个成员的类型和名字*/
+	结构成员表;
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以使用typedef关键字为结构定义新的名字</div>
-
+<blockquote>
+<p><strong>声明格式</strong>：<code>结构类型名称 结构名</code></p>
+</blockquote>
 <pre class="line-numbers language-none"><code class="language-none">typedef struct
 {
 	结构成员表(每个成员的类型和名字);
 }[结构类型名称];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>③初始化与赋值</strong>：<code>struct 结构名 变量名 = {成员1，成员2，成员3}</code></p>
-<pre class="line-numbers language-none"><code class="language-none">struct X
-{
-	int a;
-	short b[3];
-	simple c;
-};
-struct X x1 = {10,{1,2,3},{25,'x'}};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>④结构成员的访问</strong></p>
+<p><strong>②结构的访问</strong></p>
 <blockquote>
-<p><code>.</code>操作符：<code>结构名.成员名</code><br><code>-&gt;</code>操作符：<code>对应结构指针-&gt;成员名</code></p>
+<p><strong><code>.</code>操作符</strong>：<code>结构名.成员名</code></p>
+</blockquote>
+<blockquote>
+<p><strong><code>-&gt;</code>操作符</strong>：<code>对应结构指针-&gt;成员名</code></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这两个操作符优先级相同，比*和[]高，结合性从左向右</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当结构需要作为函数参数时，可以传递该结构的指针，并使用-&gt;访问成员，效率较高</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 假设px是结构x的指针，px指向的地址和结构第一个成员的地址是一样的，但是*px代表的是整个结构</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当结构需要作为函数参数时，可以传递该结构的指针，效率较高，可以用const关键词防止对结构体的修改</div>
-<p><strong>4.2结构的引用</strong><br><strong>①结构的自引用</strong>：结构内部成员为自己本身是非法的，但是可以<strong>包含自己的指针类型</strong></p>
+<p><strong>③初始化</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 结构体的初始化也分为静态变量和动态变量两种，各个成员按照对应的规则初始化</div>
+<blockquote>
+<p><strong>整体赋值</strong>：<code>x1.a = {10,'x',1.0}</code></p>
+</blockquote>
+<blockquote>
+<p><strong>成员赋值</strong>：<code>x1.a = 10</code></p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">typedef struct 
+{
+	int a;
+	char b;
+	float c;
+}X;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>④结构体的内存分配</strong></p>
+<blockquote>
+<p><strong>编译器</strong>按照<strong>成员列表顺序</strong>给<strong>每个成员</strong>分配内存</p>
+</blockquote>
+<blockquote>
+<p><code>sizeof()</code>可以得到一个结构的<strong>整体长度</strong>，<code>offsetof</code>可以确定<strong>结构中某个成员</strong>的<strong>偏离结构存储起始位置的字节数</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当成员的存储需要满足正确的边界对齐条件，结构的起始位置必须满足成员中边界要求最严格的对齐条件</div>
+<blockquote>
+<p>假设<strong>一台机器</strong>的<strong>整型值长度</strong>为<strong>4字节</strong>，且要求其<strong>起始存储位置</strong>必须能<strong>被4整除</strong>，则<strong>结构</strong><code>X</code>在<strong>内存中</strong>的<strong>存储情况</strong>如下</p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">struct X1
+{
+	char a;
+	int b;
+	char c;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 成员之间会出现未填充的内存空间</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 对边界要求最严格的成员应该首先出现，这样可以节省内存</div>
+<pre class="line-numbers language-none"><code class="language-none">struct X2
+{
+	int b;
+	char a;
+	char c;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/C_3.png" alt="结构的存储"></p>
+<h4 id="4-2结构的引用"><a href="#4-2结构的引用" class="headerlink" title="4.2结构的引用"></a>4.2结构的引用</h4><p><strong>①结构的自引用</strong></p>
+<blockquote>
+<p>结构<strong>内部成员为自己</strong>本身是<strong>非法</strong>的，但是可以<strong>包含自己的指针类型</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 因为结构在定义时内存大小是不确定的，而结构指针的内存大小在结构创建前就已经确定</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 不能使用之前没有定义的结构标签</div>
 <pre class="line-numbers language-none"><code class="language-none">//非法，因为在声明next成员时，Node还有没被声明
 typedef struct
 {
@@ -667,10 +945,11 @@ typedef struct Node
   ElemType data;
   struct Node *next;
 }Node;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 因为结构在定义时内存大小是不确定的，而结构指针的内存大小在结构创建前就已经确定</div>
-<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 注意不能使用之前没有定义的结构标签</div>
-
-<p><strong>②结构之间的引用</strong>：当需要定义几种之间<strong>存在联系</strong>的结构，可以采用不完整声明</p>
+<p><strong>②结构之间的引用</strong></p>
+<blockquote>
+<p>当需要定义几种之间<strong>存在联系</strong>的结构，可以采用<strong>不完整声明</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 如下，A中不能以B为成员，只能以B的指针为成员，因为不完整声明导致B的大小不能确定</div>
 <pre class="line-numbers language-none"><code class="language-none">struct B; //B的不完整声明
 struct A
 {
@@ -680,94 +959,125 @@ struct B
 {
 	struct A;
 };<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 注意，A中不能以B为成员，只能以B的指针为成员，因为不完整声明导致B的大小不能确定</div>
 
-
-<p><strong>4.3结构的存储分配</strong><br><strong>①</strong>正常情况下，编译器按照<strong>成员列表顺序</strong>一个一个给每个成员分配内存<br><strong>②</strong>当成员的存储需要满足正确的边界对齐条件，成员之间会出现未填充的内存空间</p>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 边界对齐：访问特定类型变量的时候经常在特定的内存地址访问</div>
+<h4 id="4-3位段"><a href="#4-3位段" class="headerlink" title="4.3位段"></a>4.3位段</h4><p><strong>①定义</strong></p>
 <blockquote>
-<p>假设一台机器的整型值长度为4字节，且要求其<strong>起始存储位置</strong>必须能被4整除，而结构的起始位置也必须满足<strong>成员中边界要求最严格</strong>的对齐条件，则以下结构在内存中的存储情况如下</p>
+<p>一种<strong>特殊的结构</strong>，<strong>成员</strong>必须是<code>int</code>、<code>signed</code>、<code>unsigned</code>类型，<strong>成员名后面</strong>是<strong>一个冒号</strong>和<strong>一个整数</strong></p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">struct X
-{
-	char a;
-	int b;
-	char c;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/C_3.png" alt="内存分配情况"><br><strong>③对边界要求最严格的成员应该首先出现</strong>，这样可以<strong>节省内存</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">struct X
-{
-
-	int b;
-	char a;
-	char c;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/C_4.png" alt="内存分配情况"><br><strong>④常用函数</strong>：<code>sizeof</code>可以得到一个结构的整体长度，<strong>包括因为边界对齐跳过的字节</strong>，<code>offsetof</code>可以确定结构中某个成员的位置（偏离结构存储起始位置的字节数）<br><strong>4.4位段</strong><br><strong>①声明格式</strong>：一种特殊的结构，成员必须是<code>int</code>、<code>signed</code>、<code>unsigned</code>类型，成员名后面是<strong>一个冒号和一个整数，该整数表示该成员占用的位的数目</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 整数表示该成员占用的位的数目</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 位段可以将长度为奇数的数据包装在一起，并且可以访问一个整型值的部分内容</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> signed和unsigned声明位段成员比较好，如果将位段声明为int类型，被解释为有符号数还是无符号数由编译器决定</div>
 <pre class="line-numbers language-none"><code class="language-none">struct WeiDuan
 {
 	unsigned a : 7;
 	unsigned b : 6;
 	unsigned c : 19;
 };<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 位段可以将长度为奇数的数据包装在一起，并且可以访问一个整型值的部分内容（这些部分内容可能有特定的含义）</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 显示的用signed和unsigned声明位段比较好，如果仅仅将位段声明为int类型，被解释为有符号数还是无符号数由编译器决定</div>
 <p><strong>②位段的移植性问题</strong></p>
 <blockquote>
-<p>很多编译器将位段<strong>成员</strong>的长度限制在<strong>一个整型值</strong>之内，32位机器上可以使用的位段声明可能在16位机器上无法使用<br>位段的内存是<strong>从左向右</strong>分配还是<strong>从右向左</strong>分配由机器决定<br>当位段的<strong>总位数不是8的倍数时</strong>，其内存分配是否要“边界对齐”取决于编译器</p>
+<p>很多<strong>编译器</strong>将<strong>位段成员</strong>的<strong>长度</strong>限制在<strong>一个整型值</strong>之内，<strong>32位机器可以使用</strong>的位段声明可能在<strong>16位机器无法使用</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 任何使用位段实现的任务，都可以通过移位和屏蔽实现，但是会麻烦一些</div>
-
-<p><strong>4.5联合</strong><br><strong>①声明格式</strong></p>
+<blockquote>
+<p><strong>位段的内存</strong>是<strong>从左向右</strong>分配还是<strong>从右向左</strong>分配<strong>由机器决定</strong></p>
+</blockquote>
+<blockquote>
+<p>当位段的<strong>总位数</strong>不是<strong>8的倍数</strong>时，其<strong>内存分配</strong>是否要<strong>边界对齐</strong>取决于<strong>编译器</strong></p>
+</blockquote>
+<h4 id="4-4联合"><a href="#4-4联合" class="headerlink" title="4.4联合"></a>4.4联合</h4><p><strong>①定义</strong></p>
+<blockquote>
+<p>联合<strong>各个成员共用</strong>内存中的<strong>位置以及数据</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当联合的某个成员被访问时，则将该联合所在位置的位以该成员类型解释被访问</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当联合中各个成员具有不同的长度，联合的长度就是它最长成员的长度</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当成员之间大小相差太大时，可以将联合的成员修改为不同数据类型的指针，这样就不会造成空间浪费</div>
 <pre class="line-numbers language-none"><code class="language-none">union
 {
 	float f;
 	int i;
 }fi;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>联合各个成员<strong>共用内存中的一个位置以及数据</strong>，当联合的某个成员被访问时，则将该联合所在位置的位以该成员类型解释被访问，换句话说，<strong>联合的各个成员决定了这些位是如何被解释的</strong></p>
-</blockquote>
-<p><strong>②联合的变体</strong>：联合各个成员的长度可以不同，比如说两个结构</p>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当联合中各个成员具有不同的长度，联合的长度就是它最长成员的长度</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当成员之间大小相差太大时，可以将联合的成员修改为不同数据类型的指针，这样就不会造成空间浪费</div>
-<p><strong>③联合的初始化</strong></p>
+<p><strong>②初始化</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 联合变量的初始值只有一个，且必须是联合第一个成员类型的数据</div>
 <pre class="line-numbers language-none"><code class="language-none">union
 {
 	int a;
 	float b;
 	char c[4];
 }x = {5};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 联合变量的初始值只有一个，且必须是联合第一个成员类型的数据</div>
-<h3 id="5-动态内存分配"><a href="#5-动态内存分配" class="headerlink" title="5.动态内存分配"></a>5.动态内存分配</h3><p><strong>5.1内存分配</strong><br><strong>①</strong><code>malloc()</code>:从<strong>内存池</strong>中提取一块<strong>连续</strong>的内存，并返回一个<strong>指向这块内存的指针</strong>，如果内存池没有合适的内存则返回<strong>NULL</strong>，这块内存<strong>没有被初始化</strong></p>
+<h3 id="5-内存操作"><a href="#5-内存操作" class="headerlink" title="5.内存操作"></a>5.内存操作</h3><h4 id="5-1动态内存分配"><a href="#5-1动态内存分配" class="headerlink" title="5.1动态内存分配"></a>5.1动态内存分配</h4><p><strong>①<code>malloc()</code></strong></p>
 <blockquote>
-<p>格式：<code>p = malloc（size）;</code><br><code>malloc()</code>返回值是<code>void *</code>，可以转化为任何类型的指针<br><code>size</code>为需要分配的<strong>字节数</strong>，其类型是<code>size_t</code>，一个<strong>无符号类型</strong></p>
+<p><strong>概述</strong>：从<strong>堆</strong>中提取一块<strong>连续的内存</strong>，并返回一个<strong>指向这块内存的指针</strong>，如果<strong>没有合适的内存</strong>则返回<strong>NULL</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> malloc()返回内存的起始位置始终满足边界对齐条件</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这块内存没有被初始化</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> malloc()返回内存的起始位置始终满足边界对齐条件</div>
+<blockquote>
+<p><strong>格式</strong>：<code>p = malloc（size）;</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> malloc()返回值是void *，size为需要分配的字节数，其类型是size_t，一个无符号类型</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以将size替换为n*sizeof（数据类型），n为数量，还可以提高程序的可移植性</div>
-<p><strong>②</strong><code>calloc()</code>：和<code>malloc</code>一样用于分配内存，但是<code>calloc</code>会将内存内所有元素初始化为0，会消耗一定的时间</p>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> C语言中，void*可以赋值给其他类型指针，但是在其他语言如C++中不行，故最好在前面加一个强制类型转换</div>
+<p><strong>②<code>calloc()</code></strong></p>
 <blockquote>
-<p>格式：<code>p = calloc(num,size);</code><br>其中<code>num</code>为元素的个数，<code>size</code>为每个元素的大小，类型均为size_t</p>
+<p><strong>概述</strong>：和<code>malloc</code>一样用于<strong>分配内存</strong>，但是<code>calloc</code>会将内存内<strong>所有元素初始化为0</strong></p>
 </blockquote>
-<p><strong>③</strong><code>realloc()</code>：<strong>修改</strong>一个已经分配的内存块的大小，新增加的内存添加到原先内存块的<strong>尾部</strong>，没有被初始化，如果用于缩小原来的内存块，则将<strong>尾部</strong>的内存块拿掉</p>
 <blockquote>
-<p>格式：<code>p = realloc(ptr,size);</code><br>其中<code>ptr</code>是需要调整大小的指针，<code>size</code>是调整后内存的大小</p>
+<p><strong>格式</strong>：<code>p = calloc(num,size);</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> C语言中，void*可以赋值给其他类型指针，但是在其他语言如C++中不行，故最好在前面加一个强制类型转换</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若原先的内存块大小无法改变，则realloc会重新划分一块内存，并释放原来的内存，所以要使用realloc返回的指针</div>
-<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 动态分配得到的指针是变量，但是我们不希望他改变，因为最后还需要释放掉，故有需要可以构建该指针的副本对内存进行操作</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 其中num为元素的个数，size为每个元素的大小，类型均为size_t</div>
 
-<p><strong>5.2内存释放</strong>：当分配的内存不再使用时，需要使用<code>free()</code>将其释放<br><strong>①函数原型</strong>：<code>void free (void *pointer)</code><br><strong>②使用格式</strong>：<code>free (p)</code><br><strong>5.3常见错误</strong><br><strong>①</strong>对NULL指针进行解引用<br><strong>②</strong>对分配的内存操作时越界<br><strong>③</strong>释放并为动态分配的内存<br><strong>④</strong>释放动态内存的一部分<br><strong>⑤</strong>访问一块已经被释放的内存，尤其是当内存分配指针被备份时<br><strong>⑥</strong>内存释放不及时，导致内存泄漏</p>
-<p><strong>5.4内存操作函数</strong></p>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 和字符串的一些操作函数很像，但是遇到NUL字节不会停止</div>
-<p><strong>①</strong><code>memcpy()</code>：<strong>直接复制</strong>一块内存中数据到另一块内存中</p>
+<p><strong>③<code>realloc()</code></strong></p>
 <blockquote>
-<p>函数原型<code>void *memcpy(void *dst,void const *src,size_t length)</code></p>
+<p><strong>概述</strong>：<strong>修改</strong>一个<strong>已经分配</strong>的<strong>内存块的大小</strong>，<strong>新增加的内存</strong>添加到<strong>原先内存块</strong>的<strong>尾部</strong>，如果用于<strong>缩小原来的内存块</strong>，则将<strong>尾部</strong>的内存块<strong>释放</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如上，内存操作函数接收和返回的参数都是void*，且会规定操作的内存长度</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> length是字节的个数，可以使用sizeof便捷计算</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 两块内存不能重叠</div>
-<p><strong>②</strong><code>memmove()</code>：类似于<code>memcpy()</code>，但是<code>memmove()</code>在转移时会经过一块<strong>临时内存</strong><br><strong>③</strong><code>memcmp()</code>：比较两块内存的内容（按照无符号字符逐字节比较）</p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 新增内存没有被初始化</div>
+<blockquote>
+<p><strong>格式</strong>：<code>p = realloc(ptr,size);</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 其中ptr是需要调整大小的指针，size是调整后内存的大小</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若原先的内存块大小无法改变，则realloc会重新划分一块内存，并释放原来的内存，所以要使用realloc返回的指针</div>
+
+<p><strong>④<code>free()</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：当<strong>分配的内存不再使用</strong>时，需要使用<code>free()</code>将其<strong>释放</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>格式</strong>：<code>free (p)</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 动态分配得到的指针是变量，但最好不要修改，因为最后还需要根据其释放掉对应内存块</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以构建该指针的副本对内存进行操作</div>
+<p><strong>⑤常见错误</strong></p>
+<blockquote>
+<p>对<code>NULL</code>指针/<strong>非动态分配</strong>的指针使用<code>free()</code>进行<strong>释放</strong></p>
+</blockquote>
+<blockquote>
+<p>对<strong>分配的内存</strong>操作时<strong>越界</strong></p>
+</blockquote>
+<blockquote>
+<p>释放<strong>动态内存的一部分</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>访问</strong>一块<strong>已经被释放的内存</strong>，如当<strong>内存分配指针被备份</strong>时</p>
+</blockquote>
+<blockquote>
+<p>内存释放<strong>不及时</strong>，导致<strong>内存泄漏</strong></p>
+</blockquote>
+<h4 id="5-2内存操作函数"><a href="#5-2内存操作函数" class="headerlink" title="5.2内存操作函数"></a>5.2内存操作函数</h4><div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 内存操作函数接收和返回的参数都是void*，且会以字节规定操作的内存长度</div>
+<blockquote>
+<p><code>memcpy()</code>：<strong>直接复制一块内存中</strong>数据到<strong>另一块内存</strong>中</p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 操作的两块内存不能重叠</div>
+<blockquote>
+<p><code>memmove()</code>：类似于<code>memcpy()</code>，但是<code>memmove()</code>在<strong>转移时</strong>会经过一块<strong>临时内存</strong></p>
+</blockquote>
+<blockquote>
+<p><code>memcmp()</code>：按照<strong>无符号字符逐字节比较</strong>两块内存的内容</p>
+</blockquote>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 不能用于比较非单字节数据</div>
-<p><strong>④</strong><code>memchr()</code>：查找某块内存某个字符<strong>第一次出现</strong>的位置<br><strong>⑤</strong><code>memset()</code>：将一段内存<strong>都设置</strong>为某个字符</p>
+<blockquote>
+<p><code>memchr()</code>：查找某块内存<strong>某个字符第一次出现</strong>的位置</p>
+</blockquote>
+<blockquote>
+<p><code>memset()</code>：将一段内存<strong>都设置</strong>为<strong>某个字符</strong></p>
+</blockquote>
 
                 
             </div>
@@ -955,8 +1265,8 @@ struct B
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-category">
-                                    工作流
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             

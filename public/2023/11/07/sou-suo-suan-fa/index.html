@@ -415,7 +415,214 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h1><h2 id="搜索算法"><a href="#搜索算法" class="headerlink" title="搜索算法"></a>搜索算法</h2><h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1.引言"></a>1.引言</h3><h4 id="1-1概述"><a href="#1-1概述" class="headerlink" title="1.1概述"></a>1.1概述</h4><p><strong>①定义</strong></p>
+<blockquote>
+<p>在<strong>数据结构</strong>中搜索<strong>一个或一组满足特定条件的元素</strong></p>
+</blockquote>
+<p><strong>②分类</strong></p>
+<blockquote>
+<p><strong>遍历搜索</strong>：<strong>暴力穷举</strong>、<strong>广度优先</strong>和<strong>深度优先</strong>等</p>
+</blockquote>
+<blockquote>
+<p><strong>基于先验信息搜索</strong>：<strong>二分查找</strong>、<strong>哈希查找</strong>、<strong>树查找</strong>等</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 效率高，但是需要对数据进行预处理和维护，需要额外的时间和空间开支</div>
+<h4 id="1-2搜索算法的选择"><a href="#1-2搜索算法的选择" class="headerlink" title="1.2搜索算法的选择"></a>1.2搜索算法的选择</h4><blockquote>
+<p><strong>遍历</strong>：适用于<strong>数据更新频繁</strong>的场景</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 线性搜索适用于数组和链表，广度优先和深度优先使用于图和树</div>
+<blockquote>
+<p><strong>二分查找</strong>：适用于<strong>数据量大</strong>，<strong>数据更新不频繁</strong>的场景</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 数据更新频繁，导致数据处理和维护成本过高</div>
+<blockquote>
+<p><strong>哈希查找</strong>：适合<strong>数据量不大</strong>且<strong>查询性能要求高</strong>的场景，但无法提供<strong>有序性数据</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 哈希查找时间复杂度为O(1)，但需要额外维护哈希表，空间复杂度较高</div>
+<blockquote>
+<p><strong>树查找</strong>：适用于<strong>海量数据</strong>且<strong>数据更新不频繁</strong>的场景</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 为了防止树退化，每次数据更新都需要维持树的平衡</div>
+<h3 id="2-二分查找"><a href="#2-二分查找" class="headerlink" title="2.二分查找"></a>2.二分查找</h3><h4 id="2-1引言"><a href="#2-1引言" class="headerlink" title="2.1引言"></a>2.1引言</h4><blockquote>
+<p>给定一<strong>长度</strong>为<code>n</code>，<strong>从小到大</strong>的<strong>整数数组</strong><code>nums</code>，数组不包含<strong>重复元素</strong>，查找并返回<strong>对应元素</strong><code>target</code>，若<strong>不存在</strong>则返回<code>-1</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 本质上是基于分治的搜索算法，每轮减少一半搜索范围，时间复杂度为O(logn)，且无需额外空间</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 仅仅适用于有序数组，因为数组访问效率高，且为了保持数组有序性，每次插入的时间复杂度为O(n)</div>
+<h4 id="2-2工作原理"><a href="#2-2工作原理" class="headerlink" title="2.2工作原理"></a>2.2工作原理</h4><blockquote>
+<p><strong>初始化</strong>两<strong>“指针”</strong><code>head = 0</code>和<code>tail = n-1</code>，采用<strong>双闭区间</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> tail还可取n，并采用左闭右开区间，对应的实现细节也有所不同，但是更加推荐双闭区间</div>
+<blockquote>
+<p>取<code>middle = (head+tail)/2</code>，<strong>向下取整</strong>，根据<code>num[middle]</code>和<code>target</code>的关系决定<strong>对应操作</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> head和tail均为int类型，head+tail可能会超过int类型的范围，对于大型数据，常取middle = head+(tail-head)/2</div>
+<blockquote>
+<p><strong>若</strong><code>num[middle] &lt; target</code>，说明<code>target</code>在区间<code>[middle+1,tail]</code>中，取<code>head = middle+1</code><strong>更新区间</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>若</strong><code>num[middle] &gt; target</code>，说明<code>target</code>在区间<code>[head,middle-1]</code>中，取<code>tail = middle-1</code><strong>更新区间</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>若</strong><code>num[middle] == target</code>，<strong>直接返回</strong><code>middle</code>即可</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 以数组从小到大为前提，本质上还是缩小区间</div>
+
+<blockquote>
+<p><strong>一直依此循环</strong>，直到<strong>找到</strong><code>target</code>，或者<code>head &gt; tail</code>，表示<code>target</code><strong>不在数组中</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若数组最大元素小于target，可能会导致head指针越界，即结束时head == n，不过对查找结果无影响</div>
+<h4 id="2-3代码实现"><a href="#2-3代码实现" class="headerlink" title="2.3代码实现"></a>2.3代码实现</h4><pre class="line-numbers language-none"><code class="language-none">/* 二分查找（双闭区间） */
+int binarySearch(int *nums, int len, int target) {
+    // 初始化双闭区间 [0, n-1] ，即 i, j 分别指向数组首元素、尾元素
+    int i = 0, j = len - 1;
+    // 循环，当搜索区间为空时跳出（当 i &gt; j 时为空）
+    while (i &lt;= j) {
+        int m = i + (j - i) / 2; // 计算中点索引 m
+        if (nums[m] &lt; target)    // 此情况说明 target 在区间 [m+1, j] 中
+            i = m + 1;
+        else if (nums[m] &gt; target) // 此情况说明 target 在区间 [i, m-1] 中
+            j = m - 1;
+        else // 找到目标元素，返回其索引
+            return m;
+    }
+    // 未找到目标元素，返回 -1
+    return -1;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-4基于二分查找的插入"><a href="#2-4基于二分查找的插入" class="headerlink" title="2.4基于二分查找的插入"></a>2.4基于二分查找的插入</h4><p><strong>①引言</strong></p>
+<blockquote>
+<p>给定一<strong>长度</strong>为<code>n</code>，<strong>从小到大</strong>的<strong>整数数组</strong><code>nums</code>，将<code>target</code>插入<strong>数组</strong><code>nums</code>中，并<strong>保持其有序性</strong>，若数组中<strong>已存在</strong>元素<code>target</code>，则插入到<strong>最左边target的左方</strong></p>
+</blockquote>
+<p><strong>②思路</strong></p>
+<blockquote>
+<p>使用<strong>二分法</strong>查找<code>target</code></p>
+</blockquote>
+<blockquote>
+<p>若<strong>找到</strong>对应<code>target</code>，还需要<strong>进一步</strong>找到<strong>最左边的target</strong>，<strong>插入位置</strong>即<strong>最左边的<code>target</code>位置</strong></p>
+</blockquote>
+<blockquote>
+<p>修改<strong>二分法</strong>查找过程中<code>nums[middle] == target</code>的<strong>步骤</strong>，使用<code>tail = middle-1</code><strong>更新区间</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> nums[middle] == target说明在最左边target左边的元素在[head,middle-1]中，迭代到最后i指向最左边的target</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 插入到对应元素左方，即替代对应元素</div>
+<blockquote>
+<p>若<strong>没找到</strong>对应<code>target</code>，<strong>插入位置</strong>即<strong>二分结束时的head指针</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 二分过程中，head和tail不断接近target，结束时，head指向首个大于target的元素，tail指向首个小于target的元素</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 要注意head指针越界的情况</div>
+<p><strong>③代码实现</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">/* 二分查找插入点（存在重复元素） */
+int binarySearchInsertion(int *nums, int numSize, int target) {
+    int i = 0, j = numSize - 1; // 初始化双闭区间 [0, n-1]
+    while (i &lt;= j) {
+        int m = i + (j - i) / 2; // 计算中点索引 m
+        if (nums[m] &lt; target) {
+            i = m + 1; // target 在区间 [m+1, j] 中
+        } else if (nums[m] &gt; target) {
+            j = m - 1; // target 在区间 [i, m-1] 中
+        } else {
+            j = m - 1; // 首个小于 target 的元素在区间 [i, m-1] 中
+        }
+    }
+    // 返回插入点 i
+    return i;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-5基于二分查找的边界查找"><a href="#2-5基于二分查找的边界查找" class="headerlink" title="2.5基于二分查找的边界查找"></a>2.5基于二分查找的边界查找</h4><p><strong>①引言</strong></p>
+<blockquote>
+<p>给定一<strong>长度</strong>为<code>n</code>，<strong>从小到大</strong>的<strong>整数数组</strong><code>nums</code>，若其中有<code>target</code>元素，返回其<strong>左/右边界</strong>，<strong>没有</strong>则返回<code>-1</code></p>
+</blockquote>
+<p><strong>②思路1</strong></p>
+<blockquote>
+<p><strong>基于二分查找的插入</strong>本质上就是在<strong>寻找左边界</strong>，基于该方法<strong>稍作修改</strong>即可</p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> target+1的左边界的左边，即target的右边界，故查找target的右边界等价于查找target+1的左边界</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这里的target+1也可以不存在于数组中</div>
+<pre class="line-numbers language-none"><code class="language-none">/* 二分查找最左一个 target */
+int binarySearchLeftEdge(int *nums, int numSize, int target) {
+    // 等价于查找 target 的插入点
+    int i = binarySearchInsertion(nums, numSize, target);
+    // 未找到 target ，返回 -1
+    if (i == numSize || nums[i] != target) {
+        return -1;
+    }
+    // 找到 target ，返回索引 i
+    return i;
+}
+/* 二分查找最右一个 target */
+int binarySearchRightEdge(int *nums, int numSize, int target) {
+    // 转化为查找最左一个 target + 1
+    int i = binarySearchInsertion(nums, numSize, target + 1);
+    // j 指向最右一个 target ，i 指向首个大于 target 的元素
+    int j = i - 1;
+    // 未找到 target ，返回 -1
+    if (j == -1 || nums[j] != target) {
+        return -1;
+    }
+    // 找到 target ，返回索引 j
+    return j;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③思路2</strong></p>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 二分查找不存在的元素target时，最终head和tail会分别指向首个大于、小于target的位置</div>
+<blockquote>
+<p>将查找<code>target</code>的<strong>左边界</strong>，转化为<strong>二分查找</strong><code>target-0.5</code>，并<strong>返回</strong><code>head</code></p>
+</blockquote>
+<blockquote>
+<p>将查找<code>target</code>的<strong>右边界</strong>，转化为<strong>二分查找</strong><code>target+0.5</code>，并<strong>返回</strong><code>tail</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这里加减0.5以确保其一定不再数组中</div>
+<hr>
+<h3 id="3-哈希查找"><a href="#3-哈希查找" class="headerlink" title="3.哈希查找"></a>3.哈希查找</h3><h4 id="3-1引言"><a href="#3-1引言" class="headerlink" title="3.1引言"></a>3.1引言</h4><blockquote>
+<p>给定一个<strong>整数数组</strong><code>nums</code>和一个<strong>目标元素</strong><code>target</code>，在数组中搜索<strong>和为<code>target</code>的两个元素</strong>，并返回它们的<strong>数组索引</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 如果采用暴力穷举，时间复杂度为O(n^2)，过于复杂</div>
+<h4 id="3-2思路"><a href="#3-2思路" class="headerlink" title="3.2思路"></a>3.2思路</h4><blockquote>
+<p>建立一<strong>哈希表</strong>作为<strong>辅助</strong>，<code>key</code>为<strong>数组元素</strong>，<code>value</code>为<strong>元素索引</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>遍历数组</strong>，<strong>每次</strong>判断<code>target - nums[i]</code>是否在<strong>哈希表</strong>中（若<strong>存在</strong>则返回<strong>两个元素的索引</strong>并<strong>退出</strong>），并<strong>将该元素添加进哈希表</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 时间复杂度为O(n)，但空间复杂度变为O(n)，本质是用空间换时间</div>
+<h4 id="3-3代码实现"><a href="#3-3代码实现" class="headerlink" title="3.3代码实现"></a>3.3代码实现</h4><pre class="line-numbers language-none"><code class="language-none">/* 哈希表 */
+typedef struct {
+    int key;
+    int val;
+    UT_hash_handle hh; // 基于 uthash.h 实现
+} HashTable;
+
+/* 哈希表查询 */
+HashTable *find(HashTable *h, int key) {
+    HashTable *tmp;
+    HASH_FIND_INT(h, &amp;key, tmp);
+    return tmp;
+}
+
+/* 哈希表元素插入 */
+void insert(HashTable *h, int key, int val) {
+    HashTable *t = find(h, key);
+    if (t == NULL) {
+        HashTable *tmp = malloc(sizeof(HashTable));
+        tmp-&gt;key = key, tmp-&gt;val = val;
+        HASH_ADD_INT(h, key, tmp);
+    } else {
+        t-&gt;val = val;
+    }
+}
+
+/* 哈希查找 */
+int *twoSumHashTable(int *nums, int numsSize, int target, int *returnSize) {
+    HashTable *hashtable = NULL;
+    for (int i = 0; i &lt; numsSize; i++) {
+        HashTable *t = find(hashtable, target - nums[i]);
+        if (t != NULL) {
+            int *res = malloc(sizeof(int) * 2);
+            res[0] = t-&gt;val, res[1] = i;
+            *returnSize = 2;
+            return res;
+        }
+        insert(hashtable, nums[i], i);
+    }
+    *returnSize = 0;
+    return NULL;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -536,18 +743,18 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/cao-zuo-xi-tong-yi/">
+                <a href="/2023/11/07/shu-ju-jie-gou-yu-suan-fa-yin-yan/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/2.webp" class="responsive-img" alt="操作系统（一）">
+                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="数据结构与算法引言">
                         
-                        <span class="card-title">操作系统（一）</span>
+                        <span class="card-title">数据结构与算法引言</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            操作系统概述
+                            数据结构与算法基础
                         
                     </div>
                     <div class="publish-info">
@@ -573,12 +780,12 @@
                         <span class="chip bg-color">计算机基础</span>
                     </a>
                     
-                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">数据结构与算法</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA%E3%80%8B/">
-                        <span class="chip bg-color">《操作系统导论》</span>
+                    <a href="/tags/%E3%80%8Ahello%E7%AE%97%E6%B3%95%E3%80%8B/">
+                        <span class="chip bg-color">《hello算法》</span>
                     </a>
                     
                 </div>
@@ -589,21 +796,21 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/07/cao-zuo-xi-tong-er/">
+                <a href="/2023/11/07/sou-suo-suan-fa/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/2.webp" class="responsive-img" alt="操作系统（二）">
+                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="搜索算法">
                         
-                        <span class="card-title">操作系统（二）</span>
+                        <span class="card-title">搜索算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            操作系统概述
+                            搜索算法
                         
                     </div>
                     <div class="publish-info">
@@ -622,6 +829,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -629,12 +837,12 @@
                         <span class="chip bg-color">计算机基础</span>
                     </a>
                     
-                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">数据结构与算法</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA%E3%80%8B/">
-                        <span class="chip bg-color">《操作系统导论》</span>
+                    <a href="/tags/%E3%80%8Ahello-%E7%AE%97%E6%B3%95%E3%80%8B/">
+                        <span class="chip bg-color">《hello 算法》</span>
                     </a>
                     
                 </div>

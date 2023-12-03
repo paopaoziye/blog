@@ -160,5 +160,5 @@ lazyload:
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/paopaoziye/paopaoziye.github.io.git  
+  repo: git@github.com:paopaoziye/paopaoziye.github.io.git  
   branch: main
