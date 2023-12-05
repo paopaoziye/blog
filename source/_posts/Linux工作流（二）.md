@@ -183,7 +183,7 @@ ar rs libTest.a test.o
 gcc -c -fPIC test.cpp  
 gcc -shared -o libTest.so test.o
 ```
-#### 2.2GDB调试
+#### 2.2GDB调试器
 **①基础操作**
 >`gdb [可执行文件名]`：用**gdb打开**该可执行文件并**进入gdb界面**
 {%warning%}
