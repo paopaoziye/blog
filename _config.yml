@@ -43,6 +43,7 @@ render_drafts: false
 post_asset_folder: false
 relative_link: false
 future: true
+
 highlight:
   enable: false
   line_number: true
@@ -51,7 +52,7 @@ highlight:
   wrap: true
   hljs: false
 prismjs:
-  enable: ture
+  enable: true
   preprocess: true
   line_number: true
   tab_replace: ''
