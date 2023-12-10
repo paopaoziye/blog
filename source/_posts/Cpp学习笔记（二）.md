@@ -32,7 +32,7 @@ summary: 面向对象编程
 以下为一非泛型查找函数，只能处理整型数组，将其改造为一个泛型算法
 {%endright%}
 **①改造前**
-```
+```cpp
 int* find(const int* array,int value,int size)
 {
   for(int ix = 0;ix < size;++ix)
@@ -42,7 +42,7 @@ int* find(const int* array,int value,int size)
 }
 ```
 **②改造后**
-```
+```cpp
 template <typename IteratorType,typename ElemType,typename Func>
 IteratorType
 find(IteratorType first,IteratorType last,const ElemType &value,Func comp)
@@ -70,7 +70,7 @@ int main()
 {%right%}
 函数模板使得函数可以处理不同数据类型的数据，且模板函数可以重载
 {%endright%}
-```
+```cpp
 //函数定义
 template<typename T>
 void  display_message(const string &msg,const vector<T> &vec)
@@ -92,7 +92,7 @@ void  display_message(const string &msg,const vector<T> &vec)
 {%right%}
 使用typedef关键字将iterator_to_special_vector改为统一的iterator
 {%endright%}
-```
+```cpp
 //泛型指针相关联的类
 class special_vector{
   public:
@@ -113,7 +113,7 @@ class special_vector{
       static vector<int> _elems;
 }
 ```
-```
+```cpp
 //泛型指针类定义
 class iterator_to_special_vector{
   public:
@@ -136,7 +136,7 @@ class iterator_to_special_vector{
 {%right%}
 使用模板，使得函数既能接收指针，也能接收泛型指针
 {%endright%}
-```
+```cpp
 template<typename Iterator_Type,typename Elem_Type>
 Iterator_Type
 find(Iterator_Type first,Iterator_Type last,const Elem_Type &value)
@@ -154,7 +154,7 @@ find(Iterator_Type first,Iterator_Type last,const Elem_Type &value)
 {%list%}
 遇到lt()时，若lt为一function object（还可能为函数名和函数指针），编译器会将lt(val)转换为lt.operator(val)
 {%endlist%}
-```C++
+```cpp
 class less_than
 {
   public:

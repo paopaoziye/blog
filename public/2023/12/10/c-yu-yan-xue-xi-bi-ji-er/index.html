@@ -412,7 +412,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="C语言学习笔记（二）"><a href="#C语言学习笔记（二）" class="headerlink" title="C语言学习笔记（二）"></a>C语言学习笔记（二）</h1><h2 id="C语言基础"><a href="#C语言基础" class="headerlink" title="C语言基础"></a>C语言基础</h2><h3 id="1-指针"><a href="#1-指针" class="headerlink" title="1.指针"></a>1.指针</h3><h4 id="1-1引言"><a href="#1-1引言" class="headerlink" title="1.1引言"></a>1.1引言</h4><blockquote>
-<p><strong>比特&#x2F;位</strong>：计算机的<strong>最小存储单位</strong>，可以存储<strong>1和0</strong></p>
+<p><strong>比特/位</strong>：计算机的<strong>最小存储单位</strong>，可以存储<strong>1和0</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 数据以比特流的形式存储，被解释为什么取决于我们的使用方式和声明方式</div>
 
@@ -422,7 +422,7 @@
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 字节是计算机的最小寻址单位</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 一些数据类型（如整型）的存储的起始位置只能是某些特定的字节，通常是2和4的倍数</div>
 <blockquote>
-<p><strong>字</strong>：<strong>一个字</strong>由<strong>2&#x2F;4个字节</strong>组成</p>
+<p><strong>字</strong>：<strong>一个字</strong>由<strong>2/4个字节</strong>组成</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每个字的地址是其最左边或者最右边的字节的地址，每台机器规定不同</div>
 
@@ -453,7 +453,7 @@
 <p>使用<strong>未初始化的指针</strong>会<strong>引发错误</strong></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">int *a;
-*a &#x3D; 12;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+*a = 12;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若指针变量没有被初始化，则其值可能为一垃圾值（动态变量）或者0（静态变量）</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 未初始化指针可能指向非法地址（内存错误）或者导致储存地址处于错误的边界（总线错误）</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以先将指针初始化为空指针NULL，但是注意要进行空指针检查，因为对空指针引用也是错误的</div>
@@ -465,8 +465,8 @@
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 依此类推，也称为多重指针</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 尽量少使用多重指针</div>
 <p><strong>④指针与左右值</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">int a &#x3D; 10；
-int* b &#x3D; &amp;a；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">int a = 10；
+int* b = &amp;a；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
 <p><code>*b</code>相当于<code>a</code>，作为<strong>右值</strong>代表的是<code>10</code>，作为<strong>左值</strong>时代表<code>a</code>的<strong>内存位置</strong></p>
 </blockquote>
@@ -537,8 +537,8 @@ int* b &#x3D; &amp;a；<span aria-hidden="true" class="line-numbers-rows"><span>
 <p><code>返回类型 (*f[]) ();</code></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> ()和[]均为同一优先级，结合性从左向右，优先级均高于*</div>
-<pre class="line-numbers language-none"><code class="language-none">double  (*oper_func[])(double,double) &#x3D; &#123;a,b,c...&#125;;
-result &#x3D; oper_func[1](i,j);
+<pre class="line-numbers language-none"><code class="language-none">double  (*oper_func[])(double,double) = {a,b,c...};
+result = oper_func[1](i,j);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>④用途</strong></p>
@@ -548,14 +548,14 @@ result &#x3D; oper_func[1](i,j);
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 将函数中与数据类型相关的操作替换为一系列等价的函数，需要使用哪类数据类型的对应操作，传递对应的函数指针</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 将传递给函数以及回调函数的数据类型采用*void，用于接收不同数据类型的指针</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 在使用这些数据的指针时，必须要强制转换为正确的数据类型</div>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;*比较函数的整数版本
+<pre class="line-numbers language-none"><code class="language-none">/*比较函数的整数版本
 int compare_ints(void const *a,void const *b)
-&#123;
-	if(*(int *)a &#x3D; *(int *)b)
+{
+	if(*(int *)a = *(int *)b)
 		return 0;
 	else
 		return 1;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -566,10 +566,10 @@ int compare_ints(void const *a,void const *b)
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 函数可以没有返回值，这是返回类型为void</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 函数中的形参是实参的一个副本，修改形参不会影响实参，如果想要修改实参，需要传递实参的地址</div>
 <pre class="line-numbers language-none"><code class="language-none">返回类型 函数名（形参类型1 形参名1，...形参类型n 形参名n）
-&#123;
+{
 	statement；
     return expression；
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p><strong><code>return</code>语句</strong>：用于<strong>返回结果</strong>并表明此处是函数的<strong>退出点</strong>，可以出现在<strong>函数主体</strong>的<strong>任意位置</strong></p>
 </blockquote>
@@ -581,9 +581,9 @@ int compare_ints(void const *a,void const *b)
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 这种函数可以达到存根的目的,即为尚未编写的代码“占好位置”，可以保持程序在结构上的完整性</div>
 <pre class="line-numbers language-none"><code class="language-none">void function （void）
-&#123;
+{
 
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>②函数声明</strong></p>
 <blockquote>
@@ -613,13 +613,13 @@ int compare_ints(void const *a,void const *b)
 <p>输入<code>value</code>为<code>4267</code></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">binary_to_ascii(unsigned int value)
-&#123;
+{
 	unsigned int a;
-	a &#x3D; value&#x2F;10;
-	if(a!&#x3D;0)
+	a = value/10;
+	if(a!=0)
 		binary_to_ascii(a)
 	putchar(value%10+‘0)’;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>③实现过程</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每次函数调用，都会创建一个栈帧，存放临时变量和返回地址等，并压入程序栈中，直到函数调用结束才会弹出</div>
 <blockquote>
@@ -663,20 +663,20 @@ int compare_ints(void const *a,void const *b)
 <p><strong>③例子</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">#include&lt;stdarg.h&gt;
 
-&#x2F;*用于计算输入数字的平均数
+/*用于计算输入数字的平均数
 float average (int n_value,...)
-&#123;
+{
 	va_list number_n;
 	int count;
-	float sum &#x3D; 0;
+	float sum = 0;
 	va_start(number_n,n_value);
-	for (count&#x3D;0;count&lt;n_value;count+&#x3D;1)
-	&#123;
-		sum &#x3D; sum+va_arg(number_n,int);
-	&#125;
+	for (count=0;count&lt;n_value;count+=1)
+	{
+		sum = sum+va_arg(number_n,int);
+	}
 	va_end(number_n);
-	return sum&#x2F;n_value;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	return sum/n_value;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="3-数组"><a href="#3-数组" class="headerlink" title="3.数组"></a>3.数组</h3><h4 id="3-1引言"><a href="#3-1引言" class="headerlink" title="3.1引言"></a>3.1引言</h4><p><strong>①格式</strong></p>
 <blockquote>
 <p><code>数据类型 数组名[数组大小]</code></p>
@@ -708,7 +708,7 @@ float average (int n_value,...)
 
 <h4 id="3-2初始化"><a href="#3-2初始化" class="headerlink" title="3.2初始化"></a>3.2初始化</h4><p><strong>②格式</strong></p>
 <blockquote>
-<p><code>数据类型 数组名[] = &#123;值1,值2,…&#125;</code></p>
+<p><code>数据类型 数组名[] = {值1,值2,…}</code></p>
 </blockquote>
 <blockquote>
 <p>当数组为<strong>静态变量</strong>时，在<strong>程序执行前</strong>便被初始化，<strong>缺省情况</strong>下<strong>全部初始化</strong>为<strong>0</strong></p>
@@ -729,14 +729,14 @@ float average (int n_value,...)
 
 <p><strong>③字符数组的初始化</strong></p>
 <blockquote>
-<p><code>char a[] = “b”</code>相当于<code>char a = &#123;&#39;b&#39;,NUL&#125;</code></p>
+<p><code>char a[] = “b”</code>相当于<code>char a = {'b',NUL}</code></p>
 </blockquote>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 只有在初始化字符数组时“b”才代表一个初始化列表，其他场合均为字符串常量</div>
 <blockquote>
 <p>如下，<code>message1</code>是一个<strong>字符数组</strong>，<code>message2</code>是一个<strong>指向字符串字面值的指针</strong></p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">char message1[] &#x3D; &quot;hello&quot;;
-char *message2 &#x3D; &quot;hello&quot;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">char message1[] = "hello";
+char *message2 = "hello";<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h4 id="3-3多维数组"><a href="#3-3多维数组" class="headerlink" title="3.3多维数组"></a>3.3多维数组</h4><p><strong>①定义</strong></p>
 <blockquote>
 <p><code>数据类型 数组名 [维度1][维度2]…[维度N]</code>，如<code>int a [3][4]</code></p>
@@ -770,10 +770,10 @@ char *message2 &#x3D; &quot;hello&quot;;<span aria-hidden="true" class="line-num
 <p><strong>③初始化</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 以二维数组a为例</div>
 <blockquote>
-<p><code>int a[][] = &#123;元素1、元素2…&#125;;</code>，元素按照其<strong>存储顺序</strong>排列</p>
+<p><code>int a[][] = {元素1、元素2…};</code>，元素按照其<strong>存储顺序</strong>排列</p>
 </blockquote>
 <blockquote>
-<p><code>int a[][] = &#123;&#123;数组1&#125;，&#123;数组2&#125;…&#125;;</code></p>
+<p><code>int a[][] = {{数组1}，{数组2}…};</code></p>
 </blockquote>
 <blockquote>
 <p>通过<code>a[i][j] = 值ij;</code>，<strong>一个个赋值</strong></p>
@@ -792,7 +792,7 @@ char *message2 &#x3D; &quot;hello&quot;;<span aria-hidden="true" class="line-num
 <blockquote>
 <p><strong>指向元素的指针</strong>：<code>数组元素数据类型 *p = &amp;数组名[0][0]</code>或者<code>数组元素数据类型 *p = 数组名[0]</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 注意后者是没有&符号的，因为后者就是一个指向元素的指针！</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 注意后者是没有&amp;符号的，因为后者就是一个指向元素的指针！</div>
 <blockquote>
 <p><strong>指针数组</strong>：<code>数据类型* 数组名[元素个数]</code></p>
 </blockquote>
@@ -800,7 +800,7 @@ char *message2 &#x3D; &quot;hello&quot;;<span aria-hidden="true" class="line-num
 
 <h4 id="3-4字符串"><a href="#3-4字符串" class="headerlink" title="3.4字符串"></a>3.4字符串</h4><p><strong>①定义</strong></p>
 <blockquote>
-<p>以<code>&#39;/0&#39;</code><strong>结尾</strong>的<strong>字符数组</strong> </p>
+<p>以<code>'/0'</code><strong>结尾</strong>的<strong>字符数组</strong> </p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> '/0'的位模式全为0，也叫NUL字节，是字符串的终止符，字符串长度不包括终止符的长度</div>
 
@@ -861,7 +861,7 @@ char *message2 &#x3D; &quot;hello&quot;;<span aria-hidden="true" class="line-num
 </blockquote>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 直接测试或者操纵字符可能会影响程序的移植性，推荐使用对应的字符操作函数</div>
 <blockquote>
-<p>比如<code>if(ch&gt;=&#39;A&#39; &amp;&amp; ch&lt;=&#39;Z&#39;)</code>判断<code>ch</code>是否为<strong>大写字母</strong>，在使用<strong>EBCDIC字符集</strong>上的机器上将<strong>失败</strong></p>
+<p>比如<code>if(ch&gt;='A' &amp;&amp; ch&lt;='Z')</code>判断<code>ch</code>是否为<strong>大写字母</strong>，在使用<strong>EBCDIC字符集</strong>上的机器上将<strong>失败</strong></p>
 </blockquote>
 <h3 id="4-结构"><a href="#4-结构" class="headerlink" title="4.结构"></a>4.结构</h3><h4 id="4-1格式"><a href="#4-1格式" class="headerlink" title="4.1格式"></a>4.1格式</h4><p><strong>①定义</strong></p>
 <blockquote>
@@ -870,18 +870,18 @@ char *message2 &#x3D; &quot;hello&quot;;<span aria-hidden="true" class="line-num
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 结构变量是标量类型，所以相同的结构变量可以相互赋值</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 将结构定义在一个头文件中，使用include包含即可</div>
 <pre class="line-numbers language-none"><code class="language-none">struct [结构类型名称]
-&#123;
-	&#x2F;*每个成员的类型和名字*&#x2F;
+{
+	/*每个成员的类型和名字*/
 	结构成员表;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以使用typedef关键字为结构定义新的名字</div>
 <blockquote>
 <p><strong>声明格式</strong>：<code>结构类型名称 结构名</code></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">typedef struct
-&#123;
+{
 	结构成员表(每个成员的类型和名字);
-&#125;[结构类型名称];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+}[结构类型名称];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②结构的访问</strong></p>
 <blockquote>
 <p><strong><code>.</code>操作符</strong>：<code>结构名.成员名</code></p>
@@ -890,22 +890,22 @@ char *message2 &#x3D; &quot;hello&quot;;<span aria-hidden="true" class="line-num
 <p><strong><code>-&gt;</code>操作符</strong>：<code>对应结构指针-&gt;成员名</code></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这两个操作符优先级相同，比*和[]高，结合性从左向右</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当结构需要作为函数参数时，可以传递该结构的指针，并使用->访问成员，效率较高</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当结构需要作为函数参数时，可以传递该结构的指针，并使用-&gt;访问成员，效率较高</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 假设px是结构x的指针，px指向的地址和结构第一个成员的地址是一样的，但是*px代表的是整个结构</div>
 <p><strong>③初始化</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 结构体的初始化也分为静态变量和动态变量两种，各个成员按照对应的规则初始化</div>
 <blockquote>
-<p><strong>整体赋值</strong>：<code>x1.a = &#123;10,&#39;x&#39;,1.0&#125;</code></p>
+<p><strong>整体赋值</strong>：<code>x1.a = {10,'x',1.0}</code></p>
 </blockquote>
 <blockquote>
 <p><strong>成员赋值</strong>：<code>x1.a = 10</code></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">typedef struct 
-&#123;
+{
 	int a;
 	char b;
 	float c;
-&#125;X;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}X;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>④结构体的内存分配</strong></p>
 <blockquote>
 <p><strong>编译器</strong>按照<strong>成员列表顺序</strong>给<strong>每个成员</strong>分配内存</p>
@@ -918,19 +918,19 @@ char *message2 &#x3D; &quot;hello&quot;;<span aria-hidden="true" class="line-num
 <p>假设<strong>一台机器</strong>的<strong>整型值长度</strong>为<strong>4字节</strong>，且要求其<strong>起始存储位置</strong>必须能<strong>被4整除</strong>，则<strong>结构</strong><code>X</code>在<strong>内存中</strong>的<strong>存储情况</strong>如下</p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">struct X1
-&#123;
+{
 	char a;
 	int b;
 	char c;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 成员之间会出现未填充的内存空间</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 对边界要求最严格的成员应该首先出现，这样可以节省内存</div>
 <pre class="line-numbers language-none"><code class="language-none">struct X2
-&#123;
+{
 	int b;
 	char a;
 	char c;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/C_3.png" alt="结构的存储"></p>
 <h4 id="4-2结构的引用"><a href="#4-2结构的引用" class="headerlink" title="4.2结构的引用"></a>4.2结构的引用</h4><p><strong>①结构的自引用</strong></p>
 <blockquote>
@@ -938,32 +938,32 @@ char *message2 &#x3D; &quot;hello&quot;;<span aria-hidden="true" class="line-num
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 因为结构在定义时内存大小是不确定的，而结构指针的内存大小在结构创建前就已经确定</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 不能使用之前没有定义的结构标签</div>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;非法，因为在声明next成员时，Node还有没被声明
+<pre class="line-numbers language-none"><code class="language-none">//非法，因为在声明next成员时，Node还有没被声明
 typedef struct
-&#123;
+{
   ElemType data;
   struct Node *next;
-&#125;Node;
-&#x2F;&#x2F;合法
+}Node;
+//合法
 typedef struct Node
-&#123;
+{
   ElemType data;
   struct Node *next;
-&#125;Node;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}Node;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②结构之间的引用</strong></p>
 <blockquote>
 <p>当需要定义几种之间<strong>存在联系</strong>的结构，可以采用<strong>不完整声明</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 如下，A中不能以B为成员，只能以B的指针为成员，因为不完整声明导致B的大小不能确定</div>
-<pre class="line-numbers language-none"><code class="language-none">struct B; &#x2F;&#x2F;B的不完整声明
+<pre class="line-numbers language-none"><code class="language-none">struct B; //B的不完整声明
 struct A
-&#123;
+{
 	struct *B;
-&#125;;
+};
 struct B
-&#123;
+{
 	struct A;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="4-3位段"><a href="#4-3位段" class="headerlink" title="4.3位段"></a>4.3位段</h4><p><strong>①定义</strong></p>
 <blockquote>
@@ -973,11 +973,11 @@ struct B
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 位段可以将长度为奇数的数据包装在一起，并且可以访问一个整型值的部分内容</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> signed和unsigned声明位段成员比较好，如果将位段声明为int类型，被解释为有符号数还是无符号数由编译器决定</div>
 <pre class="line-numbers language-none"><code class="language-none">struct WeiDuan
-&#123;
+{
 	unsigned a : 7;
 	unsigned b : 6;
 	unsigned c : 19;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②位段的移植性问题</strong></p>
 <blockquote>
 <p>很多<strong>编译器</strong>将<strong>位段成员</strong>的<strong>长度</strong>限制在<strong>一个整型值</strong>之内，<strong>32位机器可以使用</strong>的位段声明可能在<strong>16位机器无法使用</strong></p>
@@ -996,18 +996,18 @@ struct B
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当联合中各个成员具有不同的长度，联合的长度就是它最长成员的长度</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当成员之间大小相差太大时，可以将联合的成员修改为不同数据类型的指针，这样就不会造成空间浪费</div>
 <pre class="line-numbers language-none"><code class="language-none">union
-&#123;
+{
 	float f;
 	int i;
-&#125;fi;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}fi;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②初始化</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 联合变量的初始值只有一个，且必须是联合第一个成员类型的数据</div>
 <pre class="line-numbers language-none"><code class="language-none">union
-&#123;
+{
 	int a;
 	float b;
 	char c[4];
-&#125;x &#x3D; &#123;5&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}x = {5};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="5-内存操作"><a href="#5-内存操作" class="headerlink" title="5.内存操作"></a>5.内存操作</h3><h4 id="5-1动态内存分配"><a href="#5-1动态内存分配" class="headerlink" title="5.1动态内存分配"></a>5.1动态内存分配</h4><p><strong>①<code>malloc()</code></strong></p>
 <blockquote>
 <p><strong>概述</strong>：从<strong>堆</strong>中提取一块<strong>连续的内存</strong>，并返回一个<strong>指向这块内存的指针</strong>，如果<strong>没有合适的内存</strong>则返回<strong>NULL</strong></p>
@@ -1051,7 +1051,7 @@ struct B
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以构建该指针的副本对内存进行操作</div>
 <p><strong>⑤常见错误</strong></p>
 <blockquote>
-<p>对<code>NULL</code>指针&#x2F;<strong>非动态分配</strong>的指针使用<code>free()</code>进行<strong>释放</strong></p>
+<p>对<code>NULL</code>指针/<strong>非动态分配</strong>的指针使用<code>free()</code>进行<strong>释放</strong></p>
 </blockquote>
 <blockquote>
 <p>对<strong>分配的内存</strong>操作时<strong>越界</strong></p>
@@ -1200,18 +1200,18 @@ struct B
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/12/10/cpp-xue-xi-bi-ji-yi/">
+                <a href="/2023/12/10/cpp-xue-xi-bi-ji-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/11.webp" class="responsive-img" alt="Cpp学习笔记（一）">
+                        <img src="/medias/featureimages/11.webp" class="responsive-img" alt="Cpp学习笔记（二）">
                         
-                        <span class="card-title">Cpp学习笔记（一）</span>
+                        <span class="card-title">Cpp学习笔记（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Cpp基础
+                            面向对象编程
                         
                     </div>
                     <div class="publish-info">
@@ -1252,23 +1252,23 @@ struct B
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/12/07/hui-bian-yu-yan-yi/">
+                <a href="/2023/12/10/c-yu-yan-xue-xi-bi-ji-san/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/27.webp" class="responsive-img" alt="汇编语言（一）">
+                        <img src="/medias/featureimages/0.webp" class="responsive-img" alt="C语言学习笔记（三）">
                         
-                        <span class="card-title">汇编语言（一）</span>
+                        <span class="card-title">C语言学习笔记（三）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            汇编语言
+                            预处理器
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-10
                             </span>
                         <span class="publish-author">
                             
@@ -1285,12 +1285,12 @@ struct B
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/8086/">
-                        <span class="chip bg-color">8086</span>
+                    <a href="/tags/C%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">C语言</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%8A%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E3%80%8B/">
-                        <span class="chip bg-color">《汇编语言》</span>
+                    <a href="/tags/%E3%80%8AC%E5%92%8C%E6%8C%87%E9%92%88%E3%80%8B/">
+                        <span class="chip bg-color">《C和指针》</span>
                     </a>
                     
                 </div>

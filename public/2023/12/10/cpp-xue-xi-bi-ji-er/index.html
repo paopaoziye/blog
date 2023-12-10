@@ -417,82 +417,82 @@
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 以下为一非泛型查找函数，只能处理整型数组，将其改造为一个泛型算法</div>
 <p><strong>①改造前</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">int* find(const int* array,int value,int size)
-&#123;
-  for(int ix &#x3D; 0;ix &lt; size;++ix)
-      if(array[ix] &#x3D;&#x3D; value)
+{
+  for(int ix = 0;ix &lt; size;++ix)
+      if(array[ix] == value)
           return &amp;array[ix];
   return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②改造后</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">template &lt;typename IteratorType,typename ElemType,typename Func&gt;
 IteratorType
 find(IteratorType first,IteratorType last,const ElemType &amp;value,Func comp)
-&#123;
-  for(;first !&#x3D; last;++first)
-  &#123;
-    if (comp(*first,value)) &#x2F;&#x2F;也可以写成
+{
+  for(;first != last;++first)
+  {
+    if (comp(*first,value)) //也可以写成
     return first;
-  &#125;
+  }
   return last;
-&#125;
+}
 
 int main()
-&#123;
-  &#x2F;&#x2F;只写与泛型指针相关部分
+{
+  //只写与泛型指针相关部分
   vector&lt;int&gt;::iterator it;
-  it &#x3D; find(vec.begin(),vec.end(),1024,equal_to());
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  it = find(vec.begin(),vec.end(),1024,equal_to());
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-2函数模板"><a href="#1-2函数模板" class="headerlink" title="1.2函数模板"></a>1.2函数模板</h4><blockquote>
 <p><strong>格式</strong>：在<strong>函数前</strong>添加<code>template</code><strong>参数列表</strong>，将<strong>形参列表</strong>需要<strong>泛化的部分</strong>替换为<strong>占位符</strong>即可</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 函数被调用时，编译器根据传入的参数类型将占位符绑定为对应类型，并产生一个对应的函数实例</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 函数模板使得函数可以处理不同数据类型的数据，且模板函数可以重载</div>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;函数定义
+<pre class="line-numbers language-none"><code class="language-none">//函数定义
 template&lt;typename T&gt;
 void  display_message(const string &amp;msg,const vector&lt;T&gt; &amp;vec)
-&#123;
+{
   cout&lt;&lt;msg;
-  for(int i &#x3D; 0;i&lt;vec.size();++i)
-  &#123;
-    T t &#x3D; vec[i];
-    cout&lt;&lt;t&lt;&lt;&#39;&#39;;
-  &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  for(int i = 0;i&lt;vec.size();++i)
+  {
+    T t = vec[i];
+    cout&lt;&lt;t&lt;&lt;'';
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-3泛型指针"><a href="#1-3泛型指针" class="headerlink" title="1.3泛型指针"></a>1.3泛型指针</h4><p><strong>①引言</strong></p>
 <blockquote>
 <p><strong>概述</strong>：<strong>泛型指针</strong>本质上是一个<strong>某个类的friend类</strong>，对多种<strong>操作符</strong>进行<strong>重载</strong>，<strong>性质和用法</strong>类似于<strong>指针</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如下为一个数列类以及其泛型指针</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 使用typedef关键字将iterator_to_special_vector改为统一的iterator</div>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;泛型指针相关联的类
-class special_vector&#123;
+<pre class="line-numbers language-none"><code class="language-none">//泛型指针相关联的类
+class special_vector{
   public:
-    &#x2F;&#x2F;一些成员函数
+    //一些成员函数
   friend class iterator_to_special_vector;
   typedef iterator_to_special_vector iterator;
 
-  iterator begin() const&#123;
+  iterator begin() const{
     return iterator(_begin_pos-1)
-  &#125;
+  }
 
-  iterator end() const&#123;
+  iterator end() const{
     return iterator(_begin_pos+_len-1)
-  &#125;
+  }
   private:
       int _begin_pos;
       int _len;
       static vector&lt;int&gt; _elems;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;泛型指针类定义
-class iterator_to_special_vector&#123;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">//泛型指针类定义
+class iterator_to_special_vector{
   public:
-      iterator_to_special_vector(int index):_index(index-1)&#123;&#125;
-      bool operator&#x3D;&#x3D; (const special_vector&amp;) const;
+      iterator_to_special_vector(int index):_index(index-1){}
+      bool operator== (const special_vector&amp;) const;
       int operator*() const;
-      &#x2F;&#x2F;...一系列操作符函数的重载
+      //...一系列操作符函数的重载
   private:
       int _index;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②格式</strong></p>
 <blockquote>
 <p><code>[类名]::iterator [泛型指针名]</code>：定义了一个<strong>对应类</strong>的泛型指针</p>
@@ -508,32 +508,32 @@ class iterator_to_special_vector&#123;
 <pre class="line-numbers language-none"><code class="language-none">template&lt;typename Iterator_Type,typename Elem_Type&gt;
 Iterator_Type
 find(Iterator_Type first,Iterator_Type last,const Elem_Type &amp;value)
-&#123;
-  for(;first!&#x3D;last;++first)
-      if(*first!&#x3D;value)
+{
+  for(;first!=last;++first)
+      if(*first!=value)
       return first;
   
   return last;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-4function-object"><a href="#1-4function-object" class="headerlink" title="1.4function object"></a>1.4function object</h4><p><strong>①引言</strong></p>
 <blockquote>
 <p><strong>概述</strong>：本质上是提供<strong>function call操作符</strong><code>()</code><strong>重载函数</strong>的类的<strong>实例对象</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 遇到lt()时，若lt为一function object（还可能为函数名和函数指针），编译器会将lt(val)转换为lt.operator(val)</div>
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class less_than
-&#123;
+{
   public:
-  &#x2F;&#x2F;构造函数
-  less_than(int val):_val(val) &#123;&#125;;
-  &#x2F;&#x2F;基值的读取与修改
-  int comp_val() const &#123;return _val;&#125;
-  void comp_val(int new_val) const &#123;_val &#x3D; new_val;&#125;
-  &#x2F;&#x2F;function call操作符重载
-  bool operator()(int val_to_com) const &#123;return val_to_com &lt; _val&#125;;
+  //构造函数
+  less_than(int val):_val(val) {};
+  //基值的读取与修改
+  int comp_val() const {return _val;}
+  void comp_val(int new_val) const {_val = new_val;}
+  //function call操作符重载
+  bool operator()(int val_to_com) const {return val_to_com &lt; _val};
 
   private:
   int _val;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②适配器</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 修改function object的特性</div>
 <blockquote>
@@ -577,12 +577,12 @@ find(Iterator_Type first,Iterator_Type last,const Elem_Type &amp;value)
 <p><code>clear()</code>：<strong>清除</strong>容器<strong>所有元素</strong></p>
 </blockquote>
 <blockquote>
-<p><code>insert()/erase()</code>：<strong>插入&#x2F;删除</strong>元素</p>
+<p><code>insert()/erase()</code>：<strong>插入/删除</strong>元素</p>
 </blockquote>
 <p><strong>③泛型算法</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 需要包含functional头文件</div>
 <blockquote>
-<p><code>find()/binary_search()</code>：<strong>线性&#x2F;二分</strong>查找对应元素</p>
+<p><code>find()/binary_search()</code>：<strong>线性/二分</strong>查找对应元素</p>
 </blockquote>
 <blockquote>
 <p><code>count()</code>：返回与数值相符的<strong>元素数目</strong></p>
@@ -601,7 +601,7 @@ find(Iterator_Type first,Iterator_Type last,const Elem_Type &amp;value)
 <p><strong>格式</strong>：<code>vector&lt;数据类型&gt; 动态数组名(元素个数)</code></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 不同于数组，动态数组的个数可以为0，也可以不是一个常量</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若数据类型为动态数组，需要声明为vector<vector<int> >，不能写为vector<vector<int>>，因为符号序列总是按照合法序列最长的解释</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若数据类型为动态数组，需要声明为vector<vector<int> &gt;，不能写为vector<vector<int>&gt;，因为符号序列总是按照合法序列最长的解释</vector<int></vector<int></div>
 
 
 <blockquote>
@@ -619,11 +619,11 @@ find(Iterator_Type first,Iterator_Type last,const Elem_Type &amp;value)
 <p><code>vector&lt;int&gt; my_vec(10，10)</code>：<code>vector</code><strong>元素个数</strong>为<code>10</code>，且<strong>所有元素</strong>被<strong>初始化</strong>为<code>10</code></p>
 </blockquote>
 <blockquote>
-<p><code>vector&lt;int&gt; my_vec(first，last)</code>：使用<strong>一对泛型指针&#x2F;指针</strong>给其赋值</p>
+<p><code>vector&lt;int&gt; my_vec(first，last)</code>：使用<strong>一对泛型指针/指针</strong>给其赋值</p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 常常使用数组对其进行复制，如vector<int> my_vec(nums，nums+num_size)</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 常常使用数组对其进行复制，如vector<int> my_vec(nums，nums+num_size)</int></div>
 <blockquote>
-<p><code>vector&lt;int&gt; my_vec(my_vec2)</code>&#x2F;<code>vector&lt;int&gt; my_vec = my_vec2</code>：<strong>复制一份</strong>传入的动态数组</p>
+<p><code>vector&lt;int&gt; my_vec(my_vec2)</code>/<code>vector&lt;int&gt; my_vec = my_vec2</code>：<strong>复制一份</strong>传入的动态数组</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 同样还可以通过my_vec == my_vec2/my_vec != my_vec2判断两者是否相同</div>
 <p><strong>③常用方法</strong></p>
@@ -751,51 +751,49 @@ find(Iterator_Type first,Iterator_Type last,const Elem_Type &amp;value)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/12/10/cpp-xue-xi-bi-ji-er/">
+                <a href="/2023/12/10/cmake-ying-yong-yi/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/11.webp" class="responsive-img" alt="Cpp学习笔记（二）">
+                        <img src="/medias/featureimages/23.webp" class="responsive-img" alt="Cmake应用（一）">
                         
-                        <span class="card-title">Cpp学习笔记（二）</span>
+                        <span class="card-title">Cmake应用（一）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            面向对象编程
+                            Cmake代码构建工具
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-10
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-12-10
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%8AC-primer%E3%80%8B/">
-                        <span class="chip bg-color">《C++primer》</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
+                    <a href="/tags/Cmake/">
+                        <span class="chip bg-color">Cmake</span>
                     </a>
                     
                 </div>
@@ -809,18 +807,18 @@ find(Iterator_Type first,Iterator_Type last,const Elem_Type &amp;value)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/12/10/cpp-xue-xi-bi-ji-yi/">
+                <a href="/2023/12/10/c-yu-yan-xue-xi-bi-ji-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/11.webp" class="responsive-img" alt="Cpp学习笔记（一）">
+                        <img src="/medias/featureimages/0.webp" class="responsive-img" alt="C语言学习笔记（二）">
                         
-                        <span class="card-title">Cpp学习笔记（一）</span>
+                        <span class="card-title">C语言学习笔记（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Cpp基础
+                            指针
                         
                     </div>
                     <div class="publish-info">
@@ -842,12 +840,12 @@ find(Iterator_Type first,Iterator_Type last,const Elem_Type &amp;value)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%8AC-primer%E3%80%8B/">
-                        <span class="chip bg-color">《C++primer》</span>
+                    <a href="/tags/C%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">C语言</span>
                     </a>
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
+                    <a href="/tags/%E3%80%8AC%E5%92%8C%E6%8C%87%E9%92%88%E3%80%8B/">
+                        <span class="chip bg-color">《C和指针》</span>
                     </a>
                     
                 </div>

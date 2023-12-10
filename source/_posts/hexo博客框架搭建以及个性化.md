@@ -118,21 +118,9 @@ git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery
 {%warning%}
 注意博客配置文件在博客根目录下，对应主题也有相应配置文件在主题文件夹中
 {%endwarning%}
+
 #### 2.2插件配置
-**①代码高亮**
->**安装**：在**博客文件夹**下`git bash/shell`中运行`npm i -S hexo-prism-plugin`
-{%list%}
-单行代码使用`包围，多行代码使用```包围
-{%endlist%}
->**配置**：修改**博客配置文件**下`_config.yml`文件中`highlight.enable`的值为`false`，并新增以下**配置项**
-```
-prism_plugin:
-  mode: 'preprocess'    # realtime/preprocess
-  theme: 'tomorrow'
-  line_number: false    # default false
-  custom_css:
-```
-**②搜索**
+**①搜索**
 >**下载**：`npm install hexo-generator-search --save`
 
 >**配置**：在**博客配置文件**中，新增以下的**配置项**
@@ -141,7 +129,7 @@ search:
   path: search.xml
   field: post
 ```
-**③中文链接转拼音**
+**②中文链接转拼音**
 >**下载**：`npm i hexo-permalink-pinyin --save`
 
 >**配置**：在**博客配置文件**中，新增以下的**配置项**
@@ -150,7 +138,7 @@ permalink_pinyin:
   enable: true
   separator: '-' # default: '-'
 ```
-**④文章字数统计插件**
+**③文章字数统计插件**
 >**下载**：`npm i --save hexo-wordcount`
 
 >**配置**：在**博客配置文件**中，新增以下的**配置项**
@@ -356,4 +344,28 @@ thumbnail: https://右侧缩略图
 {%right%}
 注意此处#代表的是‘标题’这一性质，而非标题的级别，因此不必加n个#来体现标题等级
 {%endright%}
-
+**⑦代码块**
+>**概述**：以**三个反引号**包围，并在**开头的三个反引号**后添加**语言类型**，如`cpp`、`c`和`python`等
+{%warning%}
+如果不添加语言类型，无法实现代码高亮
+{%endwarning%}
+{%right%}
+如果想要修改代码高亮样式，可以取prism官网下载css文件替换/修改主题文件夹中的source/libs/prism/prism.css
+{%endright%}
+{%list%}
+需要修改hexo根目录下的配置文件，相关部分设置如下，这里采用的是prismjs，需要关闭highlight选项
+{%endlist%}
+```yaml
+highlight:
+  enable: false
+  line_number: true
+  auto_detect: true
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  enable: true 
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+```

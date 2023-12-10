@@ -314,10 +314,10 @@ binary_to_ascii(unsigned int value)
 >使用`va_end`**注销**可变参数列表
 
 **③例子**
-```
+```c
 #include<stdarg.h>
 
-/*用于计算输入数字的平均数
+//用于计算输入数字的平均数
 float average (int n_value,...)
 {
 	va_list number_n;

@@ -442,7 +442,7 @@
 <blockquote>
 <p><code>&lt;&lt;</code>：<strong>输出流运算符</strong>，<strong>左侧</strong>必须是一个<code>ostream</code><strong>对象</strong>，<strong>右侧</strong>是<strong>输出的值</strong>，<strong>计算结果</strong>为<code>ostream</code><strong>对象</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 如cout<<内容1的计算结果为cout，这也是可以连续输出到cout的原因</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 如cout&lt;&lt;内容1的计算结果为cout，这也是可以连续输出到cout的原因</div>
 <blockquote>
 <p><code>endl</code>：输出一个<strong>换行符</strong>，并<strong>清空输出缓冲区</strong></p>
 </blockquote>
@@ -457,7 +457,7 @@
 <blockquote>
 <p><code>&gt;&gt;</code>：<strong>输入流运算符</strong>，和<code>&lt;&lt;</code>类似，将<strong>标准输入设备的数据</strong>保存到<strong>右边的容器</strong>中</p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 同理cin>>容器的返回值也是cin，所以cin可以连续输入</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 同理cin&gt;&gt;容器的返回值也是cin，所以cin可以连续输入</div>
 <h4 id="1-3引用和指针"><a href="#1-3引用和指针" class="headerlink" title="1.3引用和指针"></a>1.3引用和指针</h4><p><strong>①引用</strong></p>
 <blockquote>
 <p><strong>格式</strong>：<code>[数据类型]&amp; [引用名] = [指向对象]</code>，如<code>int&amp; my_ref = a_int</code></p>
@@ -478,9 +478,9 @@
 <p>其中<code>NULL</code>是一个<code>宏</code>，定义如下</p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">#if defined(__cplusplus)
-# define NULL 0              &#x2F;&#x2F; C++中使用0作为NULL的值
+# define NULL 0              // C++中使用0作为NULL的值
 #else
-# define NULL ((void *)0)    &#x2F;&#x2F; C中使用((void *)0)作为NULL的值
+# define NULL ((void *)0)    // C中使用((void *)0)作为NULL的值
 #endif<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-4函数特性"><a href="#1-4函数特性" class="headerlink" title="1.4函数特性"></a>1.4函数特性</h4><p><strong>①默认参数</strong></p>
 <blockquote>
@@ -505,7 +505,7 @@
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 不能仅仅依靠返回类型的不同实现函数重载，因为编译器无法根据返回类型判断你想调用那个函数</div>
 <h4 id="1-5动态内存分配"><a href="#1-5动态内存分配" class="headerlink" title="1.5动态内存分配"></a>1.5动态内存分配</h4><p><strong>①<code>new</code></strong></p>
 <blockquote>
-<p><strong>格式</strong>：<code>[数据类型]* [指针名] = new [数据类型]</code>&#x2F;<code>[数据类型]* [指针名] = new [数据类型] [元素数量]</code></p>
+<p><strong>格式</strong>：<code>[数据类型]* [指针名] = new [数据类型]</code>/<code>[数据类型]* [指针名] = new [数据类型] [元素数量]</code></p>
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 分别用于申请一个对象/一个数组的内存，后者会多分配四个字节用于保存数组的大小</div>
 <blockquote>
@@ -517,15 +517,15 @@
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若为内置类型，则直接使用参数进行每个对象进行赋值，若为类，则调用对应的构造函数对每个对象进行初始化</div>
 <blockquote>
-<p>如<code>int* pc = new int(10);</code>和<code>String* pc = new String(&quot;hello&quot;);</code></p>
+<p>如<code>int* pc = new int(10);</code>和<code>String* pc = new String("hello");</code></p>
 </blockquote>
 <p><strong>②<code>delete</code></strong></p>
 <blockquote>
-<p><strong>格式</strong>：<code>delete [申请的指针]</code>&#x2F;<code>delete [] [申请的指针]</code></p>
+<p><strong>格式</strong>：<code>delete [申请的指针]</code>/<code>delete [] [申请的指针]</code></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 分别用于释放一个对象/一个数组的内存</div>
 <blockquote>
-<p><strong>工作原理</strong>：<strong>释放申请的指针</strong>，若其<strong>指向类</strong>，<strong>在此之前</strong>还需要调用<strong>一次&#x2F;多次</strong>对应类型的<strong>析构函数</strong>，</p>
+<p><strong>工作原理</strong>：<strong>释放申请的指针</strong>，若其<strong>指向类</strong>，<strong>在此之前</strong>还需要调用<strong>一次/多次</strong>对应类型的<strong>析构函数</strong>，</p>
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> delete[]会取出new[]保存的数组大小，并调用对应次数的析构函数</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> new[]需要和delete[]配套使用，否则可能会造成内存泄漏</div>
@@ -545,32 +545,32 @@
 <pre class="line-numbers language-none"><code class="language-none">#ifndef __COMPLEX__
 #define __COMPLEX__
 
-&#x2F;&#x2F;类的前置声明
+//类的前置声明
 class [类名]
 
-&#x2F;&#x2F;类的主体
-class [类的名称]&#123;
+//类的主体
+class [类的名称]{
 
-  friend [函数声明]&#x2F;[类前置声明]
+  friend [函数声明]/[类前置声明]
 
   public:
-      &#x2F;&#x2F;公共接口，即成员函数的声明或者定义
+      //公共接口，即成员函数的声明或者定义
 
   private:
-      &#x2F;&#x2F;私有实现，通常是实现该类需要的数据，data member
+      //私有实现，通常是实现该类需要的数据，data member
 
   protected:
-      &#x2F;&#x2F;通常存放需要继承给子类的数据和函数
-&#125;
+      //通常存放需要继承给子类的数据和函数
+}
 
-&#x2F;&#x2F;inline成员函数定义
+//inline成员函数定义
 
 #endif<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>③访问权限</strong></p>
 <blockquote>
 <p><code>public</code>：通常存放<strong>成员函数</strong>的<strong>声明</strong>或<strong>定义</strong>，可以在<strong>程序的任何位置</strong>访问</p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 类的实例对象可以通过.操作符访问public成员，其指针通过->访问</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 类的实例对象可以通过.操作符访问public成员，其指针通过-&gt;访问</div>
 <blockquote>
 <p><code>private</code>：通常存放<strong>实现该类</strong>需要的<strong>数据（data member）</strong>，只能被<strong>成员函数</strong>和<strong>friend类</strong>访问</p>
 </blockquote>
@@ -579,7 +579,7 @@ class [类的名称]&#123;
 <p><code>protected</code>：处于该区域的成员能<strong>该类以及被其子类</strong>访问，<strong>外界与父类</strong>不能访问</p>
 </blockquote>
 <blockquote>
-<p><code>friend</code>：类可以将<strong>某个类&#x2F;函数</strong>指定为<code>friend</code>，在<strong>类主体</strong>中添加<code>friend</code>修饰的<strong>函数声明&#x2F;类前置声明</strong>即可</p>
+<p><code>friend</code>：类可以将<strong>某个类/函数</strong>指定为<code>friend</code>，在<strong>类主体</strong>中添加<code>friend</code>修饰的<strong>函数声明/类前置声明</strong>即可</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 指定为friend的函数/类的成员函数与该类成员函数具有相同的访问权限</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 将函数/类添加为某个类的friend时，在此之前需要有它们的前置声明</div>
@@ -595,7 +595,7 @@ class [类的名称]&#123;
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 在成员函数中，this为一个指向调用者的指针，编译器会自动将其添加到参数列表的最左侧</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 在成员函数中的data member，如果不指明其所属，则默认属于调用者</div>
 
-<p><strong>②构造&#x2F;析构函数</strong></p>
+<p><strong>②构造/析构函数</strong></p>
 <blockquote>
 <p><strong>构造函数</strong>：函数名<strong>和类的名称相同</strong>，且<strong>没有返回类型和返回值</strong>，可以<strong>被重载</strong></p>
 </blockquote>
@@ -616,21 +616,21 @@ class [类的名称]&#123;
 <div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 实现过程中，要检测自我赋值，如下执行m_data = new char[strlen(str.m_data)+1];时m_data已经被释放</div>
 <pre class="line-numbers language-none"><code class="language-none">inline
 String::String(const String&amp; str)
-&#123;
-    m_data &#x3D; new char[strlen(str.m_data)+1];
+{
+    m_data = new char[strlen(str.m_data)+1];
     strcpy(m_data,str.m_data);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-none"><code class="language-none">inline 
-String&amp; String::operator&#x3D;(const String&amp; str)
-&#123;
-    if(this &#x3D;&#x3D; &amp;str) &#x2F;&#x2F;检测自我赋值
+String&amp; String::operator=(const String&amp; str)
+{
+    if(this == &amp;str) //检测自我赋值
         return *this;
 
     delete[] m_data;
-    m_data &#x3D; new char[strlen(str.m_data)+1];
+    m_data = new char[strlen(str.m_data)+1];
     strcpy(m_data,str.m_data);
     return *this;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>④成员初始化列表</strong></p>
 <blockquote>
 <p><strong>概述</strong>：<strong>构造函数</strong>的一种<strong>特殊语法</strong>，紧跟在<strong>参数列表后面</strong>，用于<strong>初始化data member</strong></p>
@@ -645,9 +645,9 @@ String&amp; String::operator&#x3D;(const String&amp; str)
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">Matrix::Matrix(int row,int col)
 :_row(row),_col(col)
-&#123;
-  _pmat &#x3D; new double(row*col);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+{
+  _pmat = new double(row*col);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>⑤可变与不变</strong></p>
 <blockquote>
@@ -656,8 +656,8 @@ String&amp; String::operator&#x3D;(const String&amp; str)
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> const关键词紧跟在函数的参数列表后，编译器会检查声明为const的函数是否会改变类对象的data member</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> const成员函数如果返回的是data member的引用，则返回类型也需要被const修饰</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以提供一个函数的const版本和非const版本，若传入的是const对象，则调用const版本，反之调用非const版本</div>
-<pre class="line-numbers language-none"><code class="language-none">const int&amp; row() const &#123;return _row&#125;
-int&amp; row() &#123;return _row&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">const int&amp; row() const {return _row}
+int&amp; row() {return _row}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
 <p><code>mutable</code>：用以修饰<strong>data member</strong>，表示修改该<strong>data member</strong>不会影响<strong>对象实例</strong>的<strong>常量性</strong></p>
 </blockquote>
@@ -678,68 +678,68 @@ int&amp; row() &#123;return _row&#125;<span aria-hidden="true" class="line-numbe
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 不能修改操作符函数的操作数和优先级，除了.、.*、::、?:，其余操作符均可被重载</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 若为二元操作符，操作符的左操作数作为第一个参数传递给操作符函数，右操作数作为第二参数传递给操作符函数</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 参数列表必须至少有一个class类型参数</div>
-<p><strong>②成员&#x2F;非成员函数</strong></p>
+<p><strong>②成员/非成员函数</strong></p>
 <blockquote>
 <p><strong>概述</strong>：<strong>操作符重载函数</strong>可以为一<strong>成员函数</strong>，也可为一<strong>非成员函数</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若为成员函数，其第一个参数为*this指针，表示其左操作数一定是所属类，而非成员函数可以随意设置顺序</div>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;成员函数版本定义
+<pre class="line-numbers language-none"><code class="language-none">//成员函数版本定义
 inline int iterator_to_special_vector::
 operator*() const
-&#123;
+{
   return special_vector::_elem[_index]
-&#125;
+}
 
-&#x2F;&#x2F;非成员函数版本定义 需要将其声明为对应类的friend，该函数才能访问_elem和_index
+//非成员函数版本定义 需要将其声明为对应类的friend，该函数才能访问_elem和_index
 inline int
 operator*(const  special_vector&amp;) const
-&#123;
+{
   return special_vector::_elem[_index]
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>③前&#x2F;后置版本</strong></p>
+<p><strong>③前/后置版本</strong></p>
 <blockquote>
-<p><strong>概述</strong>：有些运算符还分为<strong>前置版本</strong>和<strong>后置版本</strong>，如<strong>递增&#x2F;减</strong>运算符，规定<strong>后置版本</strong>的参数列表多出一个<code>int</code><strong>参数</strong></p>
+<p><strong>概述</strong>：有些运算符还分为<strong>前置版本</strong>和<strong>后置版本</strong>，如<strong>递增/减</strong>运算符，规定<strong>后置版本</strong>的参数列表多出一个<code>int</code><strong>参数</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 编译器会自动传递0给后置版本操作符函数的int参数</div>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;前置版本
+<pre class="line-numbers language-none"><code class="language-none">//前置版本
 inline my_iterator&amp; myiterator::
-operator++()&#123;
-  &#x2F;&#x2F;具体实现
-&#125;
+operator++(){
+  //具体实现
+}
 
-&#x2F;&#x2F;后置版本
+//后置版本
 inline my_iterator&amp; myiterator::
-operator++(int)&#123;
-  &#x2F;&#x2F;具体实现
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+operator++(int){
+  //具体实现
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>④iostream运算符重载</strong></p>
 <blockquote>
 <p><strong>概述</strong>：<code>&gt;&gt;</code><strong>运算符</strong>的实现较为复杂，还需要判断<strong>读取数据</strong>是否有问题，这里不考虑这些问题</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> ostream对象不能声明为const，因为每次输出都会改变该对象状态</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> <<运算符重载函数不能为一个成员函数，否则类必须要放在<<左边</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> &lt;&lt;运算符重载函数不能为一个成员函数，否则类必须要放在&lt;&lt;左边</div>
 <pre class="line-numbers language-none"><code class="language-none">ostream&amp; operator&lt;&lt; (ostream&amp; os,const special_vec&amp; vec)
-&#123;
-  os&lt;&lt;&quot;(&quot;&lt;&lt;vec._begin_pos&lt;&lt;&quot;,&quot;&lt;&lt;vec._len&lt;&lt;&quot;)&quot;;
-  for(int i &#x3D; 0;i&lt;vec._len;i++)&#123;
+{
+  os&lt;&lt;"("&lt;&lt;vec._begin_pos&lt;&lt;","&lt;&lt;vec._len&lt;&lt;")";
+  for(int i = 0;i&lt;vec._len;i++){
     os&lt;&lt;vec._elems[i];
-  &#125;
+  }
   os&lt;&lt;endl;
   return os;
-&#125;
+}
 istream&amp;
 operator&gt;&gt;(istream &amp;is,special_vector &amp;vec)
-&#123;
+{
   char ch1,ch2;
   int bp,len;
   is&gt;&gt;ch1&gt;&gt;bp&gt;&gt;ch2&gt;&gt;len;
 
-  vec._begin_pos &#x3D; bp;
-  vec._len &#x3D; len;
+  vec._begin_pos = bp;
+  vec._len = len;
 
   return is;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <hr>
 <h3 id="3-面向对象的编程风格"><a href="#3-面向对象的编程风格" class="headerlink" title="3.面向对象的编程风格"></a>3.面向对象的编程风格</h3><h4 id="3-1引言"><a href="#3-1引言" class="headerlink" title="3.1引言"></a>3.1引言</h4><p><strong>①三大特性</strong></p>
 <blockquote>
@@ -766,10 +766,10 @@ operator&gt;&gt;(istream &amp;is,special_vector &amp;vec)
 <blockquote>
 <p>如下，函数的<strong>形参</strong>为<strong>抽象基类</strong>，但是<strong>实际调用</strong>时可以传递<strong>任何子类</strong></p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">void loan_check_in (Lib&amp; my_Lib)&#123;
+<pre class="line-numbers language-none"><code class="language-none">void loan_check_in (Lib&amp; my_Lib){
   my_Lib.check_in();
-  &#x2F;&#x2F;程序具体实现
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+  //程序具体实现
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>③动态绑定</strong></p>
 <blockquote>
 <p><strong>概述</strong>：如上，<code>my_Lib.check_in()</code>到<strong>执行时</strong>才根据<strong>实际传入的对象类型</strong>调用对应的函数<code>check_in()</code></p>
@@ -783,38 +783,38 @@ operator&gt;&gt;(istream &amp;is,special_vector &amp;vec)
 <p><strong>概述</strong>：定义了<strong>父类</strong><code>Lib</code>和<strong>子类</strong><code>Book</code>，其中<strong>子类的前置声明后</strong>接<code>:[继承类型][父类名]</code>，表示其<strong>继承自某类</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 子类的头文件需要包含父类的头文件，继承方式有多种，这里只介绍public继承</div>
-<pre class="line-numbers language-none"><code class="language-none">class Lib&#123;
+<pre class="line-numbers language-none"><code class="language-none">class Lib{
   public:
 
-  Lib()&#123;cout&lt;&lt;&quot;Create a Lib class!&quot;&lt;&lt;endl;&#125;
+  Lib(){cout&lt;&lt;"Create a Lib class!"&lt;&lt;endl;}
 
-  virtual ~Lib()&#123;cout&lt;&lt;&quot;Release a Lib class!&quot;&lt;&lt;endl;&#125;
-  &#x2F;&#x2F;Lib类的print函数
-  virtual void print() const&#123;
-    cout&lt;&lt;&quot;I am a Lib class!&quot;&lt;&lt;endl;
-  &#125;
+  virtual ~Lib(){cout&lt;&lt;"Release a Lib class!"&lt;&lt;endl;}
+  //Lib类的print函数
+  virtual void print() const{
+    cout&lt;&lt;"I am a Lib class!"&lt;&lt;endl;
+  }
 
   private:
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">#include &quot;Lib.h&quot;
-class Book:public Lib&#123;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">#include "Lib.h"
+class Book:public Lib{
   public:
 
   Book(const string&amp; author,const string&amp; title)
   :_title(title),_author(author)
-  &#123;cout&lt;&lt;&quot;Create a Book class!&quot;&lt;&lt;endl;&#125;
+  {cout&lt;&lt;"Create a Book class!"&lt;&lt;endl;}
 
-  virtual ~Book()&#123;cout&lt;&lt;&quot;Release a Book class!&quot;&lt;&lt;endl;&#125;
-  &#x2F;&#x2F;Book类的print函数，覆盖了从父类继承来的print()
-  virtual void print() const&#123;
-    cout&lt;&lt;&quot;I am a Book class!&quot;&lt;&lt;endl;
-    cout&lt;&lt;&quot;My title is&quot;&lt;&lt;_title&lt;&lt;&quot;!&quot;endl;
-    cout&lt;&lt;&quot;My author is&quot;&lt;&lt;_author&lt;&lt;&quot;!&quot;endl;
-  &#125;
+  virtual ~Book(){cout&lt;&lt;"Release a Book class!"&lt;&lt;endl;}
+  //Book类的print函数，覆盖了从父类继承来的print()
+  virtual void print() const{
+    cout&lt;&lt;"I am a Book class!"&lt;&lt;endl;
+    cout&lt;&lt;"My title is"&lt;&lt;_title&lt;&lt;"!"endl;
+    cout&lt;&lt;"My author is"&lt;&lt;_author&lt;&lt;"!"endl;
+  }
 
   protected:
   string _title,_author;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②虚函数</strong></p>
 <blockquote>
 <p><code>virtual</code>：修饰一个<strong>成员函数</strong>使其成为<strong>虚函数</strong>，从而实现<strong>动态绑定</strong>，若其被<strong>赋值</strong>为<code>0</code>，则为<strong>纯虚函数</strong></p>
@@ -836,14 +836,14 @@ class Book:public Lib&#123;
 <pre class="line-numbers language-none"><code class="language-none">inline Book::
 Book(string&amp; title,string&amp; author)
 :Lib(),_title(title),_author(author)
-&#123;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+{}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p><strong>析构</strong>：当一个<strong>子类</strong>生命周期中介，<strong>首先</strong>调用<strong>本身析构函数</strong>，随后再<strong>自底向上</strong>调用其<strong>父类的析构函数</strong></p>
 </blockquote>
 <p><strong>④运行时类型鉴定</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 需要包含typeinfo头文件</div>
 <blockquote>
-<p><code>typeid()</code>：接收一个<strong>类实例&#x2F;类名</strong>，如<code>typeid(*this)</code>，返回一个<code>type_info</code><strong>对象</strong>，包含了该实例的<strong>类相关信息</strong></p>
+<p><code>typeid()</code>：接收一个<strong>类实例/类名</strong>，如<code>typeid(*this)</code>，返回一个<code>type_info</code><strong>对象</strong>，包含了该实例的<strong>类相关信息</strong></p>
 </blockquote>
 <blockquote>
 <p><code>name()</code>：返回<code>type_info</code><strong>对象</strong>中的<strong>名字信息</strong>，如<code>typeid(*this).name()</code></p>
@@ -859,7 +859,7 @@ Book(string&amp; title,string&amp; author)
 <p>如下，<code>p_to_lib</code>为<code>Lib*</code>类的指针，虽然指向<code>Book</code><strong>实例</strong>，但是还是<strong>只能调用</strong><code>Lib</code>类的<strong>成员函数</strong></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">Book a_book;
-Lib* p_to_lib &#x3D; &amp;a_book;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+Lib* p_to_lib = &amp;a_book;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h4 id="3-3模板类"><a href="#3-3模板类" class="headerlink" title="3.3模板类"></a>3.3模板类</h4><p><strong>①模板template</strong></p>
 <blockquote>
 <p><strong>格式</strong>：在<strong>类前</strong>添加<code>template</code><strong>参数列表</strong>，其中<code>typename</code>为<strong>关键字</strong>，后接一<strong>占位符</strong>，可以有<strong>多对</strong>，用<strong>逗号</strong>隔开</p>
@@ -875,12 +875,12 @@ Lib* p_to_lib &#x3D; &amp;a_book;<span aria-hidden="true" class="line-numbers-ro
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 其中二叉树类是节点类的friend，因为其要访问节点类的数据</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 注意两者的friend声明，都必须以template参数列表加以限制，且列表中采用的是本身的占位符</div>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;二叉树类的前置声明
+<pre class="line-numbers language-none"><code class="language-none">//二叉树类的前置声明
 template&lt;typename Node_type&gt;
 class Binary_tree;
-&#x2F;&#x2F;节点类的定义
+//节点类的定义
 template&lt;typename val_type&gt;
-class Node_to_tree&#123;
+class Node_to_tree{
   friend class Binary_tree&lt;val_type&gt;
   public:
 
@@ -889,30 +889,30 @@ class Node_to_tree&#123;
   int _cnt;
   Node_to_tree* _lchild;
   Node_to_tree* _rchild;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;二叉树类的定义
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">//二叉树类的定义
 template&lt;typename Node_type&gt;
-class Binary_tree&#123;
+class Binary_tree{
   public:
   Binary_tree();
   Binary_tree(const Binary_tree&amp;);
   ~Binary_tree();
-  Binary_tree&amp; operator&#x3D;(const Binary_tree&amp;);
+  Binary_tree&amp; operator=(const Binary_tree&amp;);
 
 
   private:
   Node_to_tree&lt;Node_type&gt;* _root;
   void copy(Node_to_tree&lt;Node_type&gt;* tar,Node_to_tree&lt;Node_type&gt;* src);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>③成员函数定义</strong></p>
 <blockquote>
 <p><strong>概述</strong>：与<strong>普通类</strong>不同，<strong>开头</strong>需要添加<code>template</code><strong>参数列表</strong>，且<strong>类限定符</strong>也需要<code>template</code><strong>列表</strong>加以限定</p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 在类限定符，即Binary_tree<Node_type>::后的语句，都视为定义在Binary_tree类中</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 在类限定符，即Binary_tree<node_type>::后的语句，都视为定义在Binary_tree类中</node_type></div>
 <pre class="line-numbers language-none"><code class="language-none">template&lt;typename Node_type&gt;
 inline Binary_tree&lt;Node_type&gt;::
 Binary_tree():_root(0)
-&#123;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+{}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <p><strong>②类的创建</strong></p>
@@ -1043,18 +1043,18 @@ Binary_tree():_root(0)
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/12/10/cpp-xue-xi-bi-ji-er/">
+                <a href="/2023/12/10/cmake-ying-yong-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/11.webp" class="responsive-img" alt="Cpp学习笔记（二）">
+                        <img src="/medias/featureimages/23.webp" class="responsive-img" alt="Cmake应用（二）">
                         
-                        <span class="card-title">Cpp学习笔记（二）</span>
+                        <span class="card-title">Cmake应用（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            面向对象编程
+                            Cmake代码构建工具
                         
                     </div>
                     <div class="publish-info">
@@ -1065,8 +1065,8 @@ Binary_tree():_root(0)
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             
@@ -1076,12 +1076,12 @@ Binary_tree():_root(0)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%8AC-primer%E3%80%8B/">
-                        <span class="chip bg-color">《C++primer》</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
+                    <a href="/tags/Cmake/">
+                        <span class="chip bg-color">Cmake</span>
                     </a>
                     
                 </div>
@@ -1095,18 +1095,18 @@ Binary_tree():_root(0)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/12/10/c-yu-yan-xue-xi-bi-ji-er/">
+                <a href="/2023/12/10/cmake-ying-yong-yi/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/0.webp" class="responsive-img" alt="C语言学习笔记（二）">
+                        <img src="/medias/featureimages/23.webp" class="responsive-img" alt="Cmake应用（一）">
                         
-                        <span class="card-title">C语言学习笔记（二）</span>
+                        <span class="card-title">Cmake应用（一）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            指针
+                            Cmake代码构建工具
                         
                     </div>
                     <div class="publish-info">
@@ -1117,8 +1117,8 @@ Binary_tree():_root(0)
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             
@@ -1128,12 +1128,12 @@ Binary_tree():_root(0)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">C语言</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%8AC%E5%92%8C%E6%8C%87%E9%92%88%E3%80%8B/">
-                        <span class="chip bg-color">《C和指针》</span>
+                    <a href="/tags/Cmake/">
+                        <span class="chip bg-color">Cmake</span>
                     </a>
                     
                 </div>

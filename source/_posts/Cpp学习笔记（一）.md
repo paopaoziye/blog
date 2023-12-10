@@ -96,7 +96,7 @@ Cpp基础部分和C语言大部分一致，只介绍不同的部分
 指针如果不使用可以初始化为空指针（NULL或0），使用前需要检查其是否为空指针
 {%endwarning%}
 >其中`NULL`是一个`宏`，定义如下
-```
+```cpp
 #if defined(__cplusplus)
 # define NULL 0              // C++中使用0作为NULL的值
 #else
@@ -179,7 +179,7 @@ new[]需要和delete[]配套使用，否则可能会造成内存泄漏
 {%right%}
 其中的条件编译指令防止该头文件被多次包含
 {%endright%}
-```
+```cpp
 #ifndef __COMPLEX__
 #define __COMPLEX__
 
@@ -266,7 +266,7 @@ class [类的名称]{
 {%wrong%}
 实现过程中，要检测自我赋值，如下执行m_data = new char[strlen(str.m_data)+1];时m_data已经被释放
 {%endwrong%}
-```
+```cpp
 inline
 String::String(const String& str)
 {
@@ -274,7 +274,7 @@ String::String(const String& str)
     strcpy(m_data,str.m_data);
 }
 ```
-```
+```cpp
 inline 
 String& String::operator=(const String& str)
 {
@@ -298,7 +298,7 @@ String& String::operator=(const String& str)
 >**成员初始化列表**会调用该类的**copy构造函数**对其进行**初始化**
 
 >**构造函数内**的初始化，会**先调用**该类的**缺省构造函数**，再调用**该类的赋值运算符函数**
-```
+```cpp
 Matrix::Matrix(int row,int col)
 :_row(row),_col(col)
 {
@@ -317,7 +317,7 @@ const成员函数如果返回的是data member的引用，则返回类型也需�
 {%right%}
 可以提供一个函数的const版本和非const版本，若传入的是const对象，则调用const版本，反之调用非const版本
 {%endright%}
-```
+```cpp
 const int& row() const {return _row}
 int& row() {return _row}
 ```
@@ -351,7 +351,7 @@ int& row() {return _row}
 {%list%}
 若为成员函数，其第一个参数为*this指针，表示其左操作数一定是所属类，而非成员函数可以随意设置顺序
 {%endlist%}
-```
+```cpp
 //成员函数版本定义
 inline int iterator_to_special_vector::
 operator*() const
@@ -372,7 +372,7 @@ operator*(const  special_vector&) const
 {%list%}
 编译器会自动传递0给后置版本操作符函数的int参数
 {%endlist%}
-```
+```cpp
 //前置版本
 inline my_iterator& myiterator::
 operator++(){
@@ -393,7 +393,7 @@ ostream对象不能声明为const，因为每次输出都会改变该对象状�
 {%warning%}
 <<运算符重载函数不能为一个成员函数，否则类必须要放在<<左边
 {%endwarning%}
-```
+```cpp
 ostream& operator<< (ostream& os,const special_vec& vec)
 {
   os<<"("<<vec._begin_pos<<","<<vec._len<<")";
@@ -444,7 +444,7 @@ operator>>(istream &is,special_vector &vec)
 使用抽象基类的指针或引用间接操作子类的对象实例，从而在不改变旧有程序的前提下，新增/删除子类
 {%endright%}
 >如下，函数的**形参**为**抽象基类**，但是**实际调用**时可以传递**任何子类**
-```
+```cpp
 void loan_check_in (Lib& my_Lib){
   my_Lib.check_in();
   //程序具体实现
@@ -470,7 +470,7 @@ void loan_check_in (Lib& my_Lib){
 {%list%}
 子类的头文件需要包含父类的头文件，继承方式有多种，这里只介绍public继承
 {%endlist%}
-```
+```cpp
 class Lib{
   public:
 
@@ -485,7 +485,7 @@ class Lib{
   private:
 }
 ```
-```
+```cpp
 #include "Lib.h"
 class Book:public Lib{
   public:
@@ -530,7 +530,7 @@ class Book:public Lib{
 若基类中有data member，则最好在其构造函数中将其初始化，即子类的构造函数还需要调用基类的构造函数
 {%endwarning%}
 >若没有**显式调用**，则编译器会**自动**调用父类的**缺省构造函数**
-```
+```cpp
 inline Book::
 Book(string& title,string& author)
 :Lib(),_title(title),_author(author)
@@ -553,7 +553,7 @@ Book(string& title,string& author)
 若使用指针调用成员函数，则其为指向什么类的指针，就只能调用对应类的成员函数，即使有虚函数机制
 {%endlist%}
 >如下，`p_to_lib`为`Lib*`类的指针，虽然指向`Book`**实例**，但是还是**只能调用**`Lib`类的**成员函数**
-```
+```cpp
 Book a_book;
 Lib* p_to_lib = &a_book;
 ```
@@ -575,7 +575,7 @@ Lib* p_to_lib = &a_book;
 {%warning%}
 注意两者的friend声明，都必须以template参数列表加以限制，且列表中采用的是本身的占位符
 {%endwarning%}
-```
+```cpp
 //二叉树类的前置声明
 template<typename Node_type>
 class Binary_tree;
@@ -592,7 +592,7 @@ class Node_to_tree{
   Node_to_tree* _rchild;
 }
 ```
-```
+```cpp
 //二叉树类的定义
 template<typename Node_type>
 class Binary_tree{
@@ -613,7 +613,7 @@ class Binary_tree{
 {%list%}
 在类限定符，即Binary_tree<Node_type>::后的语句，都视为定义在Binary_tree类中
 {%endlist%}
-```
+```cpp
 template<typename Node_type>
 inline Binary_tree<Node_type>::
 Binary_tree():_root(0)
