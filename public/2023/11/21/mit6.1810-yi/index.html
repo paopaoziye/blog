@@ -450,19 +450,19 @@ make qemu<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 创建的是进程，子进程被创建后不久就执行了，通常使用fork的返回值以及if语句区别父子进程</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 子进程运行时是有自己独立的内存空间的，父子进程相互不影响</div>
 <blockquote>
-<p><code>void exit(int status)</code>：<strong>销毁</strong>当前进程并<strong>释放资源</strong></p>
+<p><code>void exit(int status)</code>：<strong>销毁</strong>当前进程并<strong>释放资源</strong>，<code>status</code>表示进程<strong>结束状态</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 主动结束进程，当status为0时，表示正常结束，1表示发生错误并结束</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 主动结束进程并给出提示信息，即是正常结束还是非正常结束</div>
 <blockquote>
-<p><code>int wait(void *)</code>：进程<strong>立刻阻塞</strong>，若其有<strong>子进程主动退出或者被杀死</strong>，返回<strong>子进程PID</strong>，反之则<strong>一直等待</strong>，如果<strong>没有子进程</strong>，返回<code>-1</code></p>
+<p><code>int wait(int *)</code>：进程<strong>立刻阻塞</strong>，若其有<strong>子进程主动退出或者被杀死</strong>，返回<strong>子进程PID</strong>，如果<strong>没有子进程</strong>，返回<code>-1</code>，反之则<strong>一直等待</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 传入参数为一返回地址，用于接受子进程退出状态，如果不关心该信息，传入一个0地址（int*）0</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 对于父子进程共享的信息，可以先让父进程wait，让子进程先访问</div>
 <blockquote>
 <p><code>void exec(char* filename，char* argv)</code>：在<strong>进程内部</strong>执行一个<strong>可执行文件</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> filename用于提供文件路径，argv用于提供字符串参数数组，其中对应文件必须有特定的格式</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> filename用于提供文件路径，对应文件必须有特定的格式，argv用于提供字符串参数数组，第一个参数为程序名</div>
 
 <h4 id="2-2I-x2F-O操作"><a href="#2-2I-x2F-O操作" class="headerlink" title="2.2I/O操作"></a>2.2I/O操作</h4><blockquote>
 <p><strong>文件描述符fd</strong>：本质上是一个<strong>小整型</strong>，一个<strong>可以读写</strong>的由<strong>内核管理</strong>的对象，将<strong>文件</strong>、<strong>目录</strong>和<strong>设备</strong>等抽象为<strong>字节流</strong></p>
@@ -472,7 +472,7 @@ make qemu<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 <blockquote>
 <p><code>int read(int fd,char* buf,int n)</code>：从<code>fd</code>处<strong>最多读取n字节</strong>，并复<strong>制到缓冲区</strong><code>buf</code>中，返回<strong>读取的字节数</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每个文件描述符都会记录其字节流所在位置信息，所以对于同一个文件描述符，每次读写的起始位置是不同的</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每个文件描述符都会记录其字节流所在位置信息，且随着读写等操作向前/后推移</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 读取字节数为0表示到达文件末尾</div>
 <blockquote>
 <p><code>write(fd，buf，n)</code>：将<strong>缓冲区</strong><code>buf</code>中的<strong>n个字节</strong>写入<code>fd</code>处，返回<strong>写入的字节数</strong></p>
@@ -493,10 +493,10 @@ make qemu<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 <blockquote>
 <p><code>int dup(int fd)</code>:接受一个<strong>文件描述符</strong>，返回一个<strong>新文件描述符</strong>，<strong>一同</strong>指向<strong>对应文件</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 父进程和子进程，以及dup得到的文件描述符和原文件描述符之间的字节流位置偏移一开始是一样的</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 父进程和子进程，以及dup得到的文件描述符和原文件描述符的字节流位置偏移一开始是一样的</div>
 
 <blockquote>
-<p><strong>管道</strong>：本质上是<strong>一对文件描述符</strong>，指向<strong>全局的缓冲区</strong>，用于在<strong>两个进程</strong>之间<strong>传递数据</strong></p>
+<p><strong>管道</strong>：本质上是<strong>一对文件描述符</strong>，指向<strong>全局的内核缓冲区</strong>，用于在<strong>两个进程</strong>之间<strong>传递数据</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 两个文件描述符分别传递给两个进程，一个用于一个进程写数据，另一个用于另一个进程读书据</div>
 <blockquote>
@@ -544,8 +544,7 @@ if (fork() == 0) {
 <blockquote>
 <p><strong>inode</strong>：<strong>文件</strong>在操作系统中的<strong>抽象</strong>，保存了文件的<strong>元数据</strong>、<strong>长度</strong>、<strong>磁盘位置</strong>等<strong>描述信息</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 元数据即文件的解释信息</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> </div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 一个inode文件可以对应多个链接（名字）</div>
 <blockquote>
 <p><code>void chdir(char* path)</code>：修改<strong>当前工作目录</strong>，可以传入<strong>相对路径</strong>也可以传入<strong>绝对路径</strong></p>
 </blockquote>
@@ -556,11 +555,27 @@ if (fork() == 0) {
 <blockquote>
 <p><code>mknod(char* path,int device_number1,int device_number2)</code>：创建一个<strong>设备文件</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 后两个参数分别为设备的主设备号和次设备号</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 后两个参数分别为设备的主设备号和次设备号，唯一地标识了一个内核设备</div>
+<blockquote>
+<p><code>link(char* file1,char* file2)</code>：给<strong>链接</strong><code>file1</code>创建一个<strong>新的链接</strong><code>file2</code>，两者指向<strong>同一个inode</strong>文件</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 从file1读取或写入与从file2读取或写入是相同的操作</div>
 
-<p>shell的实现：getcmd读取命令行内容，fork创建一个shell进程的副本，父进程调用wait，子进程根据用户输入的命令执行对应操作，通常是使用exec跑一个命令脚本<br>错误文件描述符的I/O重定向？？？</p>
-<p>抽象硬件并提供接口<br>程序共用硬件资源并且相互之间隔离，可以协同，共享数据，也可以防止别的进程访问<br>拥有完整硬件</p>
-<p>当程序阻塞时，记录进程的状态CPU寄存器，等下一次执行时回复<br>使用fork创建新进程，调用fork的称为父进程，子进程内存内容与父进程完全相同，在父进程中，返回子进程的PID，在子进程中，返回0<br>exit停止对应进程并释放资源<br>wait返回当前进程已退出的子进程的PID</p>
+<blockquote>
+<p><code>unlink(char* file1)</code>：从<strong>文件系统</strong>中删除一个<strong>链接</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当文件的链接数为零且没有文件描述符引用时，文件的inode和包含其内容的磁盘空间会被释放</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以利用unlink创建临时文件</div>
+<pre class="line-numbers language-none"><code class="language-none">fd = open("/tmp/xyz", O_CREATE | O_RDWR);
+unlink("/tmp/xyz");<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="2-4xv6架构"><a href="#2-4xv6架构" class="headerlink" title="2.4xv6架构"></a>2.4xv6架构</h4><p>没有操作系统，各个应用程序直接和硬件交互</p>
+<p>宏内核：整个操作系统都驻留在内核中，以完全的硬件特权运行，不同部分更容易合作<br>不同部分之间的接口通常很复杂，且发生错误可能会导致整个内核停止运行</p>
+<p>微内核：将操作系统中最基本的部分放入内核中，而把操作系统的绝大部分功能都放在微内核外面的一组服务器(进程)中实现。</p>
+<p>每个进程有一个单独的页表，映射其地址空间，进程最大地址空间受到限制，MAXVA，kernel/riscv.h:348</p>
+<p>proc结构保存了每个进程的状态，页表、内核栈区和运行状态</p>
+<p>进程都有一个或者多个线程，用于执行进程的指令，线程的大部分状态保存在线程的栈中</p>
+<p>每个进程有一个用户栈和内核栈，进程执行用户指令时，只有它的用户栈在使用，它的内核栈是空的。当进程进入内核（由于系统调用或中断）时，内核代码在进程的内核堆栈上执行；当一个进程在内核中时，它的用户堆栈仍然包含保存的数据，只是不处于活动状态。进程的线程在主动使用它的用户栈和内核栈之间交替</p>
+<p>RISC-V的ecall指令允许应用程序从指定点陷入内核，提升硬件特权级别，并将程序计数器（PC）更改为内核定义的入口点，入口点的代码切换到内核栈，执行实现系统调用的内核指令，当系统调用完成时，内核切换回用户栈，并通过调用sret指令返回用户空间，该指令降低了硬件特权级别，并在系统调用指令刚结束时恢复执行用户指令。进程的线程可以在内核中“阻塞”等待I/O，并在I/O完成后恢复到中断的位置。<br><a target="_blank" rel="noopener" href="https://xv6.dgs.zone/tranlate_books/book-riscv-rev1/c3/s8.html">https://xv6.dgs.zone/tranlate_books/book-riscv-rev1/c3/s8.html</a></p>
 
                 
             </div>

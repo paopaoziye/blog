@@ -358,8 +358,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
-                                <span class="chip bg-color">汇编语言</span>
+                            <a href="/tags/8086/">
+                                <span class="chip bg-color">8086</span>
                             </a>
                         
                             <a href="/tags/%E3%80%8A%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E3%80%8B/">
@@ -411,13 +411,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="汇编语言（一）"><a href="#汇编语言（一）" class="headerlink" title="汇编语言（一）"></a>汇编语言（一）</h1><h2 id="汇编语言启蒙"><a href="#汇编语言启蒙" class="headerlink" title="汇编语言启蒙"></a>汇编语言启蒙</h2><div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 以下内容主要以8086CPU为例，该CPU是16位结构，注意这个大前提</div>
-<h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1.引言"></a>1.引言</h3><h4 id="1-1汇编语言"><a href="#1-1汇编语言" class="headerlink" title="1.1汇编语言"></a>1.1汇编语言</h4><p><strong>①机器语言</strong></p>
+                <h1 id="汇编语言（一）"><a href="#汇编语言（一）" class="headerlink" title="汇编语言（一）"></a>汇编语言（一）</h1><h2 id="汇编语言启蒙"><a href="#汇编语言启蒙" class="headerlink" title="汇编语言启蒙"></a>汇编语言启蒙</h2><h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1.引言"></a>1.引言</h3><h4 id="1-1汇编语言"><a href="#1-1汇编语言" class="headerlink" title="1.1汇编语言"></a>1.1汇编语言</h4><p><strong>①机器语言</strong></p>
 <blockquote>
-<p><strong>机器指令</strong>的集合，<strong>机器指令</strong>是一串<strong>二进制数字</strong></p>
+<p><strong>概述</strong>：<strong>机器指令</strong>的集合，<strong>机器指令</strong>是一串<strong>二进制序列</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> CPU将机器指令转化为一系列高低电平，以驱动电子器件</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 每一种微处理器都有其机器指令集，对应的机器语言和汇编语言可能是不同的</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 每一种微处理器都有其机器指令集，对应的机器语言和汇编语言可能是不同的，本文以16位的8086CPU为例</div>
 
 <p><strong>②汇编语言</strong></p>
 <blockquote>
@@ -431,20 +430,19 @@
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 汇编语言可以看作是机器语言的抽象，同理高级语言可以看作是汇编语言的抽象</div>
 
-
 <h4 id="1-2指令与数据"><a href="#1-2指令与数据" class="headerlink" title="1.2指令与数据"></a>1.2指令与数据</h4><div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 两者本质上都是一串二进制数据，也并没有特殊的格式区别它们，取决于CPU如何解释它们</div>
 <p><strong>①进制</strong></p>
 <blockquote>
-<p><strong>二进制</strong>：以字母<code>B</code>结尾</p>
+<p><strong>二进制</strong>：以<code>B</code><strong>结尾</strong>，或者以<code>0B</code><strong>开头</strong></p>
 </blockquote>
 <blockquote>
-<p><strong>八进制</strong>：以字母<code>O</code>或者<code>Q</code>结尾</p>
+<p><strong>八进制</strong>：以<code>O</code>/<code>Q</code><strong>结尾</strong>，或者以<code>0</code><strong>开头</strong></p>
 </blockquote>
 <blockquote>
-<p><strong>十进制</strong>：以字母<code>D</code>结尾，或者没有结尾字母</p>
+<p><strong>十进制</strong>：<strong>缺省情况</strong>是十进制，以<code>D</code><strong>结尾</strong></p>
 </blockquote>
 <blockquote>
-<p><strong>十六进制</strong>：以字母<code>H</code>结尾</p>
+<p><strong>十六进制</strong>：以<code>H</code><strong>结尾</strong>，或者以<code>0x</code><strong>开头</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 十六进制的数据，在汇编源程序中不能以字母开头，需要在前面加0，如A000H需要改为0A000H</div>
 
@@ -457,7 +455,10 @@
 
 <p><strong>③逻辑位操作</strong></p>
 <blockquote>
-<p><code>and</code>：按位进行<strong>与</strong>运算<br><code>or</code>：按位进行<strong>或</strong>运算</p>
+<p><code>and</code>：按位进行<strong>与</strong>运算</p>
+</blockquote>
+<blockquote>
+<p><code>or</code>：按位进行<strong>或</strong>运算</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 可以通过该逻辑运算将对应的位设为1/0</div>
 <pre class="line-numbers language-none"><code class="language-none">and al,10111111 ;将第6位设为0
@@ -465,7 +466,10 @@ or al,01000000 ;将第6位设为1<span aria-hidden="true" class="line-numbers-ro
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以通过改变位改变字母大小写，大写字母的ASCLL码第5位为0，小写字母对应位置为1，这样不需要判断大小写</div>
 <p><strong>③移位操作</strong></p>
 <blockquote>
-<p><code>shl</code>：<strong>左</strong>移位<br><code>shr</code>：<strong>右</strong>移位</p>
+<p><code>shl</code>：<strong>左</strong>移位</p>
+</blockquote>
+<blockquote>
+<p><code>shr</code>：<strong>右</strong>移位</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这条指令将移出的位存储在CF标志中，并用0填充缺失的位</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 只能操作内存单元或者寄存器，不能操作字面量</div>
@@ -479,85 +483,92 @@ or al,01000000 ;将第6位设为1<span aria-hidden="true" class="line-numbers-ro
 </blockquote>
 <p><strong>②CPU</strong></p>
 <blockquote>
-<p><strong>运算器</strong>：信息处理</p>
+<p><strong>运算器</strong>：信息<strong>处理</strong></p>
 </blockquote>
 <blockquote>
-<p><strong>寄存器</strong>：信息存储，一般能存储的<strong>位数不高</strong>，主要都是<strong>和CPU密切相关的信息</strong></p>
+<p><strong>控制器</strong>：<strong>控制</strong>各种器件工作</p>
 </blockquote>
 <blockquote>
-<p><strong>控制器</strong>：控制各种器件工作</p>
+<p><strong>寄存器</strong>：信息<strong>存储</strong>，<strong>容量较小</strong>，<strong>数量有限</strong>，主要都是<strong>和CPU密切相关的信息</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 出于兼容性的考虑，一个寄存器可分多个寄存器，通常最小单位8位（因为一个内存单元是8位），如一个16位寄存器ax可以看成两个8位寄存器al和ah</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 8086的寄存器为16位，通用寄存器可以分为两个8位的寄存器，如ax可以分为ah和al</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以通过改变寄存器内容实现对CPU的控制</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 当指令操作al导致溢出时，溢出的位不会存储到ah中，因为它将al当作一个独立的寄存器</div>
 <p><strong>③总线</strong></p>
 <blockquote>
-<p>CPU和<strong>其他部件</strong>交流的通道，物理上是一根根<strong>导线的集合</strong>，可分为以下三类</p>
+<p><strong>概述</strong>：CPU和<strong>其他部件</strong>交流的通道，物理上是一根根<strong>导线的集合</strong>，可分为以下三类</p>
 </blockquote>
 <blockquote>
-<p><strong>地址总线</strong>：指定存储单元</p>
+<p><strong>地址总线</strong>：指定<strong>存储单元</strong>的<strong>地址</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 地址总线的宽度（根数）为N，则其能对2^N个单元寻址</div>
 <blockquote>
-<p><strong>数据总线</strong>：传输数据</p>
+<p><strong>数据总线</strong>：传输<strong>数据</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 数据总线的宽度（根数）为N，则一次能传输N位的数据</div>
 <blockquote>
-<p><strong>控制总线</strong>：传输控制指令</p>
+<p><strong>控制总线</strong>：传输<strong>控制指令</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 数据总线的宽度（根数）为N，则有N种控制指令（激活则为高电平）</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 数据总线的宽度（根数）为N，则有N种控制指令</div>
 
 <p><strong>④存储器</strong></p>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 依据读写属性分类</div>
 <blockquote>
-<p><strong>随机存储器</strong>：<strong>可读可写</strong>，但是必须<strong>带电存储</strong>，关机后存储内容消失<br><strong>只读存储器</strong>：只能读取，存储内容<strong>不会丢失</strong></p>
+<p><strong>随机存储器</strong>：<strong>可读可写</strong>，但是必须<strong>带电存储</strong>，<strong>关机</strong>后存储<strong>内容消失</strong>，通常用于存放<strong>程序和数据</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 依据功能分类</div>
 <blockquote>
-<p><strong>随机存储器</strong>：存放CPU使用的<strong>大部分数据和程序</strong><br><strong>装有BIOS的ROM</strong>：BIOS是主板和各类接口卡中的软件，可通过它对该硬件进行<strong>最基本的输入和输出</strong><br><strong>接口卡上的RAM</strong>：某些接口卡需要<strong>对大量输入输出数据进行暂时存储</strong>，则会装有RAM，如显示卡的显存</p>
+<p><strong>只读存储器</strong>：只能<strong>读取</strong>，存储内容<strong>不会丢失</strong>，通常用于存放<strong>系统软件</strong>和<strong>BIOS</strong></p>
 </blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> BIOS是主板和各类接口卡中的软件，可通过它对该硬件进行最基本的输入和输出</div>
+
 <p><strong>⑤端口</strong></p>
 <blockquote>
-<p><strong>PC系统</strong>中，除了<strong>存储器</strong>，还有<strong>其他芯片</strong>通过<strong>总线</strong>和CPU相连，如<strong>接口卡</strong>和<strong>主板</strong>上的<strong>接口芯片</strong>等，这些芯片都有一组可以由CPU读写的<strong>寄存器</strong>，称之为<strong>端口</strong>，每个端口都有一个<strong>对应的地址</strong></p>
+<p><strong>概述</strong>：<strong>外设</strong>中可以由CPU读写的<strong>寄存器</strong>，每个端口都有一个<strong>对应的地址</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 端口只能用in和out指令进行读写，且需要用特定的寄存器访问端口</div>
 
 <hr>
-<h3 id="2-内存与地址"><a href="#2-内存与地址" class="headerlink" title="2.内存与地址"></a>2.内存与地址</h3><h4 id="2-1内存地址空间"><a href="#2-1内存地址空间" class="headerlink" title="2.1内存地址空间"></a>2.1内存地址空间</h4><p><strong>①存储单元</strong></p>
+<h3 id="2-内存与地址"><a href="#2-内存与地址" class="headerlink" title="2.内存与地址"></a>2.内存与地址</h3><h4 id="2-1引言"><a href="#2-1引言" class="headerlink" title="2.1引言"></a>2.1引言</h4><p><strong>①基本概念</strong></p>
 <blockquote>
-<p>每个存储器被划分为<strong>若干个存储单元</strong>，每个存储单元存储<strong>一个字节</strong></p>
+<p><strong>16位结构</strong>：<strong>运算器</strong>一次能处理<strong>最长数据</strong>、<strong>寄存器</strong>的<strong>长度</strong>以及<strong>寄存器和运算器</strong>的<strong>通路</strong>均为<code>16</code>位</p>
 </blockquote>
-<p><strong>②逻辑存储器</strong></p>
 <blockquote>
-<p>CPU在操作<strong>物理存储器</strong>时，将他们<strong>总的</strong>看作为一个由若干存储单元组成的<strong>逻辑存储器</strong>，每个存储器占<strong>一段地址空间</strong></p>
+<p><strong>存储单元</strong>：存储器被划分为<strong>若干个存储单元</strong>，长度为<strong>一个字节</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 内存地址空间的大小受到地址总线宽度的影响</div>
-
-<h4 id="2-2物理地址"><a href="#2-2物理地址" class="headerlink" title="2.2物理地址"></a>2.2物理地址</h4><blockquote>
-<p>一个单元<strong>真实唯一</strong>的地址，也是CPU通过<strong>地址总线</strong>发出的地址</p>
+<blockquote>
+<p><strong>逻辑存储器</strong>：CPU将<strong>多个存储器</strong>看作为一个<strong>整体</strong>，即<strong>逻辑存储器</strong>，每个存储器占<strong>一段地址空间</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 逻辑寄存器对应的地址称为逻辑地址</div>
+<blockquote>
+<p><strong>物理地址</strong>：一个单元<strong>真实唯一</strong>的地址，也是CPU通过<strong>地址总线</strong>发出的地址</p>
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 物理地址的详细计算方法和具体的CPU有关，其中最重要的就是它是多少位结构</div>
-<p><strong>①十六位结构</strong></p>
+<p><strong>②地址加法器</strong></p>
 <blockquote>
-<p><strong>运算器一次处理</strong>最多<strong>16位</strong>的数据<br><strong>寄存器最大长度</strong>为<strong>16位</strong><br><strong>寄存器和运算器的通路</strong>为<strong>16位</strong></p>
+<p><strong>概述</strong>：计算<strong>物理地址</strong>，<code>物理地址 = 段地址*16+偏移地址</code>，也可以表示为<code>段地址:偏移地址</code></p>
 </blockquote>
-<p><strong>②地址加法器</strong>：计算<strong>物理地址</strong>，<code>物理地址 = 段地址*16+偏移地址</code>，也可以表示为<code>段地址:偏移地址</code></p>
-<blockquote>
-<p>易知每一段的起始地址为<strong>16的倍数</strong>，每一段的长度为<strong>64KB</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 8086CPU地址总线宽度为20，但是它本身一次性只能传输16位数据，如果直接从CPU内部发出地址信号，则只能达到64KB的寻址能力，故需要使用地址加法器扩大其寻址能力（16位乘以16则为20位）</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 地址加法器将地址分为了多个段，每个段的大小位2^16位，即64KB</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 若直接从8086CPU内部发出地址信号，只能达到16位（64KB）的寻址能力，地址加法器将其扩大到20位（4M）</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 同一个物理地址可以使用不同的段地址和偏移地址表示</div>
 
-<h4 id="2-3寻址"><a href="#2-3寻址" class="headerlink" title="2.3寻址"></a>2.3寻址</h4><p><strong>①段地址</strong>：由<strong>段寄存器</strong>提供</p>
+<h4 id="2-2寻址"><a href="#2-2寻址" class="headerlink" title="2.2寻址"></a>2.2寻址</h4><p><strong>①段地址</strong></p>
 <blockquote>
-<p>8086CPU有四个段寄存器，<code>CS</code>、<code>DS</code>、<code>ES</code>和<code>SS</code>，其中<code>CS</code>和<code>SS</code>有对应的<strong>特殊用途</strong>，其余可供自由使用</p>
+<p><strong>概述</strong>：<strong>缺省</strong>时，cpu会<strong>根据情况</strong>自动读取<strong>段寄存器</strong>中的值作为<strong>段地址</strong>，可以添加<strong>段前缀</strong>显式表明段地址</p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 缺省时，cpu会根据情况自动读取段寄存器中的值作为默认段地址，可以添加段前缀显示表明段地址</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 每个寄存器都有其特殊用途，如乘除法需要使用ax，bx，只是CS、SS等寄存器被占用频率非常高，故最好不要随便使用</div>
 <blockquote>
-<p><strong>段前缀</strong>：<code>段前缀:[偏移地址]</code><br>段前缀通常是<strong>段寄存器名</strong>，如<code>mov ax,ds:[bx]</code></p>
+<p><strong>段前缀</strong>：<code>段前缀:[偏移地址]</code>，段前缀通常是<strong>段寄存器名</strong>，如<code>mov ax,ds:[bx]</code></p>
 </blockquote>
-<p><strong>②偏移地址</strong>：可以通过<code>[]</code>给出，其中可以放置<strong>立即数</strong>和<strong>寻址寄存器</strong>，也可以<strong>混合使用</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 8086有四个段寄存器，CS、DS、ES和SS，其中CS和SS有对应的特殊用途，其余可供自由使用</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 8086不支持使用立即数直接修改段寄存器，需要使用通用寄存器作为中介</div>
+<pre class="line-numbers language-none"><code class="language-none">mov DS,xxxxH ;错误 
+
+mov ax，xxxxH
+mov ds,ax<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>②偏移地址</strong></p>
+<blockquote>
+<p><strong>概述</strong>：通过<code>[]</code>给出，其中可以放置<strong>立即数</strong>和<strong>寻址寄存器</strong>，也可以<strong>混合使用</strong></p>
+</blockquote>
 <blockquote>
 <p><strong>立即数</strong>：直接<strong>包含在机器指令中</strong>的数据，执行前位于cpu的<strong>指令缓冲器</strong>中</p>
 </blockquote>
@@ -565,7 +576,6 @@ or al,01000000 ;将第6位设为1<span aria-hidden="true" class="line-numbers-ro
 <blockquote>
 <p><strong>寻址寄存器</strong>：8086CPU提供了<code>bx</code>，<code>bp</code>，<code>si</code>，<code>di</code>四个寄存器</p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> si和di寄存器，不能分为两个八位寄存器</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 其中bx和bp不能同时出现，si和di也不能同时出现</div>
 <blockquote>
 <p><strong>混合使用</strong>：如<code>[bx+si+8]</code>、<code>[bp+di]</code>、<code>[bx+9]</code>，也可以写成<code>[bx].8[si]</code>、<code>[bx].9</code>、<code>[bx]</code></p>
@@ -574,19 +584,21 @@ or al,01000000 ;将第6位设为1<span aria-hidden="true" class="line-numbers-ro
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 用段寄存器指定段，用偏移地址访问段</div>
 <div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 汇编语言中偏移地址是以存储单元为单位计算的，并没有像C语言那么智能</div>
 
-<h4 id="2-4内存访问"><a href="#2-4内存访问" class="headerlink" title="2.4内存访问"></a>2.4内存访问</h4><p><strong>①<code>mov</code>指令</strong>：</p>
+<h4 id="2-3内存访问"><a href="#2-3内存访问" class="headerlink" title="2.3内存访问"></a>2.3内存访问</h4><p><strong>①<code>mov</code>指令</strong>：</p>
 <blockquote>
-<p><code>mov [container],[data]</code><br>将<strong>数据</strong>送入一个<strong>容器</strong>中</p>
+<p><code>mov [container],[data]</code>：将<strong>数据</strong>送入一个<strong>容器</strong>中</p>
 </blockquote>
 <blockquote>
-<p><strong>容器</strong>：类似于<strong>C的左值</strong>，可以是<strong>寄存器名</strong>，<strong>内存单元地址</strong><br><strong>数据</strong>：类似于<strong>C的右值</strong>，可以是<strong>字面量</strong>、<strong>寄存器名</strong>以及<strong>内存单元地址</strong></p>
+<p><strong>容器</strong>：类似于<strong>C的左值</strong>，可以是<strong>寄存器名</strong>，<strong>内存单元地址</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>数据</strong>：类似于<strong>C的右值</strong>，可以是<strong>字面量</strong>、<strong>寄存器名</strong>以及<strong>内存单元地址</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> mov ax,bx类似于C中ax = bx</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 8086CPU不支持通过立即数直接修改段寄存器的值（mov DS,xxxxH），需要先修改一个通用寄存器的值，然后将该寄存器的值送入DS（mov ds,ax）</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 与在debug中不同的是，mov ax,[0]指令在一些编译器中的意义等同于mov ax,0，为了防止歧义需要添加段前缀，或者将0存入bx中，采用mov ax,[bx]</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> mov ax,[0]指令在一些编译器中的意义等同于mov ax,0，为了防止歧义需要添加段前缀，或者同段寄存器使用中介</div>
 <div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 在赋值的时候，需要保证两边的内存大小是一样的</div>
 <blockquote>
-<p>若需要将一个<strong>小内存</strong>的值<strong>传入</strong>到<strong>大内存值</strong>中（如累加，需要使用一个大内存作为容器<strong>防止溢出</strong>），可以用一个<strong>大内存容器</strong>作为<strong>中介</strong></p>
+<p>若需要将<strong>小内存</strong>数据传入到<strong>大内存</strong>中（如累加，需要大内存作为容器<strong>防止溢出</strong>），可以用一个<strong>大内存容器</strong>作为<strong>中介</strong></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">mov dx,bl ;错误
 
@@ -595,28 +607,49 @@ mov ah,0
 add dx,ax<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>②数据长度信息</strong></p>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 访问内存不仅仅需要直到其起始地址，还需要知道操作的内存长度</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 访问内存不仅仅需要知道其起始地址，还需要知道操作的内存长度</div>
 <blockquote>
-<p><strong>寄存器名</strong>：如<code>mov ax,xxx</code>或者<code>mov xxx,ax</code>则表示<strong>处理的数据长度为一个字</strong>，因为<code>ax</code>寄存器长度为<strong>一个字</strong><br>同理<code>mov al,xxx</code>或者<code>mov xxx,al</code>表示进行<strong>字节操作</strong></p>
+<p><strong>寄存器名</strong>：如<code>mov ax,xxx</code>或者<code>mov xxx,ax</code>则表示<strong>处理的数据长度为一个字</strong>，因为<code>ax</code>寄存器长度为<strong>一个字</strong></p>
 </blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 同理mov al,xxx或者mov xxx,al表示进行字节操作</div>
+
+
 <blockquote>
-<p><strong>显示指明</strong>：<code>word ptr</code>指明访问的内存为<strong>字单元</strong>，<code>byte ptr</code>指明是<strong>字节单元</strong><br>如<code>mov word ptr ds:[0],1</code>和<code>mov byte ptr ds:[0],1</code>,两者修改的<strong>内存长度</strong>不一样，前者修改的是<code>ds:[0]</code>和<code>ds:[1]</code>，后者修改的是<code>ds;[0]</code></p>
+<p><strong>显示指明</strong>：<code>word ptr</code>指明访问的内存为<strong>字单元</strong>，<code>byte ptr</code>则是<strong>字节单元</strong></p>
 </blockquote>
+<pre class="line-numbers language-none"><code class="language-none">mov word ptr ds:[0],1 ;修改的是ds:[0]和ds:[1]
+mov byte ptr ds:[0],1 ;修改的是ds;[0]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 一个字需要两个内存单位，字的低位字节存放在低地址单元中，高位字节存放再高地址单元中</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> push、pop只执行字操作</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 在没有寄存器参与的内存单元访问指令中，必须要显示指明操作内存长度</div>
 
-<h4 id="2-5指令的访问"><a href="#2-5指令的访问" class="headerlink" title="2.5指令的访问"></a>2.5指令的访问</h4><p><strong>①相关寄存器</strong></p>
+<h4 id="2-4指令的访问"><a href="#2-4指令的访问" class="headerlink" title="2.4指令的访问"></a>2.4指令的访问</h4><p><strong>①相关寄存器</strong></p>
 <blockquote>
-<p><strong><code>CS</code>段寄存器</strong>：用于提供<strong>当前要实施指令</strong>的<strong>段地址</strong><br><strong><code>IP</code>寄存器</strong>：搭配<code>CS</code><strong>段寄存器</strong>使用，8086CPU将<code>CS:IP</code>作为当前要实施的指令的<strong>物理地址</strong></p>
+<p><strong><code>CS</code>段寄存器</strong>：用于提供<strong>当前要实施指令</strong>的<strong>段地址</strong></p>
 </blockquote>
-<p><strong>②过程概述</strong><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_1.png" alt="初始状态"></p>
 <blockquote>
-<p><code>CS</code>和<code>IP</code>寄存器的值送入<strong>地址加法器</strong>中，获得指令的<strong>物理地址</strong><br><strong>地址加法器</strong>将物理地址送入<strong>控制输入输出电路</strong><br><strong>控制输入输出电路</strong>将物理地址送入<strong>地址总线</strong><br><strong>数据总线</strong>将对应物理地址<strong>对应的指令</strong>送入CPU</p>
+<p><strong><code>IP</code>寄存器</strong>：搭配<code>CS</code><strong>段寄存器</strong>使用，8086CPU将<code>CS:IP</code>作为<strong>当前执行</strong>的指令的<strong>物理地址</strong></p>
+</blockquote>
+<p><strong>②过程概述</strong></p>
+<blockquote>
+<p><code>CS</code>和<code>IP</code>寄存器的值送入<strong>地址加法器</strong>中，获得指令的<strong>物理地址</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>地址加法器</strong>将物理地址送入<strong>控制输入输出电路</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>控制输入输出电路</strong>将物理地址送入<strong>地址总线</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>数据总线</strong>将对应物理地址<strong>对应的指令</strong>送入CPU</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如图，一条指令占据多个内存单元，数据总线输入的是整条指令，而不仅仅是对应物理地址对应的内存单元的数据</div>
 <blockquote>
-<p><strong>控制输入输出电路</strong>将对应指令送入<strong>指令缓冲器</strong><br><code>IP</code>的值自动增加，指向<strong>下一条指令</strong></p>
+<p><strong>控制输入输出电路</strong>将对应指令送入<strong>指令缓冲器</strong></p>
+</blockquote>
+<blockquote>
+<p><code>IP</code>的值自动增加，指向<strong>下一条指令</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若刚刚读入的指令长度为N个字节，则IP增加3</div>
 <blockquote>
@@ -625,38 +658,28 @@ add dx,ax<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> CS:IP对应内存位置的数据即为指令，CPU根据这个区分指令和数据</div>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 可以修改CS和IP寄存器的值，指向我们的代码段，用于执行该段代码</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> mov指令可以修改大部分寄存器的地址，但是不能修改CS和IP的地址，需要用跳转修改</div>
-
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_1.png" alt="初始状态"></p>
 <hr>
-<h3 id="3-汇编程序概述"><a href="#3-汇编程序概述" class="headerlink" title="3.汇编程序概述"></a>3.汇编程序概述</h3><h4 id="3-1汇编程序执行概述"><a href="#3-1汇编程序执行概述" class="headerlink" title="3.1汇编程序执行概述"></a>3.1汇编程序执行概述</h4><p><strong>①编写汇编源程序</strong></p>
+<h3 id="3-汇编程序"><a href="#3-汇编程序" class="headerlink" title="3.汇编程序"></a>3.汇编程序</h3><h4 id="3-1汇编源程序"><a href="#3-1汇编源程序" class="headerlink" title="3.1汇编源程序"></a>3.1汇编源程序</h4><p><strong>①框架</strong></p>
+<blockquote>
+<p><strong>概述</strong>：由<strong>汇编指令</strong>、<strong>标号</strong>和<strong>伪指令</strong>构成，其中<strong>汇编指令</strong>转换为<strong>机器指令</strong>执行，其余都变成了<strong>描述信息</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>程序返回</strong>：结尾处<code>mov ax,4c00H</code>和<code>int 21H</code>将<strong>CPU的控制权</strong>还给使他运行的程序</p>
+</blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 汇编语言的源文件后缀为.asm</div>
-<p><strong>②对源程序进行编译链接</strong></p>
-<blockquote>
-<p>编译产生<strong>目标文件</strong><br>链接源文件产生<strong>可执行文件</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 可执行文件包括两部分，一部分为程序和数据，另一部分为相关描述信息（程序有多大，占用多大内存）</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 其中伪指令在编译时均转化为相关描述信息</div>
-<p><strong>③执行程序</strong></p>
-<blockquote>
-<p>每个<strong>操作系统</strong>都有类似于<strong>命令解释器</strong>的程序用于执行程序，<strong>命令解释器</strong>会先找到对应程序并将其<strong>载入内存</strong>，随后设置<code>CS:IP</code>指向<strong>程序的入口</strong>，命令解释器<strong>停止运行</strong>，并运行对应程序，最后对应程序运行<strong>结束</strong>，<strong>返回</strong>到命令解解释程序</p>
-</blockquote>
-<h4 id="3-2汇编源程序框架"><a href="#3-2汇编源程序框架" class="headerlink" title="3.2汇编源程序框架"></a>3.2汇编源程序框架</h4><p><strong>①框架</strong></p>
-<blockquote>
-<p>汇编指令才是<strong>机器执行</strong>的指令，其余都变成了<strong>描述信息</strong></p>
-</blockquote>
+
 <p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_5.png" alt="指令和伪指令"></p>
-<blockquote>
-<p><strong>程序返回</strong>：一个程序结束后，将<strong>CPU的控制权</strong>还给使他运行的程序</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 在汇编程序的最后一个段中结尾处添加以下两行指令即可</div>
-<pre class="line-numbers language-none"><code class="language-none">mov ax,4c00H
-int 21H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><strong>②常用伪指令</strong></p>
 <blockquote>
-<p><code>assume 段寄存器名:段名</code>：将某个段和某个<strong>段寄存器</strong>联系到一起</p>
+<p><code>assume [段寄存器名]:[段名]</code>：将某个段和某个<strong>段寄存器</strong>联系到一起</p>
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 段和段寄存器的关联将决定这个段的作用，如代码段和CS联系到一起，栈段和SS联系到一起</div>
 <blockquote>
-<p><code>段名 segment</code>：说明一个段<strong>开始</strong><br><code>段名 ends</code>：说明一个段<strong>结束</strong></p>
+<p><code>[段名] segment</code>：说明一个段<strong>开始</strong></p>
+</blockquote>
+<blockquote>
+<p><code>[段名] ends</code>：说明一个段<strong>结束</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 一个汇编程序由多个段组成，段名最后会被处理为一个段地址</div>
 <blockquote>
@@ -664,63 +687,54 @@ int 21H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
 </blockquote>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 不要搞混end和ends</div>
 
-<p><strong>②常用汇编指令</strong></p>
+<p><strong>③常用汇编指令</strong></p>
 <blockquote>
-<p><code>add</code>：加法指令</p>
+<p><code>add/sub</code> ：<strong>加减法</strong>，<code>sub ax,bx</code>类似于C中<code>ax = ax - bx</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> add ax,bx类似于C中ax = ax + bx</div>
 <blockquote>
-<p><code>sub</code>：减法指令</p>
+<p><code>inc/dec</code>：<strong>递增/减</strong>，<code>inc ax</code>类似于C中<code>ax = ax+1</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> sub ax,bx类似于C中ax = ax - bx</div>
 <blockquote>
-<p><code>inc</code>：递增指令</p>
+<p><code>mul/div</code>：<strong>乘除法</strong>指令</p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> inc ax类似于ax = ax+1</div>
-<blockquote>
-<p><code>dec</code>：递减指令</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> dec ax类似于ax = ax-1</div>
-<blockquote>
-<p><code>div</code>：除法指令</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> div 容器，容器（不能是ax，dx相关寄存器）中为除数，若除数为8位，则被除数为16位，放在ax中，结束后al存商，ah存余数，若除数为16位，则被除数为32位，高位放在dx中，低位放在ax中，结束后ax存商，dx存余数</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 乘除法可分为8位和16位，且被除数/被乘数需要实现放在特定寄存器中</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 根据被除数的范围选取除法的类别，16位寄存器能表示的值的上限为65535</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 使用内存单元时，需要使用word ptr和byte ptr指明内存单元的长度</div>
-<blockquote>
-<p><code>mul</code>：乘法法指令</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> </div>
 
-<h4 id="3-3源文件的编译"><a href="#3-3源文件的编译" class="headerlink" title="3.3源文件的编译"></a>3.3源文件的编译</h4><p><strong>①运行编译器</strong><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_6.png" alt="masm编译器"></p>
+<h4 id="3-2源文件的编译"><a href="#3-2源文件的编译" class="headerlink" title="3.2源文件的编译"></a>3.2源文件的编译</h4><p><strong>①运行编译器</strong></p>
 <blockquote>
 <p>本篇采用微软的<code>masm</code>编译器</p>
 </blockquote>
-<p><strong>②导入源文件</strong><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_7.png" alt="导入源文件"></p>
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_6.png" alt="masm编译器"></p>
+<p><strong>②导入源文件</strong></p>
 <blockquote>
-<p>如果源文件在<strong>编译器工作路径下</strong>，输入<strong>文件名</strong>即可，否则需要指明<strong>完整路径</strong><br>如果源程序不是<code>.asm</code>文件，则需要输入<strong>全名</strong></p>
+<p>如果源文件在<strong>编译器工作路径下</strong>，输入<strong>文件名</strong>即可，否则需要指明<strong>完整路径</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 编译后将在指定路径（在对应冒号后输入路径即可）生成可执行文件（.obj文件），缺省情况下当前路径</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 编译过程中还会提示你生成一些中间文件，如列表文件（.lst）和交叉引用文件（.crf），可忽略（直接enter）</div>
-
-<h4 id="3-4链接目标文件"><a href="#3-4链接目标文件" class="headerlink" title="3.4链接目标文件"></a>3.4链接目标文件</h4><p><strong>①运行链接器</strong><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_8.png" alt="Overlay Linker链接器"></p>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 如果源程序不是.asm文件，则需要输入全名</div>
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_7.png" alt="导入源文件"></p>
+<h4 id="3-3链接目标文件"><a href="#3-3链接目标文件" class="headerlink" title="3.3链接目标文件"></a>3.3链接目标文件</h4><p><strong>①运行链接器</strong></p>
 <blockquote>
 <p>本篇采用微软的<code>Overlay Linker</code></p>
 </blockquote>
-<p><strong>②导入目标文件</strong><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_9.png" alt="导入目标文件"></p>
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_8.png" alt="Overlay Linker链接器"></p>
+<p><strong>②导入目标文件</strong></p>
 <blockquote>
 <p>路径和文件名的规则<strong>同编译器</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 链接过程中还会提示你生成一些中间文件，如映像文件（.map），可忽略（直接enter）</div>
-<p><strong>③链接库文件</strong><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_10.png" alt="链接库文件"></p>
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_9.png" alt="导入目标文件"></p>
+<p><strong>③链接库文件</strong></p>
 <blockquote>
 <p>如果程序中调用了<strong>库文件中的子程序</strong>，则需要链接对应的库</p>
 </blockquote>
-<h4 id="3-5简化的编译和链接"><a href="#3-5简化的编译和链接" class="headerlink" title="3.5简化的编译和链接"></a>3.5简化的编译和链接</h4><p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_11.png" alt="简化的编译"><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_12.png" alt="简化的链接"></p>
-<blockquote>
-<p>将跳过一些<strong>非必要步骤</strong>，即生成中间文件和链接库</p>
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_10.png" alt="链接库文件"></p>
+<h4 id="3-4简化的编译和链接"><a href="#3-4简化的编译和链接" class="headerlink" title="3.4简化的编译和链接"></a>3.4简化的编译和链接</h4><blockquote>
+<p>将跳过一些<strong>非必要步骤</strong>，即生成<strong>中间文件</strong>和<strong>链接库</strong></p>
 </blockquote>
-<h4 id="3-6跟踪程序执行过程"><a href="#3-6跟踪程序执行过程" class="headerlink" title="3.6跟踪程序执行过程"></a>3.6跟踪程序执行过程</h4><blockquote>
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_11.png" alt="简化的编译"><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_12.png" alt="简化的链接"></p>
+<h4 id="3-5跟踪程序执行过程"><a href="#3-5跟踪程序执行过程" class="headerlink" title="3.5跟踪程序执行过程"></a>3.5跟踪程序执行过程</h4><blockquote>
 <p>本篇采用微软的<code>debug</code>程序</p>
 </blockquote>
 <p><strong>①导入可执行文件</strong><br><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_14.png" alt="简化的链接"></p>
@@ -745,6 +759,16 @@ int 21H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
 </blockquote>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 当执行到int 21时，需要使用-p执行</div>
 <p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_17.png" alt="单步执行程序"></p>
+<p><strong>②对源程序进行编译链接</strong></p>
+<blockquote>
+<p>编译产生<strong>目标文件</strong><br>链接源文件产生<strong>可执行文件</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 可执行文件包括两部分，一部分为程序和数据，另一部分为相关描述信息（程序有多大，占用多大内存）</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 其中伪指令在编译时均转化为相关描述信息</div>
+<p><strong>③执行程序</strong></p>
+<blockquote>
+<p>每个<strong>操作系统</strong>都有类似于<strong>命令解释器</strong>的程序用于执行程序，<strong>命令解释器</strong>会先找到对应程序并将其<strong>载入内存</strong>，随后设置<code>CS:IP</code>指向<strong>程序的入口</strong>，命令解释器<strong>停止运行</strong>，并运行对应程序，最后对应程序运行<strong>结束</strong>，<strong>返回</strong>到命令解解释程序</p>
+</blockquote>
 
                 
             </div>
@@ -809,8 +833,8 @@ int 21H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
-                                    <span class="chip bg-color">汇编语言</span>
+                                <a href="/tags/8086/">
+                                    <span class="chip bg-color">8086</span>
                                 </a>
                             
                                 <a href="/tags/%E3%80%8A%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E3%80%8B/">
@@ -918,12 +942,12 @@ int 21H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/07/hui-bian-yu-yan-san/">
+                <a href="/2023/11/07/hui-bian-yu-yan-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/27.webp" class="responsive-img" alt="汇编语言（三）">
+                        <img src="/medias/featureimages/27.webp" class="responsive-img" alt="汇编语言（二）">
                         
-                        <span class="card-title">汇编语言（三）</span>
+                        <span class="card-title">汇编语言（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -951,12 +975,12 @@ int 21H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">汇编语言</span>
-                    </a>
-                    
                     <a href="/tags/%E3%80%8A%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E3%80%8B/">
                         <span class="chip bg-color">《汇编语言》</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">汇编语言</span>
                     </a>
                     
                 </div>

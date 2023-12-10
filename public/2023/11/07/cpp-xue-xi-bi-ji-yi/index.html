@@ -411,74 +411,521 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Cpp学习笔记（一）"><a href="#Cpp学习笔记（一）" class="headerlink" title="Cpp学习笔记（一）"></a>Cpp学习笔记（一）</h1><h2 id="Cpp启蒙"><a href="#Cpp启蒙" class="headerlink" title="Cpp启蒙"></a>Cpp启蒙</h2><h3 id="1-基本知识"><a href="#1-基本知识" class="headerlink" title="1.基本知识"></a>1.基本知识</h3><div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> Cpp基础部分和C++有很多类似，主要介绍不同的地方</div>
-<h4 id="1-1输入输出"><a href="#1-1输入输出" class="headerlink" title="1.1输入输出"></a>1.1输入输出</h4><div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 要包含iostream头文件</div>
-<p><strong>①输出</strong>：<code>cout&lt;&lt;内容1&lt;&lt;内容2...&lt;&lt;endl;</code></p>
+                <h1 id="Cpp学习笔记"><a href="#Cpp学习笔记" class="headerlink" title="Cpp学习笔记"></a>Cpp学习笔记</h1><h2 id="Cpp学习笔记（一）"><a href="#Cpp学习笔记（一）" class="headerlink" title="Cpp学习笔记（一）"></a>Cpp学习笔记（一）</h2><h3 id="1-Cpp基础编程"><a href="#1-Cpp基础编程" class="headerlink" title="1.Cpp基础编程"></a>1.Cpp基础编程</h3><div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> Cpp基础部分和C语言大部分一致，只介绍不同的部分</div>
+<h4 id="1-1命名空间"><a href="#1-1命名空间" class="headerlink" title="1.1命名空间"></a>1.1命名空间</h4><p><strong>①定义</strong></p>
 <blockquote>
-<p><code>cout</code>：<code>iostream</code>类的一个实例，连接到<strong>标准输出设备</strong>，通常是<strong>显示屏</strong><br><code>&lt;&lt;</code>：<strong>输出流运算符</strong>，<strong>左侧</strong>必须是一个<code>ostream</code><strong>对象</strong>，<strong>右侧</strong>是<strong>输出的值</strong>，<strong>计算结果</strong>为<code>ostream</code><strong>对象</strong></p>
+<p><strong>概述</strong>：<strong>每个库</strong>都有其<strong>命名空间</strong>，可以<strong>避免</strong>程序发生<strong>命名冲突</strong>，需要<strong>曝光</strong>或者<strong>解析</strong>才能使用</p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 计算结果为ostream对象，这是可以连续输出的原因</div>
-<p><code>endl</code>：<strong>换行符</strong></p>
-<p><strong>②输入</strong>：<code>cin&gt;&gt;容器（变量）;</code></p>
+<p><strong>②曝光</strong></p>
 <blockquote>
-<p><code>cin</code>：同<code>cout</code>，连接到<strong>标准输入设备</strong>，通常是键盘<br><code>&gt;&gt;</code>：<strong>输入流运算符</strong>，和<code>&lt;&lt;</code>类似，将<strong>标准输入设备的数据</strong>保存到<strong>右边的容器</strong>中</p>
+<p><code>using namespace [命名空间];</code>：<strong>曝光</strong>命名空间，通常会采用<code>using namespace std;</code>曝光<strong>标准库</strong>命名空间</p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 还有一些其他的标准输入输出，如标准错误cerr</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 曝光一命名空间后，若遇到属于该命名空间的对象，则默认其属于该命名空间</div>
+<blockquote>
+<p>如之后常用的<code>cout</code>和<code>cin</code>，为<strong>标准库</strong>定义的对象，若<strong>标准库没有曝光</strong>，则需要写为<code>std::cout</code>和<code>std::cin</code></p>
+</blockquote>
+<p><strong>③解析</strong></p>
+<blockquote>
+<p><code>命名空间::变量名</code>：<strong>解析</strong>变量名，指明其<strong>所属命名空间</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 当发生命名冲突时，需要解析才能继续执行</div>
+<h4 id="1-2输入输出"><a href="#1-2输入输出" class="headerlink" title="1.2输入输出"></a>1.2输入输出</h4><div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 要包含iostream头文件</div>
+<p><strong>①输出</strong></p>
+<blockquote>
+<p><strong>格式</strong>：<code>[输出对象]&lt;&lt;内容1&lt;&lt;内容2...&lt;&lt;endl;</code>，常用的<strong>输出对象</strong>为<code>cout</code></p>
+</blockquote>
+<blockquote>
+<p><code>cout</code>：<code>iostream</code>类的一个实例，连接到<strong>标准输出设备</strong>，通常是<strong>显示屏</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 输出对象还可以是一打开的文件，另一个常见标准输出对象为cerror</div>
 
-<h4 id="1-2命名空间"><a href="#1-2命名空间" class="headerlink" title="1.2命名空间"></a>1.2命名空间</h4><blockquote>
-<p>常见的语句是<code>using namespace std;</code><br><code>std</code>：<strong>标准库</strong>的命名空间<br><code>using</code>：让对应命名空间<strong>曝光</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 命名空间可以避免程序发生命名冲突，当命名冲突发生时，需要获得解析才能继续执行</div>
 <blockquote>
-<p><strong>解析</strong>：<code>命名空间::变量名</code></p>
+<p><code>&lt;&lt;</code>：<strong>输出流运算符</strong>，<strong>左侧</strong>必须是一个<code>ostream</code><strong>对象</strong>，<strong>右侧</strong>是<strong>输出的值</strong>，<strong>计算结果</strong>为<code>ostream</code><strong>对象</strong></p>
 </blockquote>
-<h4 id="1-3算数类型"><a href="#1-3算数类型" class="headerlink" title="1.3算数类型"></a>1.3算数类型</h4><div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 算数类型的尺寸在不同机器上有所差别，C++标准只规定了它们的最小尺寸，以下描述的都是它们的常见长度</div>
-<p><strong>①布尔类型</strong></p>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 如cout&lt;&lt;内容1的计算结果为cout，这也是可以连续输出到cout的原因</div>
 <blockquote>
-<p>只有<code>bool</code><strong>一种类型</strong>，只有<code>true</code>和<code>false</code>两种值，通常占<strong>8个字节</strong></p>
+<p><code>endl</code>：输出一个<strong>换行符</strong>，并<strong>清空输出缓冲区</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> true转化为非布尔类型即为1，false为0，其他类型转化为布尔类型时，0为false，其余为true</div>
-<p><strong>②字符</strong></p>
+<p><strong>②输入</strong></p>
 <blockquote>
-<p>常见的为<code>char</code><strong>类型</strong>，通常占<strong>8个字节</strong></p>
+<p><strong>格式</strong>：<code>[输入对象]&gt;&gt;容器1...&gt;&gt;容器N;</code>，常用的<strong>输入对象</strong>为<code>cin</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> C++还规定了扩展字符集，如wchar_t可以存放机器最大扩展字符集的任意一个字符（16位）</div>
+<blockquote>
+<p><code>cin</code>：同<code>cout</code>，连接到<strong>标准输入设备</strong>，通常是<strong>键盘</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 输入对象还可以是一打开的文件</div>
+<blockquote>
+<p><code>&gt;&gt;</code>：<strong>输入流运算符</strong>，和<code>&lt;&lt;</code>类似，将<strong>标准输入设备的数据</strong>保存到<strong>右边的容器</strong>中</p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 同理cin&gt;&gt;容器的返回值也是cin，所以cin可以连续输入</div>
+<h4 id="1-3引用和指针"><a href="#1-3引用和指针" class="headerlink" title="1.3引用和指针"></a>1.3引用和指针</h4><p><strong>①引用</strong></p>
+<blockquote>
+<p><strong>格式</strong>：<code>[数据类型]&amp; [引用名] = [指向对象]</code>，如<code>int&amp; my_ref = a_int</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 引用相当于指向对象的别名，对引用的任何操作都相当于直接操作指向对象</div>
+<blockquote>
+<p><code>int* my_p = &amp;my_ref</code>是将<strong>指针</strong>指向<code>a_int</code>，<code>const</code>修饰也类似</p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 引用必须被初始化（指向一个对象），且不能修改</div>
+<p><strong>②指针</strong></p>
+<blockquote>
+<p><strong>格式</strong>：<code>[数据类型]&amp; [指针名] = &amp;[指向对象]</code>，如<code>int* my_p = &amp;a_int</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 传递指针和引用可以降低复制大型对象的负担</div>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 对于函数中定义的非静态数据，不能返回其引用和指针</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 指针如果不使用可以初始化为空指针（NULL或0），使用前需要检查其是否为空指针</div>
+<blockquote>
+<p>其中<code>NULL</code>是一个<code>宏</code>，定义如下</p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">#if defined(__cplusplus)
+# define NULL 0              // C++中使用0作为NULL的值
+#else
+# define NULL ((void *)0)    // C中使用((void *)0)作为NULL的值
+#endif<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="1-4函数特性"><a href="#1-4函数特性" class="headerlink" title="1.4函数特性"></a>1.4函数特性</h4><p><strong>①默认参数</strong></p>
+<blockquote>
+<p><strong>概述</strong>：<strong>与C语言不同</strong>，C++可以给函数设置<strong>缺省情况</strong>下的<strong>默认参数</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 只能在函数定义或者函数声明默认值，但是不能在两个地方都声明，通常放在函数声明处</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 如果为某一参数设定默认值，则该参数右侧所有参数都需要有默认值</div>
 
-<p><strong>③整型</strong></p>
+<p><strong>②inline函数</strong></p>
 <blockquote>
-<p>除了<code>int</code>（<strong>16位</strong>）、<code>short</code>（<strong>16位</strong>）和<code>long</code>（<strong>32位</strong>），<strong>C++11新特性</strong>还规定了<code>long long</code>（<strong>64位</strong>）</p>
+<p><strong>概述</strong>：在<strong>函数定义之前</strong>添加<code>inline</code>关键字即可，通常是一些<strong>简单的函数</strong></p>
 </blockquote>
-<p><strong>④浮点型</strong></p>
-<blockquote>
-<p><code>float</code>（<strong>1个字</strong>）、<code>double</code>（<strong>2个字</strong>）和<code>long double</code>（<strong>3至4个字</strong>）</p>
-</blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 浮点型一般采用double，因为double和float运算速度相差不大，但是精度更高，long double消耗太大</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 对于`inline`函数，编译器在每个函数调用节点上将其展开为函数代码副本（类似于C语言宏函数）</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 内联函数的定义通常放在头文件中（和普通的函数不同，inline函数可以定义多次）</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> inline函数只是对编译器的一种的请求，编译器不一定会按照inline函数定义处理</div>
 
-<h4 id="1-4引用"><a href="#1-4引用" class="headerlink" title="1.4引用"></a>1.4引用</h4><div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> C++独有的传址方式，被称为变量的别名，本质上其指向对象的指针常量</div>
+<p><strong>③函数重载</strong></p>
 <blockquote>
-<p>如下所示，<code>b</code>为<code>a</code>的一个<strong>引用</strong></p>
+<p><strong>概述</strong>：<strong>参数列表</strong>或<strong>常量性不同</strong>但是<strong>名称相同</strong>的一系列函数，<strong>编译器</strong>根据<strong>调用时</strong>提供的<strong>参数</strong>判断调用哪一个</p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">int a = 1024;
-int *p = &amp;a;
-int &amp;b = a;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 引用变量在定义时就必须初始化（指向一个对象，不能是字面值），一旦指定就不可改变</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 对引用变量的操作就是对其指向对象的操作，包括寻址操作等</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若传入的参数被const修饰，则调用const版本</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 不能仅仅依靠返回类型的不同实现函数重载，因为编译器无法根据返回类型判断你想调用那个函数</div>
+<h4 id="1-5动态内存分配"><a href="#1-5动态内存分配" class="headerlink" title="1.5动态内存分配"></a>1.5动态内存分配</h4><p><strong>①<code>new</code></strong></p>
+<blockquote>
+<p><strong>格式</strong>：<code>[数据类型]* [指针名] = new [数据类型]</code>/<code>[数据类型]* [指针名] = new [数据类型] [元素数量]</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 分别用于申请一个对象/一个数组的内存，后者会多分配四个字节用于保存数组的大小</div>
+<blockquote>
+<p><strong>工作原理</strong>：调用<code>malloc</code><strong>申请内存</strong>，随后<strong>返回指针</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若数据类型为类，需要调用对应类型的缺省构造函数对内存进行初始化</div>
+<blockquote>
+<p><strong>初始化</strong>：<code>[数据类型]* [指针名] = new [数据类型](初始化参数列表)</code>，</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若为内置类型，则直接使用参数进行每个对象进行赋值，若为类，则调用对应的构造函数对每个对象进行初始化</div>
+<blockquote>
+<p>如<code>int* pc = new int(10);</code>和<code>String* pc = new String("hello");</code></p>
+</blockquote>
+<p><strong>②<code>delete</code></strong></p>
+<blockquote>
+<p><strong>格式</strong>：<code>delete [申请的指针]</code>/<code>delete [] [申请的指针]</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 分别用于释放一个对象/一个数组的内存</div>
+<blockquote>
+<p><strong>工作原理</strong>：<strong>释放申请的指针</strong>，若其<strong>指向类</strong>，<strong>在此之前</strong>还需要调用<strong>一次/多次</strong>对应类型的<strong>析构函数</strong>，</p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> delete[]会取出new[]保存的数组大小，并调用对应次数的析构函数</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> new[]需要和delete[]配套使用，否则可能会造成内存泄漏</div>
 
-<h4 id="1-5空指针"><a href="#1-5空指针" class="headerlink" title="1.5空指针"></a>1.5空指针</h4><p>int *p = 0/nullptr<br>避免使用NULL</p>
-<h4 id="1-4命名规范"><a href="#1-4命名规范" class="headerlink" title="1.4命名规范"></a>1.4命名规范</h4><blockquote>
-<p>变量名一般使用小写字母，自定义类名一般以大写字母开头<br>用户自定义变量名不能连续出现两个下划线，也不能以下划线紧连大写字母开头，函数体外的标识符不能以下划线开头</p>
+<hr>
+<h3 id="2-类的基本实现"><a href="#2-类的基本实现" class="headerlink" title="2.类的基本实现"></a>2.类的基本实现</h3><h4 id="2-1引言"><a href="#2-1引言" class="headerlink" title="2.1引言"></a>2.1引言</h4><p><strong>①定义</strong></p>
+<blockquote>
+<p><strong>概述</strong>：<strong>类名</strong>相当于自定义的<strong>数据类型</strong>，可以创建对应的<strong>对象实例</strong>，每个类都有其<strong>成员函数</strong>用于操作其<strong>实例</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 操作符本质上也是一个函数，类可能会对操作符函数进行重写</div>
+<p><strong>②基本框架</strong></p>
+<blockquote>
+<p><strong>概述</strong>：类的实现分为<strong>两部分</strong>，<strong>头文件</strong>给出类的<strong>定义</strong>并<strong>声明</strong>各种函数接口，<strong>程序代码文件</strong>包含这些<strong>函数的具体实现</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 类的头文件和程序代码文件名都和类名一致，只是后缀不同，以下为类的头文件框架</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 其中的条件编译指令防止该头文件被多次包含</div>
+<pre class="line-numbers language-none"><code class="language-none">#ifndef __COMPLEX__
+#define __COMPLEX__
+
+//类的前置声明
+class [类名]
+
+//类的主体
+class [类的名称]{
+
+  friend [函数声明]/[类前置声明]
+
+  public:
+      //公共接口，即成员函数的声明或者定义
+
+  private:
+      //私有实现，通常是实现该类需要的数据，data member
+
+  protected:
+      //通常存放需要继承给子类的数据和函数
+}
+
+//inline成员函数定义
+
+#endif<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③访问权限</strong></p>
+<blockquote>
+<p><code>public</code>：通常存放<strong>成员函数</strong>的<strong>声明</strong>或<strong>定义</strong>，可以在<strong>程序的任何位置</strong>访问</p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 类的实例对象可以通过.操作符访问public成员，其指针通过-&gt;访问</div>
+<blockquote>
+<p><code>private</code>：通常存放<strong>实现该类</strong>需要的<strong>数据（data member）</strong>，只能被<strong>成员函数</strong>和<strong>friend类</strong>访问</p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 注意连对象实例在外界不能直接访问其private对象，需要通过特定成员函数获取或者在成员函数内访问</div>
+<blockquote>
+<p><code>protected</code>：处于该区域的成员能<strong>该类以及被其子类</strong>访问，<strong>外界与父类</strong>不能访问</p>
 </blockquote>
 <blockquote>
-<p>全局作用域：声明在代码块之外<br>块作用域：声明在代码块内（声明还是定义？）<br>内层作用域可以访问外层的变量，也可以重新定义（新建局部变量覆盖全局变量）<br>作用域操作符::修饰变量表示使用对应的全局变量</p>
+<p><code>friend</code>：类可以将<strong>某个类/函数</strong>指定为<code>friend</code>，在<strong>类主体</strong>中添加<code>friend</code>修饰的<strong>函数声明/类前置声明</strong>即可</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 指定为friend的函数/类的成员函数与该类成员函数具有相同的访问权限</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 将函数/类添加为某个类的friend时，在此之前需要有它们的前置声明</div>
+
+<h4 id="2-2类的成员"><a href="#2-2类的成员" class="headerlink" title="2.2类的成员"></a>2.2类的成员</h4><p><strong>①成员函数</strong></p>
+<blockquote>
+<p><strong>声明</strong>：<strong>所有</strong>的<strong>成员函数</strong>都必须在<strong>类的主体内</strong>声明</p>
 </blockquote>
 <blockquote>
-<p>声明使得名字为程序所知，一个文件如果想要使用在别处定义的名字必须包含对那个名字的声明<br>定义负责创建与名字相关联的实体<br>如果仅仅只需要声明一个变量。在变量名前添加关键字extern，如果对一个变量赋值，则就算其有extern修饰，也是一个定义<br>在函数体内部初始化一个由extern关键字修饰的变量将引发错误？<br>如果要在多个文件中使用一个变量，则需要在一个文件中定义，在其他文件中声明</p>
+<p><strong>定义</strong>：若定义在<strong>类主体内</strong>，则默认为<strong>inline函数</strong>，若定义在<strong>类主体外</strong>，需要在<strong>函数名前</strong>添加<code>类名::</code>指明所属</p>
 </blockquote>
-<h4 id="1-4初始化"><a href="#1-4初始化" class="headerlink" title="1.4初始化"></a>1.4初始化</h4><div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 初始化和赋值并不是同一个概念，初始化是在创建变量时赋予其初始值，赋值是将对象当前值替换为新值</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 定义在类主体外的函数，若需要声明为inline函数，则写在头文件中，反之写在程序文件中</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 在成员函数中，this为一个指向调用者的指针，编译器会自动将其添加到参数列表的最左侧</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 在成员函数中的data member，如果不指明其所属，则默认属于调用者</div>
+
+<p><strong>②构造/析构函数</strong></p>
 <blockquote>
-<p><strong>列表初始化</strong>：当初始值存在丢失信息的风险（如使用浮点型初始化整型数据，会丢失精度），编译器将报错<br>内置类型初始化由位置决定，函数体内部，一个未被初始化的内置类型的变量的值是未定义的，访问会报错</p>
+<p><strong>构造函数</strong>：函数名<strong>和类的名称相同</strong>，且<strong>没有返回类型和返回值</strong>，可以<strong>被重载</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 显式初始化每一个内置类型变量</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当类的实例被创建，编译器自动调用对应的构造函数，通常用于初始化类的实例</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 调用没有参数的构造函数，格式为[类名] [实例名];，若写为[类名] [实例名]();会被解读为一个返回对应类的函数</div>
+
+<blockquote>
+<p><strong>析构函数</strong>：函数名为<strong>类的名称前添加<code>~</code><strong>，没有</strong>返回类型和参数</strong>，故<strong>不能重载</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当类的实例结束生命时，编译器自动调用该函数进行一些清理工作，通常为释放类申请的动态内存</div>
+<p><strong>③拷贝构造和赋值拷贝</strong></p>
+<blockquote>
+<p><strong>概述</strong>：<strong>缺省</strong>时，<strong>编译器</strong>提供以<strong>某个实例</strong>初始化实例的方法，如<code>Matrix my_mat1(my_mat2)</code>和<code>my_mat1 = my_mat2</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 编译器将类的data member一一复制，即将my_mat2的_row、_cal和_pmat赋值给将my_mat1的_row、_cal和_pmat</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 这种初始化方法并不适用于Matrix类，会导致两个实例的_pmat指向同一个二维数组</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以自定义赋值操作符和接收类实例的构造函数，以覆盖编译器的缺省行为</div>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 实现过程中，要检测自我赋值，如下执行m_data = new char[strlen(str.m_data)+1];时m_data已经被释放</div>
+<pre class="line-numbers language-none"><code class="language-none">inline
+String::String(const String&amp; str)
+{
+    m_data = new char[strlen(str.m_data)+1];
+    strcpy(m_data,str.m_data);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">inline 
+String&amp; String::operator=(const String&amp; str)
+{
+    if(this == &amp;str) //检测自我赋值
+        return *this;
+
+    delete[] m_data;
+    m_data = new char[strlen(str.m_data)+1];
+    strcpy(m_data,str.m_data);
+    return *this;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>④成员初始化列表</strong></p>
+<blockquote>
+<p><strong>概述</strong>：<strong>构造函数</strong>的一种<strong>特殊语法</strong>，紧跟在<strong>参数列表后面</strong>，用于<strong>初始化data member</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每个列表项由一data member组成，后跟由一对小括号包围的欲赋值给data member的数值，使用逗号隔开</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 若data member为某类的实例，采用成员初始化列表对其进行初始化而不是再构造函数内进行赋值</div>
+<blockquote>
+<p><strong>成员初始化列表</strong>会调用该类的<strong>copy构造函数</strong>对其进行<strong>初始化</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>构造函数内</strong>的初始化，会<strong>先调用</strong>该类的<strong>缺省构造函数</strong>，再调用<strong>该类的赋值运算符函数</strong></p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">Matrix::Matrix(int row,int col)
+:_row(row),_col(col)
+{
+  _pmat = new double(row*col);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>⑤可变与不变</strong></p>
+<blockquote>
+<p><strong>概述</strong>：如果一个<strong>成员函数</strong>接收一个<code>const</code><strong>参数</strong>，则其<strong>声明和定义</strong>处都需要添加<code>const</code><strong>关键词</strong>声明</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> const关键词紧跟在函数的参数列表后，编译器会检查声明为const的函数是否会改变类对象的data member</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> const成员函数如果返回的是data member的引用，则返回类型也需要被const修饰</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以提供一个函数的const版本和非const版本，若传入的是const对象，则调用const版本，反之调用非const版本</div>
+<pre class="line-numbers language-none"><code class="language-none">const int&amp; row() const {return _row}
+int&amp; row() {return _row}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<blockquote>
+<p><code>mutable</code>：用以修饰<strong>data member</strong>，表示修改该<strong>data member</strong>不会影响<strong>对象实例</strong>的<strong>常量性</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 一个被声明为const的成员函数可以修改以mutable修饰的data member</div>
+<p><strong>⑥静态成员</strong></p>
+<blockquote>
+<p><strong>静态data member</strong>：当<strong>data member</strong>被<code>static</code>修饰，其成为<strong>唯一的共享数据</strong>，<strong>所有该类实例对象</strong>都可以访问</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 需要在程序文件中提供该data member的定义，并且名称前面需要添加[类名]::指明其所属</div>
+<blockquote>
+<p><strong>静态成员函数</strong>：当一个成员函数<strong>不访问</strong>任何<strong>非静态data member</strong>，可以在<strong>函数声明前</strong>添加<code>static</code>关键词</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 静态成员函数不需要依赖类的对象实例调用，只需要在其前面添加[类名]::即可调用</div>
+<h4 id="2-3操作符重载"><a href="#2-3操作符重载" class="headerlink" title="2.3操作符重载"></a>2.3操作符重载</h4><p><strong>①定义</strong></p>
+<blockquote>
+<p><strong>概述</strong>：重新定义<strong>操作符函数</strong>，<strong>函数名称</strong>为<code>operator[操作符]</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 不能修改操作符函数的操作数和优先级，除了.、.*、::、?:，其余操作符均可被重载</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 若为二元操作符，操作符的左操作数作为第一个参数传递给操作符函数，右操作数作为第二参数传递给操作符函数</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 参数列表必须至少有一个class类型参数</div>
+<p><strong>②成员/非成员函数</strong></p>
+<blockquote>
+<p><strong>概述</strong>：<strong>操作符重载函数</strong>可以为一<strong>成员函数</strong>，也可为一<strong>非成员函数</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若为成员函数，其第一个参数为*this指针，表示其左操作数一定是所属类，而非成员函数可以随意设置顺序</div>
+<pre class="line-numbers language-none"><code class="language-none">//成员函数版本定义
+inline int iterator_to_special_vector::
+operator*() const
+{
+  return special_vector::_elem[_index]
+}
+
+//非成员函数版本定义 需要将其声明为对应类的friend，该函数才能访问_elem和_index
+inline int
+operator*(const  special_vector&amp;) const
+{
+  return special_vector::_elem[_index]
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>③前/后置版本</strong></p>
+<blockquote>
+<p><strong>概述</strong>：有些运算符还分为<strong>前置版本</strong>和<strong>后置版本</strong>，如<strong>递增/减</strong>运算符，规定<strong>后置版本</strong>的参数列表多出一个<code>int</code><strong>参数</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 编译器会自动传递0给后置版本操作符函数的int参数</div>
+<pre class="line-numbers language-none"><code class="language-none">//前置版本
+inline my_iterator&amp; myiterator::
+operator++(){
+  //具体实现
+}
+
+//后置版本
+inline my_iterator&amp; myiterator::
+operator++(int){
+  //具体实现
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>④iostream运算符重载</strong></p>
+<blockquote>
+<p><strong>概述</strong>：<code>&gt;&gt;</code><strong>运算符</strong>的实现较为复杂，还需要判断<strong>读取数据</strong>是否有问题，这里不考虑这些问题</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> ostream对象不能声明为const，因为每次输出都会改变该对象状态</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> &lt;&lt;运算符重载函数不能为一个成员函数，否则类必须要放在&lt;&lt;左边</div>
+<pre class="line-numbers language-none"><code class="language-none">ostream&amp; operator&lt;&lt; (ostream&amp; os,const special_vec&amp; vec)
+{
+  os&lt;&lt;"("&lt;&lt;vec._begin_pos&lt;&lt;","&lt;&lt;vec._len&lt;&lt;")";
+  for(int i = 0;i&lt;vec._len;i++){
+    os&lt;&lt;vec._elems[i];
+  }
+  os&lt;&lt;endl;
+  return os;
+}
+istream&amp;
+operator&gt;&gt;(istream &amp;is,special_vector &amp;vec)
+{
+  char ch1,ch2;
+  int bp,len;
+  is&gt;&gt;ch1&gt;&gt;bp&gt;&gt;ch2&gt;&gt;len;
+
+  vec._begin_pos = bp;
+  vec._len = len;
+
+  return is;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
+<h3 id="3-面向对象的编程风格"><a href="#3-面向对象的编程风格" class="headerlink" title="3.面向对象的编程风格"></a>3.面向对象的编程风格</h3><h4 id="3-1引言"><a href="#3-1引言" class="headerlink" title="3.1引言"></a>3.1引言</h4><p><strong>①三大特性</strong></p>
+<blockquote>
+<p><strong>封装</strong>：将<strong>实现细节</strong>部分<strong>包装</strong>、<strong>隐藏</strong>起来，也就是<strong>上述的类</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>继承</strong>：将一系列<strong>相关的类</strong>通过<strong>父子关系</strong>联系到一起，<strong>父类</strong>定义了<strong>子类</strong>的<strong>通用接口和数据</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如图书馆作为一个类，其子类有书，书又有其子类纸质书和电子书</div>
+<blockquote>
+<p><strong>多态</strong>：每个子类都可以<strong>增加自己的接口和数据</strong>，或者<strong>覆盖继承而来的接口和数据</strong>，以实现<strong>自己的行为</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若子类和父类中成员若一致，则子类成员会覆盖掉从父类继承的成员</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若要覆盖继承的成员函数，则子类中对应函数的参数列表、返回类型和常量性必须与之一致</div>
+<blockquote>
+<p>若需要在<strong>子类成员函数</strong>调用<strong>被覆盖的父类函数</strong>，则需要使用<code>[父类名]::</code>对其加以限定</p>
+</blockquote>
+<p><strong>②抽象基类</strong></p>
+<blockquote>
+<p><strong>概述</strong>：继承关系呈现<strong>树型</strong>，处于<strong>根节点</strong>的类称为<strong>抽象基类</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 基类的指针或者引用可以指向任何一个子类的对象</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 使用抽象基类的指针或引用间接操作子类的对象实例，从而在不改变旧有程序的前提下，新增/删除子类</div>
+<blockquote>
+<p>如下，函数的<strong>形参</strong>为<strong>抽象基类</strong>，但是<strong>实际调用</strong>时可以传递<strong>任何子类</strong></p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">void loan_check_in (Lib&amp; my_Lib){
+  my_Lib.check_in();
+  //程序具体实现
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③动态绑定</strong></p>
+<blockquote>
+<p><strong>概述</strong>：如上，<code>my_Lib.check_in()</code>到<strong>执行时</strong>才根据<strong>实际传入的对象类型</strong>调用对应的函数<code>check_in()</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 只有虚函数才具有动态绑定的特性，普通函数在编译时就根据my_Lib类型确定执行哪个check_in()</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若调用的函数不为虚函数，即使传入的是其他子类实例，还是调用对应父类的成员函数</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以明确指出该函数属于那一类，调用时添加[类名]::前缀即可，以遮掩虚函数机制</div>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 在父类的构造函数和析构函数中，不会调用子类的虚函数，因为此时派生类可能还没有初始化好</div>
+<h4 id="3-2实现"><a href="#3-2实现" class="headerlink" title="3.2实现"></a>3.2实现</h4><p><strong>①框架</strong></p>
+<blockquote>
+<p><strong>概述</strong>：定义了<strong>父类</strong><code>Lib</code>和<strong>子类</strong><code>Book</code>，其中<strong>子类的前置声明后</strong>接<code>:[继承类型][父类名]</code>，表示其<strong>继承自某类</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 子类的头文件需要包含父类的头文件，继承方式有多种，这里只介绍public继承</div>
+<pre class="line-numbers language-none"><code class="language-none">class Lib{
+  public:
+
+  Lib(){cout&lt;&lt;"Create a Lib class!"&lt;&lt;endl;}
+
+  virtual ~Lib(){cout&lt;&lt;"Release a Lib class!"&lt;&lt;endl;}
+  //Lib类的print函数
+  virtual void print() const{
+    cout&lt;&lt;"I am a Lib class!"&lt;&lt;endl;
+  }
+
+  private:
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">#include "Lib.h"
+class Book:public Lib{
+  public:
+
+  Book(const string&amp; author,const string&amp; title)
+  :_title(title),_author(author)
+  {cout&lt;&lt;"Create a Book class!"&lt;&lt;endl;}
+
+  virtual ~Book(){cout&lt;&lt;"Release a Book class!"&lt;&lt;endl;}
+  //Book类的print函数，覆盖了从父类继承来的print()
+  virtual void print() const{
+    cout&lt;&lt;"I am a Book class!"&lt;&lt;endl;
+    cout&lt;&lt;"My title is"&lt;&lt;_title&lt;&lt;"!"endl;
+    cout&lt;&lt;"My author is"&lt;&lt;_author&lt;&lt;"!"endl;
+  }
+
+  protected:
+  string _title,_author;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>②虚函数</strong></p>
+<blockquote>
+<p><code>virtual</code>：修饰一个<strong>成员函数</strong>使其成为<strong>虚函数</strong>，从而实现<strong>动态绑定</strong>，若其被<strong>赋值</strong>为<code>0</code>，则为<strong>纯虚函数</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若不同子类对某函数有不同的实现，则将其声明虚函数，静态成员函数无法被声明为虚函数</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 子类若覆盖从父类继承的虚函数，不必添加virtual关键字修饰，其自动成为虚函数</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若父类中有虚函数，则其析构函数也需要被声明为虚函数</div>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 成员函数中有纯虚函数的类无法创建对象实例，因为其接口不完整</div>
+
+<p><strong>③构造与析构</strong></p>
+<blockquote>
+<p><strong>构造</strong>：当一个<strong>子类</strong>被定义，<strong>首先</strong>会<strong>自顶向下</strong>调用其<strong>父类</strong>的构造函数，随后再调用<strong>本身</strong>构造函数</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 即定义子类实例时，不仅仅创建了子类对象，还递归的创建了其所有父类对象</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若基类中有data member，则最好在其构造函数中将其初始化，即子类的构造函数还需要调用基类的构造函数</div>
+<blockquote>
+<p>若没有<strong>显式调用</strong>，则编译器会<strong>自动</strong>调用父类的<strong>缺省构造函数</strong></p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">inline Book::
+Book(string&amp; title,string&amp; author)
+:Lib(),_title(title),_author(author)
+{}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>析构</strong>：当一个<strong>子类</strong>生命周期中介，<strong>首先</strong>调用<strong>本身析构函数</strong>，随后再<strong>自底向上</strong>调用其<strong>父类的析构函数</strong></p>
+</blockquote>
+<p><strong>④运行时类型鉴定</strong></p>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 需要包含typeinfo头文件</div>
+<blockquote>
+<p><code>typeid()</code>：接收一个<strong>类实例/类名</strong>，如<code>typeid(*this)</code>，返回一个<code>type_info</code><strong>对象</strong>，包含了该实例的<strong>类相关信息</strong></p>
+</blockquote>
+<blockquote>
+<p><code>name()</code>：返回<code>type_info</code><strong>对象</strong>中的<strong>名字信息</strong>，如<code>typeid(*this).name()</code></p>
+</blockquote>
+<blockquote>
+<p><code>static_cast&lt;class_type&gt;()</code>：接收<strong>一个指针</strong>，强制将其转化为<strong>指向<code>class_type</code>的指针</strong></p>
+</blockquote>
+<blockquote>
+<p><code>dynamic_cast&lt;class_type&gt;()</code>：接收<strong>一个指针</strong>，若其指向<code>class_type</code>，则将其转化为<strong>指向<code>class_type</code>的指针</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若使用指针调用成员函数，则其为指向什么类的指针，就只能调用对应类的成员函数，即使有虚函数机制</div>
+<blockquote>
+<p>如下，<code>p_to_lib</code>为<code>Lib*</code>类的指针，虽然指向<code>Book</code><strong>实例</strong>，但是还是<strong>只能调用</strong><code>Lib</code>类的<strong>成员函数</strong></p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">Book a_book;
+Lib* p_to_lib = &amp;a_book;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="3-3模板类"><a href="#3-3模板类" class="headerlink" title="3.3模板类"></a>3.3模板类</h4><p><strong>①模板template</strong></p>
+<blockquote>
+<p><strong>格式</strong>：在<strong>类前</strong>添加<code>template</code><strong>参数列表</strong>，其中<code>typename</code>为<strong>关键字</strong>，后接一<strong>占位符</strong>，可以有<strong>多对</strong>，用<strong>逗号</strong>隔开</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 该占位符相当于参数类型，可以出现在任何参数类型可以出现的地方，编译器将占位符替换为创建类时传递的参数</div>
+<blockquote>
+<p><strong>调用</strong>：在<strong>类名后</strong>接<code>&lt;[类型参数]&gt;</code>传递<strong>类型参数</strong>，如<code>Node_to_tree&lt;int&gt; root;</code>，会将<code>val_type</code><strong>全部替换</strong>为<code>int</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 除了在类主体以及其成员函数定义中，其他地方调用该类都需要使用template参数列表加以限制</div>
+<p><strong>②例子</strong></p>
+<blockquote>
+<p><strong>概述</strong>：利用<strong>模板</strong>实现<strong>节点类</strong>和一个<strong>二叉树类</strong>，两者互为<code>firend</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 其中二叉树类是节点类的friend，因为其要访问节点类的数据</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 注意两者的friend声明，都必须以template参数列表加以限制，且列表中采用的是本身的占位符</div>
+<pre class="line-numbers language-none"><code class="language-none">//二叉树类的前置声明
+template&lt;typename Node_type&gt;
+class Binary_tree;
+//节点类的定义
+template&lt;typename val_type&gt;
+class Node_to_tree{
+  friend class Binary_tree&lt;val_type&gt;
+  public:
+
+  private:
+  val_type _val;
+  int _cnt;
+  Node_to_tree* _lchild;
+  Node_to_tree* _rchild;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">//二叉树类的定义
+template&lt;typename Node_type&gt;
+class Binary_tree{
+  public:
+  Binary_tree();
+  Binary_tree(const Binary_tree&amp;);
+  ~Binary_tree();
+  Binary_tree&amp; operator=(const Binary_tree&amp;);
+
+
+  private:
+  Node_to_tree&lt;Node_type&gt;* _root;
+  void copy(Node_to_tree&lt;Node_type&gt;* tar,Node_to_tree&lt;Node_type&gt;* src);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③成员函数定义</strong></p>
+<blockquote>
+<p><strong>概述</strong>：与<strong>普通类</strong>不同，<strong>开头</strong>需要添加<code>template</code><strong>参数列表</strong>，且<strong>类限定符</strong>也需要<code>template</code><strong>列表</strong>加以限定</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 在类限定符，即Binary_tree<node_type>::后的语句，都视为定义在Binary_tree类中</node_type></div>
+<pre class="line-numbers language-none"><code class="language-none">template&lt;typename Node_type&gt;
+inline Binary_tree&lt;Node_type&gt;::
+Binary_tree():_root(0)
+{}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<p><strong>②类的创建</strong></p>
+<blockquote>
+<p><code>String s1(1,2)为stack object</code>：当其<strong>作用域结束</strong>后，系统会<strong>自动调用其析构函数</strong>清理</p>
+</blockquote>
+<blockquote>
+<p><code>static String s1(1,2)</code>：其作用域结束后，不会被清理，直到<strong>程序结束</strong>，系统才会调用其析构函数</p>
+</blockquote>
+<blockquote>
+<p><code>String* s = new String</code>：这个变量处于<strong>堆</strong>中，需要<strong>及时delete</strong>掉</p>
+</blockquote>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 若没有及时释放，当其作用域结束，s指向的区域还存在，但是s本身被释放掉了，就没有机会释放对应内存了</div>
 
                 
             </div>

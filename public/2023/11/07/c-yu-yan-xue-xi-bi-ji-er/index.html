@@ -561,16 +561,21 @@ int compare_ints(void const *a,void const *b)
 
 <h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h3><h4 id="2-1格式"><a href="#2-1格式" class="headerlink" title="2.1格式"></a>2.1格式</h4><p><strong>①源文件</strong></p>
 <blockquote>
-<p><code>return</code>语句<strong>不一定</strong>出现在<strong>末尾</strong>，没有<code>return</code>语句的函数称为<strong>过程</strong></p>
+<p><strong>概述</strong>：由<strong>返回类型</strong>、<strong>函数名</strong>、<strong>参数列表</strong>和<strong>函数主体</strong>组成</p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 函数中的形参是实参的一个副本，修改形参不能修改实参，如果想要修改实参，需要传递实参的地址</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当本该有参数的地方没有参数时，可以使用void占据位置</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 函数要考虑异常情况，并进行异常处理</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 函数可以没有返回值，这是返回类型为void</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 函数中的形参是实参的一个副本，修改形参不会影响实参，如果想要修改实参，需要传递实参的地址</div>
 <pre class="line-numbers language-none"><code class="language-none">返回类型 函数名（形参类型1 形参名1，...形参类型n 形参名n）
 {
 	statement；
     return expression；
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong><code>return</code>语句</strong>：用于<strong>返回结果</strong>并表明此处是函数的<strong>退出点</strong>，可以出现在<strong>函数主体</strong>的<strong>任意位置</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如果函数主体的最后一条语句不是return语句，则该语句之后为函数的隐式退出点</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若函数的返回类型不为void，则需要在每个可能的退出点将值返回，其函数主体最后一条语句必为return语句</div>
+
 <blockquote>
 <p><strong>类型</strong>、<strong>形参</strong>和<strong>statement</strong>都<strong>不是必须</strong>的，因此<strong>最简单的函数</strong>如下</p>
 </blockquote>
@@ -584,7 +589,7 @@ int compare_ints(void const *a,void const *b)
 <blockquote>
 <p><strong>格式</strong>：<code>返回类型 函数名(形参类型n 形参名n);</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 向编译器提供函数相关信息，当调用函数时传入参数与形参的类型不匹配，编译器会根据函数声明强制转换变量类型</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 向编译器提供函数相关信息，当调用函数时传入参数与形参的类型不匹配，会根据函数声明强制转换变量类型</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以将函数定义在单独的C文件中，并将函数声明置于同一个头文件中，主函数文件使用include命令调用即可</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若没有对应的函数声明，函数会被调用，但是传递给函数的参数会进行缺省参数提升</div>
 <blockquote>
@@ -1195,24 +1200,76 @@ struct B
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/linux-nei-he-she-ji-yu-shi-xian-er/">
+                <a href="/2023/11/07/git-ji-qi-ying-yong/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/3.webp" class="responsive-img" alt="linux内核设计与实现（二）">
+                        <img src="/medias/featureimages/22.webp" class="responsive-img" alt="Git及其应用">
                         
-                        <span class="card-title">linux内核设计与实现（二）</span>
+                        <span class="card-title">Git及其应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            进程管理和进程调度
+                            git和github
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
+                    </a>
+                    
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/11/07/linux-nei-he-she-ji-yu-shi-xian-yi/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/3.webp" class="responsive-img" alt="Linux内核设计与实现（一）">
+                        
+                        <span class="card-title">Linux内核设计与实现（一）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Linux内核基础
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1230,58 +1287,6 @@ struct B
                     
                     <a href="/tags/Linux%E5%86%85%E6%A0%B8/">
                         <span class="chip bg-color">Linux内核</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/11/07/linux-gong-zuo-liu-yi/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/41.webp" class="responsive-img" alt="Linux工作流（一）">
-                        
-                        <span class="card-title">Linux工作流（一）</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Linux常见命令
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
-                                    工具链
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">
-                        <span class="chip bg-color">工作流</span>
                     </a>
                     
                 </div>
