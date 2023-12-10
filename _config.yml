@@ -43,6 +43,7 @@ render_drafts: false
 post_asset_folder: false
 relative_link: false
 future: true
+
 highlight:
   enable: false
   line_number: true
@@ -51,7 +52,11 @@ highlight:
   wrap: true
   hljs: false
 prismjs:
+<<<<<<< HEAD
   enable: true 
+=======
+  enable: true
+>>>>>>> 5229087217ae6f060675d57c95d25f033ae64065
   preprocess: true
   line_number: true
   tab_replace: ''
