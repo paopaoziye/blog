@@ -445,7 +445,7 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 使用git add -A将所有改动添加</div>
 <blockquote>
-<p><code>git commit -m "[版本描述信息]" [提交对象]</code>：将对象提交到<strong>本地库</strong></p>
+<p><code>git commit -m &quot;[版本描述信息]&quot; [提交对象]</code>：将对象提交到<strong>本地库</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若不指定提交对象，则将暂存区所有改动提交</div>
 <h4 id="2-3查看状态"><a href="#2-3查看状态" class="headerlink" title="2.3查看状态"></a>2.3查看状态</h4><blockquote>
@@ -481,27 +481,27 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
 <blockquote>
 <p>一开始<code>master</code><strong>分支</strong>下有一个<code>test.txt</code>文件，创建<code>fix</code><strong>分支</strong></p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">//创建分支时test.txt代码
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;创建分支时test.txt代码
 12345678
 12345678<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>分别在<strong>两个分支下修改并提交</strong><code>test.txt</code>，随后将<code>fix</code><strong>分支</strong>合并到<code>master</code><strong>分支</strong></p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">//合并时master分支下test.txt文件
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;合并时master分支下test.txt文件
 12345678 abc
 12345678<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">//合并时fix分支下的test
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;合并时fix分支下的test
 12345678 
 12345678 ABC<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>发生<strong>合并冲突</strong>，在<code>master</code><strong>分支</strong>下打开<code>test.txt</code>文件，如下所示</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> git在冲突处显示两份代码的冲突部分，上面的是当前分支的修改，下面的是传入分支的修改</div>
-<pre class="line-numbers language-none"><code class="language-none">//合并发生冲突，在master分支下打开test.txt文件
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;合并发生冲突，在master分支下打开test.txt文件
 &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 12345678 abc
 12345678
-=======
+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
 12345678 
 12345678 ABC
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -510,13 +510,13 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 手动修改冲突的宗旨就是保持冲突部分代码的行数不变，可以只采用某一个的修改，也可以同时采用</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 解决冲突时，提交时不能带文件名git commit -m "merge test"</div>
-<pre class="line-numbers language-none"><code class="language-none">//仅仅采用当前分支
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;仅仅采用当前分支
 12345678 abc
 12345678
-//仅仅采用指定分支
+&#x2F;&#x2F;仅仅采用指定分支
 12345678 
 12345678 ABC
-//同时采用两个的修改
+&#x2F;&#x2F;同时采用两个的修改
 12345678 abc
 12345678 ABC<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-6版本控制"><a href="#2-6版本控制" class="headerlink" title="2.6版本控制"></a>2.6版本控制</h4><blockquote>
@@ -574,7 +574,7 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">#忽略设置
 [core]
-    excludesfile = [git.ignore完整路径]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+    excludesfile &#x3D; [git.ignore完整路径]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><a target="_blank" rel="noopener" href="https://gist.github.com/Yousha/3830712334ac30a90eb6041b932b68d7">VScode下C++的git.ignore模板</a><br><strong>②IDEA设置</strong></p>
 <blockquote>
 <p><code>VScode</code>中内置了对<code>Git</code>的支持，<strong>其他IDEA</strong>可能还需要<strong>在相关设置中设置<code>git.exe</code>的路径</strong></p>
@@ -696,18 +696,18 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/c-yu-yan-xue-xi-bi-ji-san/">
+                <a href="/2023/11/07/linux-nei-he-she-ji-yu-shi-xian-yi/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/0.webp" class="responsive-img" alt="C语言学习笔记（三）">
+                        <img src="/medias/featureimages/3.webp" class="responsive-img" alt="Linux内核设计与实现（一）">
                         
-                        <span class="card-title">C语言学习笔记（三）</span>
+                        <span class="card-title">Linux内核设计与实现（一）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            预处理器
+                            Linux内核基础
                         
                     </div>
                     <div class="publish-info">
@@ -718,8 +718,8 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/Linux%E5%86%85%E6%A0%B8/" class="post-category">
+                                    Linux内核
                                 </a>
                             
                             
@@ -729,12 +729,8 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">C语言</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%8AC%E5%92%8C%E6%8C%87%E9%92%88%E3%80%8B/">
-                        <span class="chip bg-color">《C和指针》</span>
+                    <a href="/tags/Linux%E5%86%85%E6%A0%B8/">
+                        <span class="chip bg-color">Linux内核</span>
                     </a>
                     
                 </div>
@@ -748,18 +744,18 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/07/c-yu-yan-xue-xi-bi-ji-er/">
+                <a href="/2023/11/07/cmake-ying-yong-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/0.webp" class="responsive-img" alt="C语言学习笔记（二）">
+                        <img src="/medias/featureimages/23.webp" class="responsive-img" alt="Cmake应用（二）">
                         
-                        <span class="card-title">C语言学习笔记（二）</span>
+                        <span class="card-title">Cmake应用（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            指针
+                            Cmake代码构建工具
                         
                     </div>
                     <div class="publish-info">
@@ -770,8 +766,8 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             
@@ -781,12 +777,12 @@ git config --global user.email [用户邮箱]<span aria-hidden="true" class="lin
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">C语言</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%8AC%E5%92%8C%E6%8C%87%E9%92%88%E3%80%8B/">
-                        <span class="chip bg-color">《C和指针》</span>
+                    <a href="/tags/Cmake/">
+                        <span class="chip bg-color">Cmake</span>
                     </a>
                     
                 </div>

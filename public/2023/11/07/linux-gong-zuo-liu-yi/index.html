@@ -509,7 +509,7 @@
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 使用-d选项指定家目录路径</div>
 <blockquote>
-<p><code>passwd [用户名]</code>：设置/修改<strong>密码</strong></p>
+<p><code>passwd [用户名]</code>：设置&#x2F;修改<strong>密码</strong></p>
 </blockquote>
 <blockquote>
 <p><code>userdel [用户名]</code>：<strong>删除</strong>用户，但是<strong>保留</strong>了他的<strong>家目录</strong></p>
@@ -534,7 +534,7 @@
 <p><code>groupdel [组名]</code>：<strong>删除</strong>组</p>
 </blockquote>
 <blockquote>
-<p><code>useradd -g [组名] [用户名]</code>：<strong>创建</strong>账户时给其<strong>指定组</strong>/<strong>修改</strong>用户所在组</p>
+<p><code>useradd -g [组名] [用户名]</code>：<strong>创建</strong>账户时给其<strong>指定组</strong>&#x2F;<strong>修改</strong>用户所在组</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若创建用户时没有指定组，则会给起创建一个与其名字相同的组并将其放入</div>
 <blockquote>
@@ -546,13 +546,13 @@
 <blockquote>
 <p><code>&gt; [文件路径]</code>：将命令的输出<strong>重定向</strong>到对应<strong>文件</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以使用echo '' &gt; [文件路径]清空某个文件</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以使用echo '' > [文件路径]清空某个文件</div>
 <blockquote>
 <p><code>&gt;&gt; [文件路径]</code>：将命令的输出<strong>追加</strong>到对应<strong>文件</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若对应文件不存在，则会创建该命令</div>
 <blockquote>
-<p><code>ln -s [源文件或者目录] [软连接路径]</code>：给<strong>对应文件/目录</strong>创建<strong>软链接</strong>，类似于<strong>快捷方式</strong></p>
+<p><code>ln -s [源文件或者目录] [软连接路径]</code>：给<strong>对应文件&#x2F;目录</strong>创建<strong>软链接</strong>，类似于<strong>快捷方式</strong></p>
 </blockquote>
 <blockquote>
 <p><code>history [数字]</code>：查看<strong>历史命令</strong></p>
@@ -568,7 +568,7 @@
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 需要下载</div>
 <h3 id="3-文件管理"><a href="#3-文件管理" class="headerlink" title="3.文件管理"></a>3.文件管理</h3><h4 id="3-1基本操作"><a href="#3-1基本操作" class="headerlink" title="3.1基本操作"></a>3.1基本操作</h4><p><strong>①创建</strong></p>
 <blockquote>
-<p><code>touch [文件路径]</code>：<strong>创建</strong>文件/<strong>更新</strong>文件<strong>修改时间</strong></p>
+<p><code>touch [文件路径]</code>：<strong>创建</strong>文件&#x2F;<strong>更新</strong>文件<strong>修改时间</strong></p>
 </blockquote>
 <blockquote>
 <p><code>mkdir [目录路径]</code>：<strong>创建</strong>对应<strong>目录</strong></p>
@@ -626,7 +626,7 @@
 </blockquote>
 <p><strong>⑦压缩</strong></p>
 <blockquote>
-<p><code>tar [选项]</code>：根据选项<strong>压缩/解压</strong>文件</p>
+<p><code>tar [选项]</code>：根据选项<strong>压缩&#x2F;解压</strong>文件</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> -c产生.tar打包文件、-v显示详细信息、-f指定压缩后的文件名，-z打包同时压缩，-x解压</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 通常，压缩使用-zcvf选项，解压使用-xcvf，还可使用-C选项指定解压路径</div>
@@ -682,7 +682,7 @@
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 目录的读写权限不会影响文件的权限，但没有目录的执行权限，则无法访问其中文件</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 只有对目录有写权限，才能删除其下文件</div>
 <blockquote>
-<p><strong>剩余信息</strong>：分别表示<strong>硬链接数/（文件数+子目录数）</strong>、<strong>所有者</strong>、<strong>所在组</strong>、<strong>文件大小</strong>、<strong>最后修改期限</strong>和<strong>文件名字</strong></p>
+<p><strong>剩余信息</strong>：分别表示<strong>硬链接数&#x2F;（文件数+子目录数）</strong>、<strong>所有者</strong>、<strong>所在组</strong>、<strong>文件大小</strong>、<strong>最后修改期限</strong>和<strong>文件名字</strong></p>
 </blockquote>
 <p><strong>③权限修改</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> u表示所有者，g表示所在组，o表示其他人，a表示所有人</div>
@@ -814,18 +814,18 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/linux-nei-he-she-ji-yu-shi-xian-er/">
+                <a href="/2023/11/07/neovim-gong-zuo-liu/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/3.webp" class="responsive-img" alt="linux内核设计与实现（二）">
+                        <img src="/medias/featureimages/15.webp" class="responsive-img" alt="NeoVim工作流">
                         
-                        <span class="card-title">linux内核设计与实现（二）</span>
+                        <span class="card-title">NeoVim工作流</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            进程管理和进程调度
+                            NeoVim编辑器使用
                         
                     </div>
                     <div class="publish-info">
@@ -836,8 +836,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux%E5%86%85%E6%A0%B8/" class="post-category">
-                                    Linux内核
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             
@@ -847,8 +847,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux%E5%86%85%E6%A0%B8/">
-                        <span class="chip bg-color">Linux内核</span>
+                    <a href="/tags/NeoVim%E7%BC%96%E8%BE%91%E5%99%A8/">
+                        <span class="chip bg-color">NeoVim编辑器</span>
                     </a>
                     
                 </div>
@@ -862,18 +862,18 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/07/ppt-zhi-zuo-ji-chu-pian/">
+                <a href="/2023/11/07/hui-bian-yu-yan-san/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/12.webp" class="responsive-img" alt="PPT制作（基础篇）">
+                        <img src="/medias/featureimages/27.webp" class="responsive-img" alt="汇编语言（三）">
                         
-                        <span class="card-title">PPT制作（基础篇）</span>
+                        <span class="card-title">汇编语言（三）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            PPT风格确定
+                            汇编语言
                         
                     </div>
                     <div class="publish-info">
@@ -884,8 +884,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-category">
-                                    工作流
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
+                                    编程语言
                                 </a>
                             
                             
@@ -895,8 +895,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PPT/">
-                        <span class="chip bg-color">PPT</span>
+                    <a href="/tags/%E3%80%8A%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E3%80%8B/">
+                        <span class="chip bg-color">《汇编语言》</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">汇编语言</span>
                     </a>
                     
                 </div>

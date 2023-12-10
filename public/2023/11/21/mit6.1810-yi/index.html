@@ -415,8 +415,8 @@
 <blockquote>
 <p>在<strong>命令行</strong>输入<strong>以下代码</strong></p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">sudo apt-get update  //更新软件包来源
-sudo apt-get upgrade //更新所有能更新的软件
+<pre class="line-numbers language-none"><code class="language-none">sudo apt-get update  &#x2F;&#x2F;更新软件包来源
+sudo apt-get upgrade &#x2F;&#x2F;更新所有能更新的软件
 sudo apt-get install git build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p><code>git</code>：<strong>版本控制</strong>工具，并且可以将<strong>Lab文件夹</strong>保存到<strong>github</strong></p>
@@ -431,7 +431,7 @@ sudo apt-get install git build-essential gdb-multiarch qemu-system-misc gcc-risc
 <p><code>qemu</code>：一个支持<strong>跨平台虚拟化</strong>的虚拟机，如在<strong>x86架构</strong>平台上虚拟出一个<strong>ARM架构</strong>平台</p>
 </blockquote>
 <blockquote>
-<p><code>gcc-riscv64-linux-gnu</code>:是<strong>基于GCC</strong>的<strong>跨平台编译工具</strong>，可以在<strong>某架构</strong>如X86，平台上将<strong>C/C++代码</strong>编译成<strong>RISC-V指令集</strong>的<strong>汇编码</strong>、<strong>机器码</strong>，并做出相应的<strong>程序分析</strong></p>
+<p><code>gcc-riscv64-linux-gnu</code>:是<strong>基于GCC</strong>的<strong>跨平台编译工具</strong>，可以在<strong>某架构</strong>如X86，平台上将<strong>C&#x2F;C++代码</strong>编译成<strong>RISC-V指令集</strong>的<strong>汇编码</strong>、<strong>机器码</strong>，并做出相应的<strong>程序分析</strong></p>
 </blockquote>
 <blockquote>
 <p><code>binutils-riscv64-linux-gnu</code>：针对<strong>RISC-V架构</strong>的<strong>GNU Binutils工具集</strong>的特定变体</p>
@@ -440,7 +440,7 @@ sudo apt-get install git build-essential gdb-multiarch qemu-system-misc gcc-risc
 <p>在<strong>命令行</strong>输入<strong>以下代码</strong>，<code>ctrl-a x</code>，即<strong>先同时</strong>按住<code>ctrl</code>和<code>a</code>,<strong>随后</strong>按下<code>x</code>即可<strong>退出</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 第一次需要输入以下三行代码，以后只需要在对应目录下输入make qemu即可</div>
-<pre class="line-numbers language-none"><code class="language-none">git clone git://g.csail.mit.edu/xv6-labs-2023
+<pre class="line-numbers language-none"><code class="language-none">git clone git:&#x2F;&#x2F;g.csail.mit.edu&#x2F;xv6-labs-2023
 cd xv6-labs-2023
 make qemu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h3 id="2-操作系统接口"><a href="#2-操作系统接口" class="headerlink" title="2.操作系统接口"></a>2.操作系统接口</h3><h4 id="2-1进程和内存"><a href="#2-1进程和内存" class="headerlink" title="2.1进程和内存"></a>2.1进程和内存</h4><blockquote>
@@ -464,7 +464,7 @@ make qemu<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> filename用于提供文件路径，对应文件必须有特定的格式，argv用于提供字符串参数数组，第一个参数为程序名</div>
 
-<h4 id="2-2I-x2F-O操作"><a href="#2-2I-x2F-O操作" class="headerlink" title="2.2I/O操作"></a>2.2I/O操作</h4><blockquote>
+<h4 id="2-2I-x2F-O操作"><a href="#2-2I-x2F-O操作" class="headerlink" title="2.2I&#x2F;O操作"></a>2.2I&#x2F;O操作</h4><blockquote>
 <p><strong>文件描述符fd</strong>：本质上是一个<strong>小整型</strong>，一个<strong>可以读写</strong>的由<strong>内核管理</strong>的对象，将<strong>文件</strong>、<strong>目录</strong>和<strong>设备</strong>等抽象为<strong>字节流</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 各个进程的文件描述符是相互隔离的，每个进程都至少有一个标准输入0，标准输出1和标准错误2</div>
@@ -513,28 +513,28 @@ make qemu<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">int p[2];
 char *argv[2];
-argv[0] = "wc";
-argv[1] = 0;
-//创建管道所需要的文件描述符
+argv[0] &#x3D; &quot;wc&quot;;
+argv[1] &#x3D; 0;
+&#x2F;&#x2F;创建管道所需要的文件描述符
 pipe(p);
-//创建子进程，这样父子进程都有指向同一个管道的文件描述符了
-if (fork() == 0) {
-    //子进程关闭标准读取，并将其指向管道的读取端
+&#x2F;&#x2F;创建子进程，这样父子进程都有指向同一个管道的文件描述符了
+if (fork() &#x3D;&#x3D; 0) &#123;
+    &#x2F;&#x2F;子进程关闭标准读取，并将其指向管道的读取端
     close(0);
     dup(p[0]);
-    //关闭所有指向管道的文件描述符
+    &#x2F;&#x2F;关闭所有指向管道的文件描述符
     close(p[0]);
     close(p[1]);
-    //exec调用wc，wc从标准读取，也就是管道读取端读入数据
-    exec("/bin/wc", argv);
-} else {
-    //关闭管道读取端
+    &#x2F;&#x2F;exec调用wc，wc从标准读取，也就是管道读取端读入数据
+    exec(&quot;&#x2F;bin&#x2F;wc&quot;, argv);
+&#125; else &#123;
+    &#x2F;&#x2F;关闭管道读取端
     close(p[0]);
-    //将"hello world\n"写入管道
-    write(p[1], "hello world\n", 12);
-    //关闭管道写入端
+    &#x2F;&#x2F;将&quot;hello world\n&quot;写入管道
+    write(p[1], &quot;hello world\n&quot;, 12);
+    &#x2F;&#x2F;关闭管道写入端
     close(p[1]);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-3文件系统"><a href="#2-3文件系统" class="headerlink" title="2.3文件系统"></a>2.3文件系统</h4><blockquote>
 <p><strong>绝对路径</strong>：以<code>/</code>开头，从<strong>根目录</strong>开始<strong>层层向下</strong>寻找对应文件</p>
 </blockquote>
@@ -566,16 +566,16 @@ if (fork() == 0) {
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当文件的链接数为零且没有文件描述符引用时，文件的inode和包含其内容的磁盘空间会被释放</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以利用unlink创建临时文件</div>
-<pre class="line-numbers language-none"><code class="language-none">fd = open("/tmp/xyz", O_CREATE | O_RDWR);
-unlink("/tmp/xyz");<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">fd &#x3D; open(&quot;&#x2F;tmp&#x2F;xyz&quot;, O_CREATE | O_RDWR);
+unlink(&quot;&#x2F;tmp&#x2F;xyz&quot;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h4 id="2-4xv6架构"><a href="#2-4xv6架构" class="headerlink" title="2.4xv6架构"></a>2.4xv6架构</h4><p>没有操作系统，各个应用程序直接和硬件交互</p>
 <p>宏内核：整个操作系统都驻留在内核中，以完全的硬件特权运行，不同部分更容易合作<br>不同部分之间的接口通常很复杂，且发生错误可能会导致整个内核停止运行</p>
 <p>微内核：将操作系统中最基本的部分放入内核中，而把操作系统的绝大部分功能都放在微内核外面的一组服务器(进程)中实现。</p>
-<p>每个进程有一个单独的页表，映射其地址空间，进程最大地址空间受到限制，MAXVA，kernel/riscv.h:348</p>
+<p>每个进程有一个单独的页表，映射其地址空间，进程最大地址空间受到限制，MAXVA，kernel&#x2F;riscv.h:348</p>
 <p>proc结构保存了每个进程的状态，页表、内核栈区和运行状态</p>
 <p>进程都有一个或者多个线程，用于执行进程的指令，线程的大部分状态保存在线程的栈中</p>
 <p>每个进程有一个用户栈和内核栈，进程执行用户指令时，只有它的用户栈在使用，它的内核栈是空的。当进程进入内核（由于系统调用或中断）时，内核代码在进程的内核堆栈上执行；当一个进程在内核中时，它的用户堆栈仍然包含保存的数据，只是不处于活动状态。进程的线程在主动使用它的用户栈和内核栈之间交替</p>
-<p>RISC-V的ecall指令允许应用程序从指定点陷入内核，提升硬件特权级别，并将程序计数器（PC）更改为内核定义的入口点，入口点的代码切换到内核栈，执行实现系统调用的内核指令，当系统调用完成时，内核切换回用户栈，并通过调用sret指令返回用户空间，该指令降低了硬件特权级别，并在系统调用指令刚结束时恢复执行用户指令。进程的线程可以在内核中“阻塞”等待I/O，并在I/O完成后恢复到中断的位置。<br><a target="_blank" rel="noopener" href="https://xv6.dgs.zone/tranlate_books/book-riscv-rev1/c3/s8.html">https://xv6.dgs.zone/tranlate_books/book-riscv-rev1/c3/s8.html</a></p>
+<p>RISC-V的ecall指令允许应用程序从指定点陷入内核，提升硬件特权级别，并将程序计数器（PC）更改为内核定义的入口点，入口点的代码切换到内核栈，执行实现系统调用的内核指令，当系统调用完成时，内核切换回用户栈，并通过调用sret指令返回用户空间，该指令降低了硬件特权级别，并在系统调用指令刚结束时恢复执行用户指令。进程的线程可以在内核中“阻塞”等待I&#x2F;O，并在I&#x2F;O完成后恢复到中断的位置。<br><a target="_blank" rel="noopener" href="https://xv6.dgs.zone/tranlate_books/book-riscv-rev1/c3/s8.html">https://xv6.dgs.zone/tranlate_books/book-riscv-rev1/c3/s8.html</a></p>
 
                 
             </div>
@@ -693,7 +693,7 @@ unlink("/tmp/xyz");<span aria-hidden="true" class="line-numbers-rows"><span></sp
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/22/linux-gong-zuo-liu-er/">
+                <a href="/2023/11/21/linux-gong-zuo-liu-er/">
                     <div class="card-image">
                         
                         <img src="/medias/featureimages/41.webp" class="responsive-img" alt="Linux工作流（二）">
@@ -709,7 +709,7 @@ unlink("/tmp/xyz");<span aria-hidden="true" class="line-numbers-rows"><span></sp
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-21
                         </span>
                         <span class="publish-author">
                             
@@ -745,12 +745,12 @@ unlink("/tmp/xyz");<span aria-hidden="true" class="line-numbers-rows"><span></sp
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/18/suan-fa-fan-shi-xia/">
+                <a href="/2023/11/20/suan-fa-fan-shi-shang/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="算法范式（下）">
+                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="算法范式（上）">
                         
-                        <span class="card-title">算法范式（下）</span>
+                        <span class="card-title">算法范式（上）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -761,7 +761,7 @@ unlink("/tmp/xyz");<span aria-hidden="true" class="line-numbers-rows"><span></sp
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-20
                             </span>
                         <span class="publish-author">
                             

@@ -408,10 +408,10 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="Linux内核设计与实现（一）"><a href="#Linux内核设计与实现（一）" class="headerlink" title="Linux内核设计与实现（一）"></a>Linux内核设计与实现（一）</h1><h2 id="Linux内核基础"><a href="#Linux内核基础" class="headerlink" title="Linux内核基础"></a>Linux内核基础</h2><h3 id="1-Unix和Linux"><a href="#1-Unix和Linux" class="headerlink" title="1.Unix和Linux"></a>1.Unix和Linux</h3><p><strong>1.1Unix系统特点</strong><br>①简洁：只有几百个系统调用且设计目的简单明确<br>②一切皆文件：对数据和设备的操作可以通过同一套接口完成<br>③C语言编写：移植能力强<br>④进程创建十分迅速，提供了一套十分简单稳定的进程间通信元语<br>#Linux是类Unix系统，没有直接使用Unix源码，但是<strong>设计理念一致</strong>且保证了<strong>应用程序编程接口的一致</strong><br><strong>1.2Linux和Unix的差异</strong><br>①Linux支持动态加载和卸载内核模块<br>②Linux支持对称多处理（SMP）机制<br>③linux内核可以抢占<br>④Linux不区分进程和线程<br>⑤Linux提供具有设备类的面向对象的设备模型、热插拔事件</p>
-<h3 id="2-基本概念"><a href="#2-基本概念" class="headerlink" title="2.基本概念"></a>2.基本概念</h3><p><strong>2.1内核空间</strong>：内核等相关程序运行的空间，拥有<strong>受保护的内存空间</strong>和访问硬件的<strong>所有权利</strong><br><strong>2.2用户空间</strong>：应用程序执行的空间，应用程序在用户空间只能看到系统允许他们使用的部分系统资源，只能使用某些特定的系统功能，不能直接访问硬件，也不能访问内核划分给<strong>其他应用程序的内存空间</strong><br>#当内核运行时，系统以内核态进入内核空间，当用户程序运行时，系统以用户态进入用户空间<br><strong>2.3系统调用</strong>：应用程序通过系统调用陷入内核，应用程序调用库函数，库函数通过系统调用接口调用<strong>内核子系统/设备驱动程序</strong><br><strong>2.4单内核</strong>：内核以<strong>单个静态二进制文件</strong>的形式存放在磁盘中，运行在一个<strong>单独的地址空间</strong>上，内核之间的通信耗时可忽略不计<br><strong>2.5微内核</strong>：内核功能被划分为<strong>多个独立的过程</strong>，每个过程叫做一个<strong>服务器</strong>，每个服务器独立运行在<strong>各自的地址空间</strong>上，除了强烈要求特权服务的服务器运行在特权模式下，其他服务器运行在<strong>用户空间</strong>，每个服务器采用<strong>进程间通信机制</strong>沟通，可靠性更强，一个服务器出现问题不会祸及其他服务器，且服务器<strong>可以加载也可以卸载</strong><br>#Linux是<strong>单内核</strong>，但是汲取了微内核的精髓——模块化设计、抢占式内核、支持内核线程及动态装载内核模块</p>
+<h3 id="2-基本概念"><a href="#2-基本概念" class="headerlink" title="2.基本概念"></a>2.基本概念</h3><p><strong>2.1内核空间</strong>：内核等相关程序运行的空间，拥有<strong>受保护的内存空间</strong>和访问硬件的<strong>所有权利</strong><br><strong>2.2用户空间</strong>：应用程序执行的空间，应用程序在用户空间只能看到系统允许他们使用的部分系统资源，只能使用某些特定的系统功能，不能直接访问硬件，也不能访问内核划分给<strong>其他应用程序的内存空间</strong><br>#当内核运行时，系统以内核态进入内核空间，当用户程序运行时，系统以用户态进入用户空间<br><strong>2.3系统调用</strong>：应用程序通过系统调用陷入内核，应用程序调用库函数，库函数通过系统调用接口调用<strong>内核子系统&#x2F;设备驱动程序</strong><br><strong>2.4单内核</strong>：内核以<strong>单个静态二进制文件</strong>的形式存放在磁盘中，运行在一个<strong>单独的地址空间</strong>上，内核之间的通信耗时可忽略不计<br><strong>2.5微内核</strong>：内核功能被划分为<strong>多个独立的过程</strong>，每个过程叫做一个<strong>服务器</strong>，每个服务器独立运行在<strong>各自的地址空间</strong>上，除了强烈要求特权服务的服务器运行在特权模式下，其他服务器运行在<strong>用户空间</strong>，每个服务器采用<strong>进程间通信机制</strong>沟通，可靠性更强，一个服务器出现问题不会祸及其他服务器，且服务器<strong>可以加载也可以卸载</strong><br>#Linux是<strong>单内核</strong>，但是汲取了微内核的精髓——模块化设计、抢占式内核、支持内核线程及动态装载内核模块</p>
 <h3 id="3-Linux版本"><a href="#3-Linux版本" class="headerlink" title="3.Linux版本"></a>3.Linux版本</h3><p><strong>[主版本号].[从版本号].[修订版本号].[稳定版本号]</strong><br>#稳定版本号是偶数则是稳定版，反之为开发版</p>
-<h3 id="4-简述编译内核"><a href="#4-简述编译内核" class="headerlink" title="4.简述编译内核"></a>4.简述编译内核</h3><p><strong>4.1获得内核源码</strong>：在<a target="_blank" rel="noopener" href="http://www.kernel.org/">Linux内核官网</a>下载<br>①使用git clone和git pull获得内核源码<br>②自行下载安装，有bzip2和gzip两种形式，其中bzip2是默认和首选下载格式，采用tar命令解压，解压后的源码在linux-x.y.z.目录下（x.y.z.为Linux版本号）<br>③安装内核补丁进行版本的更迭<br><strong>4.2安装内核源码</strong>：系统本身的内核源码<strong>位于/usr/src/linux目录</strong>下，但是<strong>不能将该源码树用于开发</strong>，因为<strong>编译C库</strong>所用的内核版本链接到该棵树。应该建立<strong>自己的主目录</strong>，仅仅以<strong>root身份</strong>安装新内核到该目录，系统本身目录不进行任何更改<br><strong>4.3配置内核</strong>：将自己需要的<strong>特定功能和驱动程序</strong>编进内核（根目录下.config文件），常见内核配置工具如下<br>①make config<br>#遍历所有配置项，要求用户选择选项，耗时长，不推荐<br>②make menuconfig或者make gconfig<br>#图形界面，推荐<br>③make defconfig<br>#基于默认配置为你的体系结构创建一个配置<br>④make oldconfig<br>#根据.config文件生成/更新配置<br>#配置选项CONFIG_IKCONFIG_PROC将<strong>完整压缩</strong>的配置文件存放在/proc/config.gz下，可以采用zcat /proc/config.gz &gt; .config及make oldconfig克隆当前配置<br><strong>4.4编译内核</strong><br>①编译内核：make<br>②减少编译垃圾信息：make &gt; ../detritus或者make &gt; dev/null<br>#前者将编译信息重定向到该文件中，后者的/dev/null是个永无返回值的黑洞，但是警告和错误信息还是会打印出来<br>③将编译过程拆分为多个并行的作业：make -jn<br>#其中n为作业数，一般<strong>每个处理器上衍生出一两个作业</strong><br><strong>4.5安装新内核</strong>：根据启动引导工具的说明操作即可</p>
-<h3 id="5-内核开发的特点"><a href="#5-内核开发的特点" class="headerlink" title="5.内核开发的特点"></a>5.内核开发的特点</h3><p><strong>5.1不能访问C库及标准C头文件</strong>:对于内核来说，C库<strong>太大且低效</strong>了<br>#不过大部分常用的C库函数在内核中已经得到了实现，比如string库对应&lt;linux/string.h&gt;<br>#基本的头文件位于内核源码树<strong>顶级目录的include目录</strong>下<br>#体系结构相关头文件位于arch/[architecture]/include/asm目录下,以asm为前缀，如&lt;asm/ioctl.h&gt;<br><strong>5.2必须使用GUN C</strong><br><strong>5.3没有内存保护机制</strong>：当内核自身发生了内存错误会导致oops<br>#内核中的内存<strong>不分页</strong><br><strong>5.4不要轻易使用浮点数</strong>：在内核中使用浮点数，不仅仅要人工保存和回复浮点寄存器，还需要一些繁琐的操作<br><strong>5.5容积小且固定的栈</strong>：内核栈大小随体系结构改变<br><strong>5.6同步和并发</strong>：内核的许多特性要求可以并发的访问共享数据，这就可能产生竞争<br><strong>5.7可移植性的重要性</strong></p>
+<h3 id="4-简述编译内核"><a href="#4-简述编译内核" class="headerlink" title="4.简述编译内核"></a>4.简述编译内核</h3><p><strong>4.1获得内核源码</strong>：在<a target="_blank" rel="noopener" href="http://www.kernel.org/">Linux内核官网</a>下载<br>①使用git clone和git pull获得内核源码<br>②自行下载安装，有bzip2和gzip两种形式，其中bzip2是默认和首选下载格式，采用tar命令解压，解压后的源码在linux-x.y.z.目录下（x.y.z.为Linux版本号）<br>③安装内核补丁进行版本的更迭<br><strong>4.2安装内核源码</strong>：系统本身的内核源码<strong>位于&#x2F;usr&#x2F;src&#x2F;linux目录</strong>下，但是<strong>不能将该源码树用于开发</strong>，因为<strong>编译C库</strong>所用的内核版本链接到该棵树。应该建立<strong>自己的主目录</strong>，仅仅以<strong>root身份</strong>安装新内核到该目录，系统本身目录不进行任何更改<br><strong>4.3配置内核</strong>：将自己需要的<strong>特定功能和驱动程序</strong>编进内核（根目录下.config文件），常见内核配置工具如下<br>①make config<br>#遍历所有配置项，要求用户选择选项，耗时长，不推荐<br>②make menuconfig或者make gconfig<br>#图形界面，推荐<br>③make defconfig<br>#基于默认配置为你的体系结构创建一个配置<br>④make oldconfig<br>#根据.config文件生成&#x2F;更新配置<br>#配置选项CONFIG_IKCONFIG_PROC将<strong>完整压缩</strong>的配置文件存放在&#x2F;proc&#x2F;config.gz下，可以采用zcat &#x2F;proc&#x2F;config.gz &gt; .config及make oldconfig克隆当前配置<br><strong>4.4编译内核</strong><br>①编译内核：make<br>②减少编译垃圾信息：make &gt; ..&#x2F;detritus或者make &gt; dev&#x2F;null<br>#前者将编译信息重定向到该文件中，后者的&#x2F;dev&#x2F;null是个永无返回值的黑洞，但是警告和错误信息还是会打印出来<br>③将编译过程拆分为多个并行的作业：make -jn<br>#其中n为作业数，一般<strong>每个处理器上衍生出一两个作业</strong><br><strong>4.5安装新内核</strong>：根据启动引导工具的说明操作即可</p>
+<h3 id="5-内核开发的特点"><a href="#5-内核开发的特点" class="headerlink" title="5.内核开发的特点"></a>5.内核开发的特点</h3><p><strong>5.1不能访问C库及标准C头文件</strong>:对于内核来说，C库<strong>太大且低效</strong>了<br>#不过大部分常用的C库函数在内核中已经得到了实现，比如string库对应&lt;linux&#x2F;string.h&gt;<br>#基本的头文件位于内核源码树<strong>顶级目录的include目录</strong>下<br>#体系结构相关头文件位于arch&#x2F;[architecture]&#x2F;include&#x2F;asm目录下,以asm为前缀，如&lt;asm&#x2F;ioctl.h&gt;<br><strong>5.2必须使用GUN C</strong><br><strong>5.3没有内存保护机制</strong>：当内核自身发生了内存错误会导致oops<br>#内核中的内存<strong>不分页</strong><br><strong>5.4不要轻易使用浮点数</strong>：在内核中使用浮点数，不仅仅要人工保存和回复浮点寄存器，还需要一些繁琐的操作<br><strong>5.5容积小且固定的栈</strong>：内核栈大小随体系结构改变<br><strong>5.6同步和并发</strong>：内核的许多特性要求可以并发的访问共享数据，这就可能产生竞争<br><strong>5.7可移植性的重要性</strong></p>
 
                 
             </div>
@@ -525,58 +525,6 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/c-yu-yan-xue-xi-bi-ji-er/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/0.webp" class="responsive-img" alt="C语言学习笔记（二）">
-                        
-                        <span class="card-title">C语言学习笔记（二）</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            指针
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/C%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">C语言</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%8AC%E5%92%8C%E6%8C%87%E9%92%88%E3%80%8B/">
-                        <span class="chip bg-color">《C和指针》</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
                 <a href="/2023/11/07/linux-nei-he-she-ji-yu-shi-xian-er/">
                     <div class="card-image">
                         
@@ -592,9 +540,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -612,6 +560,58 @@
                     
                     <a href="/tags/Linux%E5%86%85%E6%A0%B8/">
                         <span class="chip bg-color">Linux内核</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/11/07/git-ji-qi-ying-yong/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/22.webp" class="responsive-img" alt="Git及其应用">
+                        
+                        <span class="card-title">Git及其应用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            git和github
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
+                    </a>
+                    
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
                     </a>
                     
                 </div>

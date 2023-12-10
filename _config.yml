@@ -156,11 +156,7 @@ lazyload:
   onlypost: true  # 是否只对文章的图片做懒加载
   loadingImg: /images/loading.gif# eg ./images/loading.gif
 
-prism_plugin:
-  mode: 'preprocess'    # realtime/preprocess
-  theme: 'tomorrow'
-  line_number: false    # default false
-  custom_css:
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:

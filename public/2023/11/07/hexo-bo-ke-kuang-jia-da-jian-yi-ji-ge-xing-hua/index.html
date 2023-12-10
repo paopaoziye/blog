@@ -423,11 +423,11 @@
 <pre class="line-numbers language-none"><code class="language-none"># 查看npm的配置
 npm config list
 # 默认源
-npm config set registry https://registry.npmjs.org
+npm config set registry https:&#x2F;&#x2F;registry.npmjs.org
 # 临时改变镜像源
-npm --registry=https://registry.npm.taobao.org
+npm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org
 # 永久设置为淘宝镜像源
-npm config set registry https://registry.npm.taobao.org<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+npm config set registry https:&#x2F;&#x2F;registry.npm.taobao.org<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②Linux环境</strong></p>
 <blockquote>
 <p>安装<code>Node.js</code>和<code>Git</code>，若使用<strong>源码安装</strong>，则需要添加<strong>软链接</strong></p>
@@ -472,28 +472,28 @@ npm install <span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <p>打开<code>_config.yml</code>，滑到<strong>文件最底部</strong>，填入<strong>如下代码</strong></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">type: git
-repo: git@github.com:Github用户名/github用户名.github.io.git  
-//也可使用https地址，如：https://github.com/Github用户名/Github用户名.github.io.git            
+repo: git@github.com:Github用户名&#x2F;github用户名.github.io.git  
+&#x2F;&#x2F;也可使用https地址，如：https:&#x2F;&#x2F;github.com&#x2F;Github用户名&#x2F;Github用户名.github.io.git            
 branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>④上传博客</strong></p>
 <blockquote>
 <p>在<strong>博客目录</strong>下的<code>git bash/shell</code>中输入<strong>命令</strong><code>hexo d</code></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 上传成功后，在浏览器中打开https://&lt;用户名&gt;.github.io，即可查看上传的网页</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 上传成功后，在浏览器中打开https://<用户名>.github.io，即可查看上传的网页</div>
 <hr>
 <h3 id="2-博客个性化"><a href="#2-博客个性化" class="headerlink" title="2.博客个性化"></a>2.博客个性化</h3><h4 id="2-1主题设置"><a href="#2-1主题设置" class="headerlink" title="2.1主题设置"></a>2.1主题设置</h4><p><strong>①主题安装</strong></p>
 <blockquote>
 <p>在<strong>博客目录</strong>下的<code>git bash/shell</code>中输入如下<strong>命令</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这里选择的是matery主题，有两个版本，稳定版本和最新版本 (不定期更新优化)，自主选择版本</div>
-<pre class="line-numbers language-none"><code class="language-none">git clone https://github.com/blinkfox/hexo-theme-matery themes/matery     # 稳定版
-git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery   #最新版(不定期进行优化更新)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">git clone https:&#x2F;&#x2F;github.com&#x2F;blinkfox&#x2F;hexo-theme-matery themes&#x2F;matery     # 稳定版
+git clone -b develop https:&#x2F;&#x2F;github.com&#x2F;blinkfox&#x2F;hexo-theme-matery themes&#x2F;matery   #最新版(不定期进行优化更新)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><strong>②修改博客主题</strong></p>
 <blockquote>
 <p>将<strong>博客配置文件</strong><code>_config</code>中的<code>theme</code>值修改为<strong>下载主题</strong>的<strong>文件夹名</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 其他博客配置文件修改可见官网</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 修改博客配置文件后要运行执行hexo clean &amp;&amp; hexo g，重新生成博客文件</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 修改博客配置文件后要运行执行hexo clean && hexo g，重新生成博客文件</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 注意博客配置文件在博客根目录下，对应主题也有相应配置文件在主题文件夹中</div>
 <h4 id="2-2插件配置"><a href="#2-2插件配置" class="headerlink" title="2.2插件配置"></a>2.2插件配置</h4><p><strong>①代码高亮</strong></p>
 <blockquote>
@@ -504,8 +504,8 @@ git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery
 <p><strong>配置</strong>：修改<strong>博客配置文件</strong>下<code>_config.yml</code>文件中<code>highlight.enable</code>的值为<code>false</code>，并新增以下<strong>配置项</strong></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">prism_plugin:
-  mode: 'preprocess'    # realtime/preprocess
-  theme: 'tomorrow'
+  mode: &#39;preprocess&#39;    # realtime&#x2F;preprocess
+  theme: &#39;tomorrow&#39;
   line_number: false    # default false
   custom_css:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②搜索</strong></p>
@@ -527,7 +527,7 @@ git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">permalink_pinyin:
   enable: true
-  separator: '-' # default: '-'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+  separator: &#39;-&#39; # default: &#39;-&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><strong>④文章字数统计插件</strong></p>
 <blockquote>
 <p><strong>下载</strong>：<code>npm i --save hexo-wordcount</code></p>
@@ -544,34 +544,34 @@ git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery
 <blockquote>
 <p>在<strong>主题目录下</strong>新建<code>scripts</code>目录，并<strong>此目录下</strong>新建<code>block.js</code>文件，填入<strong>以下代码</strong></p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">hexo.extend.tag.register('wrong', function(args, content){
-    var className =  args.join(' ');
-    var formattedContent = content.replace(/\n/g, '&lt;br&gt;');  // 将换行符替换为 &lt;br&gt; 标签
-    return '&lt;div class="uk-alert uk-alert-danger"&gt;&lt;i class="fas fa-exclamation-triangle"&gt;&lt;/i&gt; ' + formattedContent + '&lt;/div&gt;';
-  }, {ends: true});
+<pre class="line-numbers language-none"><code class="language-none">hexo.extend.tag.register(&#39;wrong&#39;, function(args, content)&#123;
+    var className &#x3D;  args.join(&#39; &#39;);
+    var formattedContent &#x3D; content.replace(&#x2F;\n&#x2F;g, &#39;&lt;br&gt;&#39;);  &#x2F;&#x2F; 将换行符替换为 &lt;br&gt; 标签
+    return &#39;&lt;div class&#x3D;&quot;uk-alert uk-alert-danger&quot;&gt;&lt;i class&#x3D;&quot;fas fa-exclamation-triangle&quot;&gt;&lt;&#x2F;i&gt; &#39; + formattedContent + &#39;&lt;&#x2F;div&gt;&#39;;
+  &#125;, &#123;ends: true&#125;);
   
-  hexo.extend.tag.register('right', function(args, content){
-    var className =  args.join(' ');
-    var formattedContent = content.replace(/\n/g, '&lt;br&gt;');  // 将换行符替换为 &lt;br&gt; 标签
-    return '&lt;div class="uk-alert uk-alert-success"&gt;&lt;i class="fa fa-check-circle"&gt;&lt;/i&gt; ' + formattedContent + '&lt;/div&gt;';
-  }, {ends: true});
+  hexo.extend.tag.register(&#39;right&#39;, function(args, content)&#123;
+    var className &#x3D;  args.join(&#39; &#39;);
+    var formattedContent &#x3D; content.replace(&#x2F;\n&#x2F;g, &#39;&lt;br&gt;&#39;);  &#x2F;&#x2F; 将换行符替换为 &lt;br&gt; 标签
+    return &#39;&lt;div class&#x3D;&quot;uk-alert uk-alert-success&quot;&gt;&lt;i class&#x3D;&quot;fa fa-check-circle&quot;&gt;&lt;&#x2F;i&gt; &#39; + formattedContent + &#39;&lt;&#x2F;div&gt;&#39;;
+  &#125;, &#123;ends: true&#125;);
   
-  hexo.extend.tag.register('warning', function(args, content){
-    var className =  args.join(' ');
-    var formattedContent = content.replace(/\n/g, '&lt;br&gt;');  // 将换行符替换为 &lt;br&gt; 标签
-    return '&lt;div class="uk-alert uk-alert-warning"&gt;&lt;i class="fa fa-exclamation-circle"&gt;&lt;/i&gt; ' + formattedContent + '&lt;/div&gt;';
-  }, {ends: true});
+  hexo.extend.tag.register(&#39;warning&#39;, function(args, content)&#123;
+    var className &#x3D;  args.join(&#39; &#39;);
+    var formattedContent &#x3D; content.replace(&#x2F;\n&#x2F;g, &#39;&lt;br&gt;&#39;);  &#x2F;&#x2F; 将换行符替换为 &lt;br&gt; 标签
+    return &#39;&lt;div class&#x3D;&quot;uk-alert uk-alert-warning&quot;&gt;&lt;i class&#x3D;&quot;fa fa-exclamation-circle&quot;&gt;&lt;&#x2F;i&gt; &#39; + formattedContent + &#39;&lt;&#x2F;div&gt;&#39;;
+  &#125;, &#123;ends: true&#125;);
 
-  hexo.extend.tag.register('list', function(args, content){
-    var className =  args.join(' ');
-    var formattedContent = content.replace(/\n/g, '&lt;br&gt;');  // 将换行符替换为 &lt;br&gt; 标签
-    return '&lt;div class="uk-alert uk-alert-list"&gt;&lt;i class="fas fa-list-ul"&gt;&lt;/i&gt; ' +'&lt;br&gt;'+formattedContent + '&lt;/div&gt;';
-  }, {ends: true});<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  hexo.extend.tag.register(&#39;list&#39;, function(args, content)&#123;
+    var className &#x3D;  args.join(&#39; &#39;);
+    var formattedContent &#x3D; content.replace(&#x2F;\n&#x2F;g, &#39;&lt;br&gt;&#39;);  &#x2F;&#x2F; 将换行符替换为 &lt;br&gt; 标签
+    return &#39;&lt;div class&#x3D;&quot;uk-alert uk-alert-list&quot;&gt;&lt;i class&#x3D;&quot;fas fa-list-ul&quot;&gt;&lt;&#x2F;i&gt; &#39; +&#39;&lt;br&gt;&#39;+formattedContent + &#39;&lt;&#x2F;div&gt;&#39;;
+  &#125;, &#123;ends: true&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>在<code>head.ejs</code>文件<strong>添加</strong>以下<code>css</code>样式：</p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">   &lt;style type="text/css"&gt;
-       .uk-alert {
+<pre class="line-numbers language-none"><code class="language-none">   &lt;style type&#x3D;&quot;text&#x2F;css&quot;&gt;
+       .uk-alert &#123;
            margin-bottom: 5px;
            padding: 5px;
            background: #ebf7fd;
@@ -579,32 +579,32 @@ git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery
            border: 0px solid #ffffff;
            border-radius: 4px;
            text-shadow: 0 1px 0 #ffffff;
-       }
-       .uk-alert-success {
+       &#125;
+       .uk-alert-success &#123;
            background: rgba(120, 199, 9, 0.1);
            color: rgba(120, 199, 9);
            border-left: 6px solid rgba(120, 199, 9);
            font-weight: 600;
-       }
-       .uk-alert-warning {
+       &#125;
+       .uk-alert-warning &#123;
            background: #FFF8E9;
            color: #FFB91F;
            border-left: 6px solid #FFB91F;
            font-weight: 600;
-       }
-       .uk-alert-danger {
+       &#125;
+       .uk-alert-danger &#123;
            background: #FFE6E6;
            color: #FF7979;
            border-left: 6px solid#FF7979;
            font-weight: 600;
-       }
-       .uk-alert-list {
+       &#125;
+       .uk-alert-list &#123;
            background: #ECF7FE;
            color: #3CACF4;
            border-left: 6px solid#3CACF4;
            font-weight: 600;
-       }
-&lt;/style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       &#125;
+&lt;&#x2F;style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②解析</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 以warning部分作为例子</div>
 <blockquote>
@@ -615,25 +615,25 @@ git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery
 </blockquote>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 详细可询问ChatGPT</div>
 <p><strong>③示例</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">{%wrong%}
+<pre class="line-numbers language-none"><code class="language-none">&#123;%wrong%&#125;
 错误
-{%endwrong%}
-{%right%}
+&#123;%endwrong%&#125;
+&#123;%right%&#125;
 正确
-{%endright%}
-{%warning%}
+&#123;%endright%&#125;
+&#123;%warning%&#125;
 警告
-{%endwarning%}
-{%list%}
+&#123;%endwarning%&#125;
+&#123;%list%&#125;
 列表项
-{%endlist%}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#123;%endlist%&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 错误</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 正确</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 警告</div>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 列表项</div>
 <hr>
 <h3 id="3-博客书写"><a href="#3-博客书写" class="headerlink" title="3.博客书写"></a>3.博客书写</h3><h4 id="3-1Front-matter"><a href="#3-1Front-matter" class="headerlink" title="3.1Front-matter"></a>3.1Front-matter</h4><blockquote>
-<p>在<strong>博客根目录</strong>下<code>scaffolds</code>文件夹下新增/修改<code>post.md</code>文件，即可修改<strong>默认样式</strong>，<strong>详细样式</strong>如下</p>
+<p>在<strong>博客根目录</strong>下<code>scaffolds</code>文件夹下新增&#x2F;修改<code>post.md</code>文件，即可修改<strong>默认样式</strong>，<strong>详细样式</strong>如下</p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">title: 文章名称
 seo_title: seo名称
@@ -658,9 +658,9 @@ description: 文章摘要
 icons: [fas fa-fire red, fas fa-star green]
 references:
   - title: 参考资料名称
-    url: https://参考资料地址
-headimg: https://文章头图
-thumbnail: https://右侧缩略图<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    url: https:&#x2F;&#x2F;参考资料地址
+headimg: https:&#x2F;&#x2F;文章头图
+thumbnail: https:&#x2F;&#x2F;右侧缩略图<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="3-2正文修饰"><a href="#3-2正文修饰" class="headerlink" title="3.2正文修饰"></a>3.2正文修饰</h4><p><strong>①标题</strong></p>
 <blockquote>
 <p><code>#</code>为<strong>一级标题</strong>，<code>##</code>为<strong>二级标题</strong>,以此类推</p>
@@ -697,16 +697,16 @@ thumbnail: https://右侧缩略图<span aria-hidden="true" class="line-numbers-r
 #figure此处的文字有时作为图片标题显示，有时不显示，optional，可留空
 #URL处也可以不填写url，也可以选择上传本地图片，此时只需填写相对路径即可，
 #相对路径指的是在与此markdown文档同路径下的相对路径，可在此md文档同路径下新建img文件夹，
-#在此处填/img/xx.png 具体情况具体分析，或许在主题配置文件中亦有提及*
+#在此处填&#x2F;img&#x2F;xx.png 具体情况具体分析，或许在主题配置文件中亦有提及*
 
 #多张图片
-{% gi total n1-n2-... %}
+&#123;% gi total n1-n2-... %&#125;
   ![](url)
   ![](url)
   ![](url)
   ![](url)
   ![](url)
-{% endgi %}
+&#123;% endgi %&#125;
 #total为图片总的数量,n1为第一行的图片数量,n2为第二行的图片数量<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>⑥锚点</strong></p>
 <blockquote>
@@ -832,76 +832,24 @@ thumbnail: https://右侧缩略图<span aria-hidden="true" class="line-numbers-r
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/ppt-zhi-zuo-jin-jie-pian/">
+                <a href="/2023/11/07/hui-bian-yu-yan-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/12.webp" class="responsive-img" alt="PPT制作（进阶篇）">
+                        <img src="/medias/featureimages/27.webp" class="responsive-img" alt="汇编语言（二）">
                         
-                        <span class="card-title">PPT制作（进阶篇）</span>
+                        <span class="card-title">汇编语言（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            PPT制作技巧-进阶
+                            汇编语言
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
                         </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-category">
-                                    工作流
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/PPT/">
-                        <span class="chip bg-color">PPT</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%BD%AF%E6%8A%80%E8%83%BD/">
-                        <span class="chip bg-color">软技能</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/11/07/python-xue-xi-bi-ji-yi/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/4.webp" class="responsive-img" alt="python学习笔记（一）">
-                        
-                        <span class="card-title">python学习笔记（一）</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            python启蒙
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
-                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -917,12 +865,68 @@ thumbnail: https://右侧缩略图<span aria-hidden="true" class="line-numbers-r
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">编程语言</span>
+                    <a href="/tags/%E3%80%8A%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E3%80%8B/">
+                        <span class="chip bg-color">《汇编语言》</span>
                     </a>
                     
-                    <a href="/tags/python/">
-                        <span class="chip bg-color">python</span>
+                    <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">汇编语言</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/11/07/cao-zuo-xi-tong-yi/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/2.webp" class="responsive-img" alt="操作系统（一）">
+                        
+                        <span class="card-title">操作系统（一）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            操作系统概述
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    计算机基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">计算机基础</span>
+                    </a>
+                    
+                    <a href="/tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA%E3%80%8B/">
+                        <span class="chip bg-color">《操作系统导论》</span>
                     </a>
                     
                 </div>

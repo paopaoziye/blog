@@ -408,7 +408,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="Linux内核设计与实现（二）"><a href="#Linux内核设计与实现（二）" class="headerlink" title="Linux内核设计与实现（二）"></a>Linux内核设计与实现（二）</h1><h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><h3 id="1-进程和线程"><a href="#1-进程和线程" class="headerlink" title="1.进程和线程"></a>1.进程和线程</h3><p><strong>1.1进程</strong>：<strong>正在执行</strong>的程序的<strong>实时结果</strong><br>①进程不仅仅是一段可执行程序代码，还包含其他资源，如打开的文件、挂起的信号、内核内部数据、处理器状态、一个或多个具有内存映射的内存地址空间、执行线程和存放全局变量的数据段等<br>②进程和程序不是一对一关系，可能多个进程执行的是一个程序<br><strong>1.2线程</strong>：在<strong>进程中活动的对象</strong>，每个线程都拥有独立的程序计数器、进程栈和一组进程寄存器<br>①<strong>内核调度的对象</strong>是线程，不是进程<br>②在Linux中，线程被看作是<strong>特殊的进程</strong><br>③线程可以<strong>共享虚拟内存</strong>，但是有其<strong>各自的虚拟处理器</strong><br><strong>1.3内核线程</strong>：独立运行在<strong>内核空间</strong>的标准进程，但是没有独立的地址空间，只能<strong>由内核线程创建</strong><br><strong>1.4进程上下文</strong>：</p>
-<h3 id="2-进程描述符（task-struct）"><a href="#2-进程描述符（task-struct）" class="headerlink" title="2.进程描述符（task_struct）"></a>2.进程描述符（task_struct）</h3><p><strong>2.1定义</strong>：内核将进程的列表存放在名为<strong>任务队列</strong>的<strong>双向循环链表</strong>中，链表的每一项就是进程描述符，包含了<strong>内核管理一个进程的所有信息</strong>，类型为<code>task_struct</code>，定义在&lt;linxu/sched.h&gt;中<br><strong>2.2分配</strong><br>①通过<strong>slab分配器</strong>分配进程描述符，能达到<strong>对象复用</strong>和<strong>缓存着色</strong>的目的<br>②slab分配器分配进程描述符后，在<strong>进程内核栈的尾端</strong>创建<code>thread_info</code>结构，其中<code>task</code>域存放指向<strong>其进程描述符的指针</strong><br><strong>2.3访问</strong>：内核通过访问进程描述符处理进程<br>①thread_info结构：采用<strong>硬件体系结构对应的current宏</strong>访问thread_info结构访问其task域<br>②特殊寄存器：有的硬件体系结构拿出<strong>一个专门寄存器</strong>存放指向当前进程task_struct的指针<br><strong>2.4PID</strong>：每个进程的标志，PID号的最大值表示系统中允许同时存在的进程的最大数目<br><strong>2.5进程状态</strong>：进程描述符中的<strong>state域</strong>描述了进程当前状态<br>①TASK_RUNNING（运行）：正在执行或者在运行队列中等待执行<br>②TASK_INTERRUPTIBLE（可中断）：进程被<strong>阻塞（睡眠）</strong>，<strong>等待某些条件的达成</strong>状态便改为运行，可能<strong>被某些信号提前唤醒</strong><br>③TASK_UNINTERRUPTIBLE（不可中断）：进程在等待时必须不受干扰，或者等待的事件很快就会发生，<strong>不对信号做出响应</strong><br>④_TASK_TRACED（被跟踪）：被一些进程监视<br>⑤_TASK_STOPPED（停止）：<strong>没有投入运行也不能投入运行</strong>，进程退出运行，在接收到某些信号或者在调试时接收到任何信号便会变为这种状态<br>#进程状态可以通过某些函数调整，如<code>set_task_state()</code>函数<br><strong>2.6父子进程</strong>：每个进程描述符中都包含一个<code>parent</code>指针指向其父进程，也有一个名为<code>children</code>的子进程列表<br>#所有进程都是<code>init</code>进程的子进程</p>
+<h3 id="2-进程描述符（task-struct）"><a href="#2-进程描述符（task-struct）" class="headerlink" title="2.进程描述符（task_struct）"></a>2.进程描述符（task_struct）</h3><p><strong>2.1定义</strong>：内核将进程的列表存放在名为<strong>任务队列</strong>的<strong>双向循环链表</strong>中，链表的每一项就是进程描述符，包含了<strong>内核管理一个进程的所有信息</strong>，类型为<code>task_struct</code>，定义在&lt;linxu&#x2F;sched.h&gt;中<br><strong>2.2分配</strong><br>①通过<strong>slab分配器</strong>分配进程描述符，能达到<strong>对象复用</strong>和<strong>缓存着色</strong>的目的<br>②slab分配器分配进程描述符后，在<strong>进程内核栈的尾端</strong>创建<code>thread_info</code>结构，其中<code>task</code>域存放指向<strong>其进程描述符的指针</strong><br><strong>2.3访问</strong>：内核通过访问进程描述符处理进程<br>①thread_info结构：采用<strong>硬件体系结构对应的current宏</strong>访问thread_info结构访问其task域<br>②特殊寄存器：有的硬件体系结构拿出<strong>一个专门寄存器</strong>存放指向当前进程task_struct的指针<br><strong>2.4PID</strong>：每个进程的标志，PID号的最大值表示系统中允许同时存在的进程的最大数目<br><strong>2.5进程状态</strong>：进程描述符中的<strong>state域</strong>描述了进程当前状态<br>①TASK_RUNNING（运行）：正在执行或者在运行队列中等待执行<br>②TASK_INTERRUPTIBLE（可中断）：进程被<strong>阻塞（睡眠）</strong>，<strong>等待某些条件的达成</strong>状态便改为运行，可能<strong>被某些信号提前唤醒</strong><br>③TASK_UNINTERRUPTIBLE（不可中断）：进程在等待时必须不受干扰，或者等待的事件很快就会发生，<strong>不对信号做出响应</strong><br>④_TASK_TRACED（被跟踪）：被一些进程监视<br>⑤_TASK_STOPPED（停止）：<strong>没有投入运行也不能投入运行</strong>，进程退出运行，在接收到某些信号或者在调试时接收到任何信号便会变为这种状态<br>#进程状态可以通过某些函数调整，如<code>set_task_state()</code>函数<br><strong>2.6父子进程</strong>：每个进程描述符中都包含一个<code>parent</code>指针指向其父进程，也有一个名为<code>children</code>的子进程列表<br>#所有进程都是<code>init</code>进程的子进程</p>
 <h3 id="3-进程的创建"><a href="#3-进程的创建" class="headerlink" title="3.进程的创建"></a>3.进程的创建</h3><p><strong>3.1Unix进程创建概述</strong>：<code>fork()</code><strong>拷贝当前进程</strong>创建一个子进程，该子进程和父进程区别仅仅在于PID和PPID（父进程号）和某些资源，<code>exec()</code>读取<strong>进程对应可执行文件</strong>将其载入地址空间运行<br>#Linux的<code>fork()</code>系统调用采用的是<strong>写时拷贝</strong>，不复制整个父进程的进程地址空间（<strong>父进程占用的内存页</strong>），而是和父进程<strong>共享</strong>，只有当<strong>需要写入时</strong>才创建自己的内存页,<strong>在不写入的情况下，<code>fork()</code>函数只是复制了父进程的页表项和给子进程创建唯一的PID</strong><br><strong>3.2fork()</strong><br>①过程概述：<code>fork()</code>→<code>clone()</code>系统调用→<code>do_fork()</code>→调用<code>copy_process()</code><br>②copy_process过程</p>
 <ul>
 <li>为新进程创建一个内核栈、<code>thread_info</code>结构和<code>task_struct</code>结构，和父进程相同</li>
@@ -533,6 +533,58 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/2023/11/07/python-xue-xi-bi-ji-er/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/4.webp" class="responsive-img" alt="python学习笔记（二）">
+                        
+                        <span class="card-title">python学习笔记（二）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            python编程进阶
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
+                                    编程语言
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">编程语言</span>
+                    </a>
+                    
+                    <a href="/tags/python/">
+                        <span class="chip bg-color">python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/2023/11/07/linux-nei-he-she-ji-yu-shi-xian-yi/">
                     <div class="card-image">
                         
@@ -548,9 +600,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -568,58 +620,6 @@
                     
                     <a href="/tags/Linux%E5%86%85%E6%A0%B8/">
                         <span class="chip bg-color">Linux内核</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/11/07/linux-gong-zuo-liu-yi/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/41.webp" class="responsive-img" alt="Linux工作流（一）">
-                        
-                        <span class="card-title">Linux工作流（一）</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Linux常见命令
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
-                                    工具链
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">
-                        <span class="chip bg-color">工作流</span>
                     </a>
                     
                 </div>

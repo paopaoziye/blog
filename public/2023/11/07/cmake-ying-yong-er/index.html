@@ -419,28 +419,28 @@
 .
 ├── build
 ├── calc              #计算库
-│&nbsp;&nbsp; ├── add.cpp
-│&nbsp;&nbsp; ├── CMakeLists.txt
-│&nbsp;&nbsp; ├── div.cpp
-│&nbsp;&nbsp; ├── mult.cpp
-│&nbsp;&nbsp; └── sub.cpp
+│   ├── add.cpp
+│   ├── CMakeLists.txt
+│   ├── div.cpp
+│   ├── mult.cpp
+│   └── sub.cpp
 ├── CMakeLists.txt
 ├── include           #头文件目录
-│&nbsp;&nbsp; ├── calc.h
-│&nbsp;&nbsp; └── sort.h
+│   ├── calc.h
+│   └── sort.h
 ├── sort              #排序库
-│&nbsp;&nbsp; ├── CMakeLists.txt
-│&nbsp;&nbsp; ├── insert.cpp
-│&nbsp;&nbsp; └── select.cpp
+│   ├── CMakeLists.txt
+│   ├── insert.cpp
+│   └── select.cpp
 ├── test1             #测试计算库
-│&nbsp;&nbsp; ├── calc.cpp
-│&nbsp;&nbsp; └── CMakeLists.txt
+│   ├── calc.cpp
+│   └── CMakeLists.txt
 └── test2             #测试排序
     ├── CMakeLists.txt
     └── sort.cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-2建立联系"><a href="#1-2建立联系" class="headerlink" title="1.2建立联系"></a>1.2建立联系</h4><p><strong>①节点关系</strong></p>
 <blockquote>
-<p><code>CMakeLists</code>文件关系是<strong>树状结构关系</strong>（因为<strong>文件/目录之间的关系</strong>也是树状结构关系）</p>
+<p><code>CMakeLists</code>文件关系是<strong>树状结构关系</strong>（因为<strong>文件&#x2F;目录之间的关系</strong>也是树状结构关系）</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 父节点定义的变量也可以在子节点中使用，子节点定义的变量只能在当前节点使用</div>
 
@@ -457,11 +457,11 @@
 project(test)
 # 定义变量
 # 静态库生成的路径
-set(LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+set(LIB_PATH $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;&#x2F;lib)
 # 测试程序生成的路径
-set(EXEC_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set(EXEC_PATH $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;&#x2F;bin)
 # 头文件目录
-set(HEAD_PATH ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(HEAD_PATH $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;&#x2F;include)
 # 静态库的名字
 set(CALC_LIB calc)
 set(SORT_LIB sort)
@@ -477,47 +477,47 @@ add_subdirectory(test2)<span aria-hidden="true" class="line-numbers-rows"><span>
 <pre class="line-numbers language-none"><code class="language-none">cmake_minimum_required(VERSION 3.0)
 project(CALCLIB)
 #搜索当前目录（calc目录）下的所有源文件
-aux_source_directory(./ SRC)
+aux_source_directory(.&#x2F; SRC)
 #包含头文件路径，HEAD_PATH是在根节点文件中定义的
-include_directories(${HEAD_PATH})
+include_directories($&#123;HEAD_PATH&#125;)
 #设置库的生成的路径，LIB_PATH是在根节点文件中定义的
-set(LIBRARY_OUTPUT_PATH ${LIB_PATH})
+set(LIBRARY_OUTPUT_PATH $&#123;LIB_PATH&#125;)
 #生成静态库，静态库名字CALC_LIB是在根节点文件中定义的
-add_library(${CALC_LIB} STATIC ${SRC})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+add_library($&#123;CALC_LIB&#125; STATIC $&#123;SRC&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>③sort目录</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">cmake_minimum_required(VERSION 3.0)
 project(SORTLIB)
-aux_source_directory(./ SRC)
-include_directories(${HEAD_PATH})
-set(LIBRARY_OUTPUT_PATH ${LIB_PATH})
+aux_source_directory(.&#x2F; SRC)
+include_directories($&#123;HEAD_PATH&#125;)
+set(LIBRARY_OUTPUT_PATH $&#123;LIB_PATH&#125;)
 #生成动态库，动态库名字SORT_LIB是在根节点文件中定义的
-add_library(${SORT_LIB} SHARED ${SRC})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+add_library($&#123;SORT_LIB&#125; SHARED $&#123;SRC&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>④test1目录</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当程序某个模块中生成库且在对应CmakeLists文件中指定了库的输出路径，其他模块不需要指定其路径</div>
 <pre class="line-numbers language-none"><code class="language-none">cmake_minimum_required(VERSION 3.0)
 project(CALCTEST)
-aux_source_directory(./ SRC)
+aux_source_directory(.&#x2F; SRC)
 #指定头文件路径，HEAD_PATH变量是在根节点文件中定义的
-include_directories(${HEAD_PATH})
-link_directories(${LIB_PATH})
+include_directories($&#123;HEAD_PATH&#125;)
+link_directories($&#123;LIB_PATH&#125;)
 #指定可执行程序要链接的静态库，CALC_LIB变量是在根节点文件中定义的
-link_libraries(${CALC_LIB})
+link_libraries($&#123;CALC_LIB&#125;)
 #指定可执行程序生成的路径，EXEC_PATH变量是在根节点文件中定义的
-set(EXECUTABLE_OUTPUT_PATH ${EXEC_PATH})
+set(EXECUTABLE_OUTPUT_PATH $&#123;EXEC_PATH&#125;)
 #生成可执行程序，APP_NAME_1变量是在根节点文件中定义的
-add_executable(${APP_NAME_1} ${SRC})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+add_executable($&#123;APP_NAME_1&#125; $&#123;SRC&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>⑤test2目录</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">cmake_minimum_required(VERSION 3.0)
 project(SORTTEST)
-aux_source_directory(./ SRC)
-include_directories(${HEAD_PATH})
-set(EXECUTABLE_OUTPUT_PATH ${EXEC_PATH})
-link_directories(${LIB_PATH})
-add_executable(${APP_NAME_2} ${SRC})
-target_link_libraries(${APP_NAME_2} ${SORT_LIB})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+aux_source_directory(.&#x2F; SRC)
+include_directories($&#123;HEAD_PATH&#125;)
+set(EXECUTABLE_OUTPUT_PATH $&#123;EXEC_PATH&#125;)
+link_directories($&#123;LIB_PATH&#125;)
+add_executable($&#123;APP_NAME_2&#125; $&#123;SRC&#125;)
+target_link_libraries($&#123;APP_NAME_2&#125; $&#123;SORT_LIB&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>⑥结果</strong></p>
 <blockquote>
@@ -564,7 +564,7 @@ endwhile()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
 project(test)
 # 循环
 foreach(item RANGE 10)
-    message(STATUS "当前遍历的值为: ${item}" )
+    message(STATUS &quot;当前遍历的值为: $&#123;item&#125;&quot; )
 endforeach()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>③<code>foreach</code>循环2</strong></p>
@@ -575,11 +575,11 @@ endforeach()<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 project(test)
 
 foreach(item RANGE 10 30 2)
-    message(STATUS "当前遍历的值为: ${item}" )
+    message(STATUS &quot;当前遍历的值为: $&#123;item&#125;&quot; )
 endforeach()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>④<code>foreach</code>循环3</strong></p>
 <blockquote>
-<p><code>foreach(&lt;loop_var&gt; IN [LISTS [&lt;lists&gt;]] [ITEMS [&lt;items&gt;]])</code><br><code>IN</code>：关键字，对应<code>RANGE</code><br><code>LISTS</code>：关键字，对应的是列表<br><code>ITEMS</code>：关键字，对应的也是列表，但是需要通过<code>${}</code><strong>将列表中的值取出</strong></p>
+<p><code>foreach(&lt;loop_var&gt; IN [LISTS [&lt;lists&gt;]] [ITEMS [&lt;items&gt;]])</code><br><code>IN</code>：关键字，对应<code>RANGE</code><br><code>LISTS</code>：关键字，对应的是列表<br><code>ITEMS</code>：关键字，对应的也是列表，但是需要通过<code>$&#123;&#125;</code><strong>将列表中的值取出</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> LISTS关键字和ITEMS至少要存在一个，也可以同时存在，每个后面可以接多个对象</div>
 <pre class="line-numbers language-none"><code class="language-none">cmake_minimum_required(VERSION 3.2)
@@ -588,8 +588,8 @@ project(test)
 set(WORD a b c d)
 set(NAME ace sabo luffy)
 # 遍历 list
-foreach(item IN LISTS WORD ITEMS ${NAME})
-    message(STATUS "当前遍历的值为: ${item}" )
+foreach(item IN LISTS WORD ITEMS $&#123;NAME&#125;)
+    message(STATUS &quot;当前遍历的值为: $&#123;item&#125;&quot; )
 endforeach()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>⑤<code>foreach</code>循环4</strong></p>
@@ -604,31 +604,31 @@ endforeach()<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <pre class="line-numbers language-none"><code class="language-none">cmake_minimum_required(VERSION 3.17)
 project(test)
 # 通过list给列表添加数据
-list(APPEND WORD hello world "hello world")
+list(APPEND WORD hello world &quot;hello world&quot;)
 list(APPEND NAME ace sabo luffy zoro sanji)
 # 遍历列表
 foreach(item1 item2 IN ZIP_LISTS WORD NAME)
-    message(STATUS "当前遍历的值为: item1 = ${item1}, item2=${item2}" )
+    message(STATUS &quot;当前遍历的值为: item1 &#x3D; $&#123;item1&#125;, item2&#x3D;$&#123;item2&#125;&quot; )
 endforeach()
 
-message("=============================")
+message(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;)
 # 遍历列表
 foreach(item  IN ZIP_LISTS WORD NAME)
-    message(STATUS "当前遍历的值为: item1 = ${item_0}, item2=${item_1}" )
+    message(STATUS &quot;当前遍历的值为: item1 &#x3D; $&#123;item_0&#125;, item2&#x3D;$&#123;item_1&#125;&quot; )
 endforeach()
 
 #[[输出结果如下
--- 当前遍历的值为: item1 = hello, item2=ace
--- 当前遍历的值为: item1 = world, item2=sabo
--- 当前遍历的值为: item1 = hello world, item2=luffy
--- 当前遍历的值为: item1 = , item2=zoro
--- 当前遍历的值为: item1 = , item2=sanji
-=============================
--- 当前遍历的值为: item1 = hello, item2=ace
--- 当前遍历的值为: item1 = world, item2=sabo
--- 当前遍历的值为: item1 = hello world, item2=luffy
--- 当前遍历的值为: item1 = , item2=zoro
--- 当前遍历的值为: item1 = , item2=sanji
+-- 当前遍历的值为: item1 &#x3D; hello, item2&#x3D;ace
+-- 当前遍历的值为: item1 &#x3D; world, item2&#x3D;sabo
+-- 当前遍历的值为: item1 &#x3D; hello world, item2&#x3D;luffy
+-- 当前遍历的值为: item1 &#x3D; , item2&#x3D;zoro
+-- 当前遍历的值为: item1 &#x3D; , item2&#x3D;sanji
+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+-- 当前遍历的值为: item1 &#x3D; hello, item2&#x3D;ace
+-- 当前遍历的值为: item1 &#x3D; world, item2&#x3D;sabo
+-- 当前遍历的值为: item1 &#x3D; hello world, item2&#x3D;luffy
+-- 当前遍历的值为: item1 &#x3D; , item2&#x3D;zoro
+-- 当前遍历的值为: item1 &#x3D; , item2&#x3D;sanji
 ]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
@@ -748,18 +748,18 @@ endforeach()
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/cmake-ying-yong-yi/">
+                <a href="/2023/11/07/git-ji-qi-ying-yong/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/23.webp" class="responsive-img" alt="Cmake应用（一）">
+                        <img src="/medias/featureimages/22.webp" class="responsive-img" alt="Git及其应用">
                         
-                        <span class="card-title">Cmake应用（一）</span>
+                        <span class="card-title">Git及其应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Cmake代码构建工具
+                            git和github
                         
                     </div>
                     <div class="publish-info">
@@ -785,8 +785,8 @@ endforeach()
                         <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/Cmake/">
-                        <span class="chip bg-color">Cmake</span>
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
                     </a>
                     
                 </div>
@@ -800,18 +800,18 @@ endforeach()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/07/cpp-xue-xi-bi-ji-yi/">
+                <a href="/2023/11/07/python-xue-xi-bi-ji-san/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/11.webp" class="responsive-img" alt="Cpp学习笔记（一）">
+                        <img src="/medias/featureimages/4.webp" class="responsive-img" alt="python学习笔记（三）">
                         
-                        <span class="card-title">Cpp学习笔记（一）</span>
+                        <span class="card-title">python学习笔记（三）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Cpp基础
+                            python下文件管理
                         
                     </div>
                     <div class="publish-info">
@@ -833,12 +833,12 @@ endforeach()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%8AC-primer%E3%80%8B/">
-                        <span class="chip bg-color">《C++primer》</span>
+                    <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">编程语言</span>
                     </a>
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
+                    <a href="/tags/python/">
+                        <span class="chip bg-color">python</span>
                     </a>
                     
                 </div>

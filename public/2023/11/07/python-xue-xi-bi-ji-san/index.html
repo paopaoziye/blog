@@ -432,31 +432,31 @@
 import sys
 
 # 获取当前工作目录
-current_directory = os.getcwd()
-print("当前工作目录:", current_directory)
+current_directory &#x3D; os.getcwd()
+print(&quot;当前工作目录:&quot;, current_directory)
 
 # 获取文件的绝对路径
-absolute_path = os.path.abspath('file.txt')
-print("文件的绝对路径:", absolute_path)
+absolute_path &#x3D; os.path.abspath(&#39;file.txt&#39;)
+print(&quot;文件的绝对路径:&quot;, absolute_path)
 
 # 拼接目录和文件名，返回完整路径
-full_path = os.path.join('dir', 'file.txt')
-print("完整路径:", full_path)
+full_path &#x3D; os.path.join(&#39;dir&#39;, &#39;file.txt&#39;)
+print(&quot;完整路径:&quot;, full_path)
 
 # 获取当前脚本的路径
-script_path = sys.argv[0]
-print("当前脚本的路径:", script_path)
+script_path &#x3D; sys.argv[0]
+print(&quot;当前脚本的路径:&quot;, script_path)
 
 # 获取当前脚本所在的目录路径
-script_directory = os.path.dirname(os.path.abspath(__file__))
-print("当前脚本所在的目录路径:", script_directory)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+script_directory &#x3D; os.path.dirname(os.path.abspath(__file__))
+print(&quot;当前脚本所在的目录路径:&quot;, script_directory)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>1.3有效性检查</strong></p>
 <blockquote>
 <p><code>os.path.exists(path)</code>：如果path参数所指的文件或文件夹存在，返回True<br><code>os.path.isfile(path)</code>：如果path参数存在，并且是一个文件，返回 True<br><code>os.path.isdir(path)</code>：如果path参数存在，并且是一个文件夹，返回Ture</p>
 </blockquote>
 <h3 id="2-文件处理"><a href="#2-文件处理" class="headerlink" title="2.文件处理"></a>2.文件处理</h3><p><strong>2.1打开文件</strong><br>①<code>open()</code>： 向它传递一个<strong>字符串</strong>路径，返回一个<code>File</code>对象，还可传入对应参数指定<strong>操作模式</strong>和<strong>编码方式</strong>，默认是<strong>读模式</strong>和<strong>操作系统默认的编码</strong><br>②操作模式：不同的操作模式有不同的规则</p>
 <blockquote>
-<p><code>'r'</code>：以只读模式打开文件（默认模式），文件指针位于文件的开头，如果文件不存在，则会引发FileNotFoundError。<br><code>'w'</code>：以写入模式打开文件，如果文件已存在，则会被清空。如果文件不存在，则会创建一个新文件。<br><code>'a'</code>：以追加模式打开文件，文件指针位于文件的末尾。如果文件不存在，则会创建一个新文件。<br><code>'x'</code>：以独占写入模式打开文件，如果文件已存在，则会引发FileExistsError。<br><code>'b'</code>：以二进制模式打开文件，可以与其他模式一起使用，例如’rb’或’wb’。<br><code>'t'</code>：以文本模式打开文件（默认模式），可以与其他模式一起使用，例如’rt’或’wt’。<br><code>'+'</code>：以读写模式打开文件，可以与其他模式一起使用，例如’r+’、’w+’或’a+’。</p>
+<p><code>&#39;r&#39;</code>：以只读模式打开文件（默认模式），文件指针位于文件的开头，如果文件不存在，则会引发FileNotFoundError。<br><code>&#39;w&#39;</code>：以写入模式打开文件，如果文件已存在，则会被清空。如果文件不存在，则会创建一个新文件。<br><code>&#39;a&#39;</code>：以追加模式打开文件，文件指针位于文件的末尾。如果文件不存在，则会创建一个新文件。<br><code>&#39;x&#39;</code>：以独占写入模式打开文件，如果文件已存在，则会引发FileExistsError。<br><code>&#39;b&#39;</code>：以二进制模式打开文件，可以与其他模式一起使用，例如’rb’或’wb’。<br><code>&#39;t&#39;</code>：以文本模式打开文件（默认模式），可以与其他模式一起使用，例如’rt’或’wt’。<br><code>&#39;+&#39;</code>：以读写模式打开文件，可以与其他模式一起使用，例如’r+’、’w+’或’a+’。</p>
 </blockquote>
 <p>③编码方式：通过<code>encoding</code>参数指定编码，常见的编码方式有<code>ASCII</code>、<code>UTF-8</code>等，选择编码方式时，应根据需求考虑文件中包含的<strong>字符范围、语言以及平台兼容性</strong>等因素</p>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 如果文件使用的编码方式与指定的编码方式不匹配，可能会导致读取或写入的数据出现错误</div>
@@ -465,22 +465,22 @@ print("当前脚本所在的目录路径:", script_directory)<span aria-hidden="
 <p>文件找不到会引发<code>FileNotFoundError</code>，指定了未知的编码会引发<code>LookupError</code>，而如果读取文件时无法按指定方式解码会引发<code>UnicodeDecodeError</code></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">def main():
-    f = None
+    f &#x3D; None
     try:
-        f = open('致橡树.txt', 'r', encoding='utf-8')
+        f &#x3D; open(&#39;致橡树.txt&#39;, &#39;r&#39;, encoding&#x3D;&#39;utf-8&#39;)
         print(f.read())
     except FileNotFoundError:
-        print('无法打开指定的文件!')
+        print(&#39;无法打开指定的文件!&#39;)
     except LookupError:
-        print('指定了未知的编码!')
+        print(&#39;指定了未知的编码!&#39;)
     except UnicodeDecodeError:
-        print('读取文件时解码错误!')
+        print(&#39;读取文件时解码错误!&#39;)
     finally:
         if f:
             f.close()
 
 
-if __name__ == '__main__':
+if __name__ &#x3D;&#x3D; &#39;__main__&#39;:
     main()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>2.2文件读写</strong><br>①文件读取</p>
@@ -492,27 +492,27 @@ if __name__ == '__main__':
 
 def main():
     # 一次性读取整个文件内容
-    with open('致橡树.txt', 'r', encoding='utf-8') as f:
+    with open(&#39;致橡树.txt&#39;, &#39;r&#39;, encoding&#x3D;&#39;utf-8&#39;) as f:
         print(f.read())
 
     # 通过for-in循环逐行读取
-    with open('致橡树.txt', mode='r') as f:
+    with open(&#39;致橡树.txt&#39;, mode&#x3D;&#39;r&#39;) as f:
         for line in f:
-            print(line, end='')
+            print(line, end&#x3D;&#39;&#39;)
             time.sleep(0.5)
     print()
 
     # 读取文件按行读取到列表中
-    with open('致橡树.txt') as f:
-        lines = f.readlines()
+    with open(&#39;致橡树.txt&#39;) as f:
+        lines &#x3D; f.readlines()
     print(lines)
     
 
-if __name__ == '__main__':
+if __name__ &#x3D;&#x3D; &#39;__main__&#39;:
     main()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>②文件写入：采用<code>write()</code>方法，该方法接收<strong>字符串</strong>，并将其写入到文件对象中</p>
-<pre class="line-numbers language-none"><code class="language-none">file = open("example.txt", "w")
-file.write("Hello, World!")
+<pre class="line-numbers language-none"><code class="language-none">file &#x3D; open(&quot;example.txt&quot;, &quot;w&quot;)
+file.write(&quot;Hello, World!&quot;)
 file.close()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><strong>2.3文件信息查询</strong><br>①<code>os.path.getsize(path)</code>将返回path参数中文件的<strong>字节数</strong><br>②<code>os.listdir(path)</code>将返回<strong>文件名字符串的列表</strong>，包含path参数中的每个文件<br><strong>2.4文件管理器</strong><br>①定义</p>
 <blockquote>
@@ -525,51 +525,51 @@ file.close()<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <blockquote>
 <p>其中<strong>上下文表达式</strong>是一个返回上下文管理器对象的函数调用<br>在进入语句块之前，上下文管理器的<code>__enter__</code>方法会被调用，可以在这个方法中执行资源的获取操作<br>在离开语句块时，无论是正常的退出还是发生异常，上下文管理器的<code>__exit__</code>方法都会被调用，可以在这个方法中执行资源的释放操作</p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">with open('example.txt', 'r') as file:
-    data = file.read()
+<pre class="line-numbers language-none"><code class="language-none">with open(&#39;example.txt&#39;, &#39;r&#39;) as file:
+    data &#x3D; file.read()
     print(data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>③with关键字的实现原理</p>
 <pre class="line-numbers language-none"><code class="language-none">class File(object):
 
     def __init__(self, filename, mode):
-        self.filename = filename
-        self.mode = mode
-        self.file = None
+        self.filename &#x3D; filename
+        self.mode &#x3D; mode
+        self.file &#x3D; None
 
     def __enter__(self):
-        """
+        &quot;&quot;&quot;
         进入with as 语句的时候被with调用
         返回值作为 as 后面的变量
-        """
-        print("__enter__ called")
-        self.file = open(self.filename, self.mode)
+        &quot;&quot;&quot;
+        print(&quot;__enter__ called&quot;)
+        self.file &#x3D; open(self.filename, self.mode)
         return self.file
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        """
+        &quot;&quot;&quot;
         离开with语句的时候被with调用
-        """
-        print("__exit__ called")
-        print("exc_type: ", exc_type)
-        print("exc_value: ", exc_value)
-        print("exc_traceback: ", exc_traceback)
+        &quot;&quot;&quot;
+        print(&quot;__exit__ called&quot;)
+        print(&quot;exc_type: &quot;, exc_type)
+        print(&quot;exc_value: &quot;, exc_value)
+        print(&quot;exc_traceback: &quot;, exc_traceback)
         self.file.close()
-        print("文件关闭操作")
+        print(&quot;文件关闭操作&quot;)
 
 
 def main():
 
-    with File("test.txt", "w") as f:
-        print("with 代码块")
-        f.write("hello python1")
-        f.write("hello python2")
-        # a = 1 / 0
-        f.write("hello python3")
+    with File(&quot;test.txt&quot;, &quot;w&quot;) as f:
+        print(&quot;with 代码块&quot;)
+        f.write(&quot;hello python1&quot;)
+        f.write(&quot;hello python2&quot;)
+        # a &#x3D; 1 &#x2F; 0
+        f.write(&quot;hello python3&quot;)
 
-    print("with 语句结束")
+    print(&quot;with 语句结束&quot;)
 
 
-if __name__ == '__main__':
+if __name__ &#x3D;&#x3D; &#39;__main__&#39;:
     main()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
@@ -578,19 +578,19 @@ if __name__ == '__main__':
 <p>④<code>with</code>关键字和<code>try-except</code>联合调用</p>
 <pre class="line-numbers language-none"><code class="language-none">def main():
     try:
-        with open('guido.jpg', 'rb') as fs1:
-            data = fs1.read()
-            print(type(data))  # &lt;class 'bytes'&gt;
-        with open('吉多.jpg', 'wb') as fs2:
+        with open(&#39;guido.jpg&#39;, &#39;rb&#39;) as fs1:
+            data &#x3D; fs1.read()
+            print(type(data))  # &lt;class &#39;bytes&#39;&gt;
+        with open(&#39;吉多.jpg&#39;, &#39;wb&#39;) as fs2:
             fs2.write(data)
     except FileNotFoundError as e:
-        print('指定的文件无法打开.')
+        print(&#39;指定的文件无法打开.&#39;)
     except IOError as e:
-        print('读写文件时出现错误.')
-    print('程序执行结束.')
+        print(&#39;读写文件时出现错误.&#39;)
+    print(&#39;程序执行结束.&#39;)
 
 
-if __name__ == '__main__':
+if __name__ &#x3D;&#x3D; &#39;__main__&#39;:
     main()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p><code>with</code>语句的主要目的是确保上下文管理器的资源<strong>被正确释放</strong>，即使在发生异常的情况下也能保证资源的释放，而<code>try-except</code>语句主要用于处理异常，提供错误处理和容错机制</p>
@@ -624,8 +624,8 @@ if __name__ == '__main__':
 <td>number</td>
 </tr>
 <tr>
-<td>True/False</td>
-<td>true/false</td>
+<td>True&#x2F;False</td>
+<td>true&#x2F;false</td>
 </tr>
 <tr>
 <td>None</td>
@@ -637,26 +637,26 @@ if __name__ == '__main__':
 
 
 def main():
-    mydict = {
-        'name': '骆昊',
-        'age': 38,
-        'qq': 957658,
-        'friends': ['王大锤', '白元芳'],
-        'cars': [
-            {'brand': 'BYD', 'max_speed': 180},
-            {'brand': 'Audi', 'max_speed': 280},
-            {'brand': 'Benz', 'max_speed': 320}
+    mydict &#x3D; &#123;
+        &#39;name&#39;: &#39;骆昊&#39;,
+        &#39;age&#39;: 38,
+        &#39;qq&#39;: 957658,
+        &#39;friends&#39;: [&#39;王大锤&#39;, &#39;白元芳&#39;],
+        &#39;cars&#39;: [
+            &#123;&#39;brand&#39;: &#39;BYD&#39;, &#39;max_speed&#39;: 180&#125;,
+            &#123;&#39;brand&#39;: &#39;Audi&#39;, &#39;max_speed&#39;: 280&#125;,
+            &#123;&#39;brand&#39;: &#39;Benz&#39;, &#39;max_speed&#39;: 320&#125;
         ]
-    }
+    &#125;
     try:
-        with open('data.json', 'w', encoding='utf-8') as fs:
+        with open(&#39;data.json&#39;, &#39;w&#39;, encoding&#x3D;&#39;utf-8&#39;) as fs:
             json.dump(mydict, fs)
     except IOError as e:
         print(e)
-    print('保存数据完成!')
+    print(&#39;保存数据完成!&#39;)
 
 
-if __name__ == '__main__':
+if __name__ &#x3D;&#x3D; &#39;__main__&#39;:
     main()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p><code>json</code>模块常用方法<br><code>dump()</code>：将Python对象按照JSON格式序列化到文件中<br><code>dumps()</code>：将Python对象处理成JSON格式的字符串<br><code>load()</code>：将文件中的JSON数据反序列化成对象<br><code>loads()</code>：将字符串的内容反序列化成Python对象</p>
@@ -664,13 +664,13 @@ if __name__ == '__main__':
 <p><strong>3.2shelve模块：</strong>可以将Python程序中的变量保存到<strong>二进制的shelf文件</strong>中，这样，程序就可以从硬盘中恢复变量的数据</p>
 <pre class="line-numbers language-none"><code class="language-none">#保存变量
 import shelve
-shelfFile = shelve.open('mydata') #初始化一个shelf变量，类似于file变量，其中mydata为保存变量的文件
-cats = ['Zophie', 'Pooka', 'Simon']
-shelfFile['cats'] = cats #变量以类似于字典的形式存储
+shelfFile &#x3D; shelve.open(&#39;mydata&#39;) #初始化一个shelf变量，类似于file变量，其中mydata为保存变量的文件
+cats &#x3D; [&#39;Zophie&#39;, &#39;Pooka&#39;, &#39;Simon&#39;]
+shelfFile[&#39;cats&#39;] &#x3D; cats #变量以类似于字典的形式存储
 shelfFile.close() #结束
 #访问变量
-shelfFile = shelve.open('mydata')
-shelfFile['cats'] #访问cats变量
+shelfFile &#x3D; shelve.open(&#39;mydata&#39;)
+shelfFile[&#39;cats&#39;] #访问cats变量
 shelfFile.close()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
@@ -790,18 +790,18 @@ shelfFile.close()<span aria-hidden="true" class="line-numbers-rows"><span></span
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/python-xue-xi-bi-ji-yi/">
+                <a href="/2023/11/07/cmake-ying-yong-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/4.webp" class="responsive-img" alt="python学习笔记（一）">
+                        <img src="/medias/featureimages/23.webp" class="responsive-img" alt="Cmake应用（二）">
                         
-                        <span class="card-title">python学习笔记（一）</span>
+                        <span class="card-title">Cmake应用（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            python启蒙
+                            Cmake代码构建工具
                         
                     </div>
                     <div class="publish-info">
@@ -812,8 +812,8 @@ shelfFile.close()<span aria-hidden="true" class="line-numbers-rows"><span></span
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             
@@ -823,12 +823,12 @@ shelfFile.close()<span aria-hidden="true" class="line-numbers-rows"><span></span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">编程语言</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/python/">
-                        <span class="chip bg-color">python</span>
+                    <a href="/tags/Cmake/">
+                        <span class="chip bg-color">Cmake</span>
                     </a>
                     
                 </div>
@@ -842,18 +842,18 @@ shelfFile.close()<span aria-hidden="true" class="line-numbers-rows"><span></span
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/07/python-xue-xi-bi-ji-er/">
+                <a href="/2023/11/07/ppt-zhi-zuo-jin-jie-pian/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/4.webp" class="responsive-img" alt="python学习笔记（二）">
+                        <img src="/medias/featureimages/12.webp" class="responsive-img" alt="PPT制作（进阶篇）">
                         
-                        <span class="card-title">python学习笔记（二）</span>
+                        <span class="card-title">PPT制作（进阶篇）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            python编程进阶
+                            PPT制作技巧-进阶
                         
                     </div>
                     <div class="publish-info">
@@ -864,8 +864,8 @@ shelfFile.close()<span aria-hidden="true" class="line-numbers-rows"><span></span
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-category">
+                                    工作流
                                 </a>
                             
                             
@@ -875,12 +875,12 @@ shelfFile.close()<span aria-hidden="true" class="line-numbers-rows"><span></span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">编程语言</span>
+                    <a href="/tags/PPT/">
+                        <span class="chip bg-color">PPT</span>
                     </a>
                     
-                    <a href="/tags/python/">
-                        <span class="chip bg-color">python</span>
+                    <a href="/tags/%E8%BD%AF%E6%8A%80%E8%83%BD/">
+                        <span class="chip bg-color">软技能</span>
                     </a>
                     
                 </div>

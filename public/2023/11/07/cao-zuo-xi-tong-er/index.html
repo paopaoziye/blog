@@ -419,73 +419,73 @@
 <p><strong>①代码实现</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 信号量是内核中的全局变量</div>
 <pre class="line-numbers language-none"><code class="language-none">struct sqmaphore
-{
-  int value; //记录资源个数
-  PCB *queue; //记录等待在该信号量上的进程
-}
-//进程通过函数p申请使用资源，如果资源不足，则沉睡
+&#123;
+  int value; &#x2F;&#x2F;记录资源个数
+  PCB *queue; &#x2F;&#x2F;记录等待在该信号量上的进程
+&#125;
+&#x2F;&#x2F;进程通过函数p申请使用资源，如果资源不足，则沉睡
 p(sqmaphore s)
-{
+&#123;
   s.value--;
   if(s.value &lt; 0)
-  {
+  &#123;
     sleep(s.queue);
-  }
-}
-//进程通过v生产资源，如果资源不足，则唤醒
+  &#125;
+&#125;
+&#x2F;&#x2F;进程通过v生产资源，如果资源不足，则唤醒
 v(sqmaphore s)
-{
+&#123;
   s.value++;
-  if(s.value &lt;= 0)
-  {
+  if(s.value &lt;&#x3D; 0)
+  &#123;
     wake(s.queue);
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②实例</strong></p>
 <blockquote>
 <p>有两个<strong>进程</strong>，分别为<strong>生产者</strong>和<strong>消费者</strong>，<strong>生产者</strong>向缓存区<strong>写入字符</strong>，<strong>消费者</strong>从缓存区<strong>读出字符</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 不同的进程，对同一个信号量的使用是不相同的，对于生产者，只有缓存区有空位才能工作，对于消费者只有缓存区有数据才能工作</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 其中mutex为互斥信号量，防止生产者和消费者同时对缓存区进行操作</div>
-<pre class="line-numbers language-none"><code class="language-none">//定义缓存区
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;定义缓存区
 int buffer [BUFFER_SIZE];
 
-//定义信号量
-sqmaphore full = 0;
-sqmaphore empty = BUFFER_SIZE;
-sqmaphore mutex = 1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">//生产者程序
+&#x2F;&#x2F;定义信号量
+sqmaphore full &#x3D; 0;
+sqmaphore empty &#x3D; BUFFER_SIZE;
+sqmaphore mutex &#x3D; 1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;生产者程序
 Producer(*item,in)
-{
+&#123;
   P(empty);
-  p(mutex); //互斥信号量
+  p(mutex); &#x2F;&#x2F;互斥信号量
 
   将item写入到in对应位置;
 
   v(mutex);
   v(full);  
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">//消费者程序
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;消费者程序
 Consumer(*item,out)
-{
+&#123;
   P(full);
-  p(mutex); //互斥信号量
+  p(mutex); &#x2F;&#x2F;互斥信号量
 
   将out对应位置数据读出;
 
   v(mutex);
   v(empty);  
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-2临界区"><a href="#1-2临界区" class="headerlink" title="1.2临界区"></a>1.2临界区</h4><p><strong>①引言</strong></p>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 信号量由多个进程共用，但是进程调度可能导致一个进程还没有修改好信号量，就切到另一个相关进程</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 当一个进程修改但没有修改完信号量时，禁止其他进程修改信号量，即将信号量操作放入临界区中</div>
-<pre class="line-numbers language-none"><code class="language-none">P1.register = empty;
-P1.register = P1.register - 1;
-//发生进程调度，切到P2进程
-P2.register = empty;
-P2.register = P2.register - 1;
-////发生进程调度，切到P1进程
-empty = P1.register<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">P1.register &#x3D; empty;
+P1.register &#x3D; P1.register - 1;
+&#x2F;&#x2F;发生进程调度，切到P2进程
+P2.register &#x3D; empty;
+P2.register &#x3D; P2.register - 1;
+&#x2F;&#x2F;&#x2F;&#x2F;发生进程调度，切到P1进程
+empty &#x3D; P1.register<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②基本原则</strong></p>
 <blockquote>
 <p><strong>互斥进入</strong>：只有<strong>一个进程</strong>可以访问</p>
@@ -516,25 +516,25 @@ empty = P1.register<span aria-hidden="true" class="line-numbers-rows"><span></sp
 <p><strong>硬件原子指令</strong>：<strong>临界区</strong>和<strong>互斥信号量</strong>使用非常相似，只要将<strong>互斥信号量的修改</strong>变为<strong>原子操作</strong>即可，即<strong>锁信号量</strong></p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">boolean TestAndSet(boolean &amp;x)
-{
-  boolean rv = x;
-  x = true;
+&#123;
+  boolean rv &#x3D; x;
+  x &#x3D; true;
   return rv;
-}
+&#125;
 
 剩余区
 while(TestAndSet(&amp;lock));
 临界区
-lock = false;
+lock &#x3D; false;
 剩余区<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-3死锁"><a href="#1-3死锁" class="headerlink" title="1.3死锁"></a>1.3死锁</h4><p><strong>①概述</strong></p>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 多个进程互相等待对方持有资源时，谁都无法执行，这就是死锁</div>
 <blockquote>
 <p>如下，<strong>生产者</strong>使得<code>mutex</code>从<code>1</code>变为<code>0</code>，倘若其在<code>p(empty)</code>处<strong>阻塞</strong>，进程<strong>切换到消费者</strong>，<strong>消费者直接阻塞</strong>，无法清空缓冲区，从而导致<strong>生产者和消费者一起一直阻塞</strong></p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">//生产者程序
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;生产者程序
 Producer(*item,in)
-{
+&#123;
   P(mutex);
   p(empty); 
 
@@ -542,10 +542,10 @@ Producer(*item,in)
 
   v(mutex);
   v(full);  
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">//消费者程序
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;消费者程序
 Consumer(*item,out)
-{
+&#123;
   P(mutex);
   p(full); 
 
@@ -553,7 +553,7 @@ Consumer(*item,out)
 
   v(mutex);
   v(empty);  
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>②出现条件</strong></p>
 <blockquote>
 <p><strong>互斥使用</strong>：资源只能被<strong>一个进程占有</strong></p>
@@ -838,18 +838,18 @@ Consumer(*item,out)
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/cao-zuo-xi-tong-yi/">
+                <a href="/2023/11/07/cmake-ying-yong-yi/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/2.webp" class="responsive-img" alt="操作系统（一）">
+                        <img src="/medias/featureimages/23.webp" class="responsive-img" alt="Cmake应用（一）">
                         
-                        <span class="card-title">操作系统（一）</span>
+                        <span class="card-title">Cmake应用（一）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            操作系统概述
+                            Cmake代码构建工具
                         
                     </div>
                     <div class="publish-info">
@@ -860,8 +860,8 @@ Consumer(*item,out)
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    计算机基础
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             
@@ -871,16 +871,12 @@ Consumer(*item,out)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
-                        <span class="chip bg-color">计算机基础</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA%E3%80%8B/">
-                        <span class="chip bg-color">《操作系统导论》</span>
+                    <a href="/tags/Cmake/">
+                        <span class="chip bg-color">Cmake</span>
                     </a>
                     
                 </div>
@@ -894,18 +890,18 @@ Consumer(*item,out)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/07/shu-ju-jie-gou-yu-suan-fa-yin-yan/">
+                <a href="/2023/11/07/python-xue-xi-bi-ji-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="数据结构与算法引言">
+                        <img src="/medias/featureimages/4.webp" class="responsive-img" alt="python学习笔记（二）">
                         
-                        <span class="card-title">数据结构与算法引言</span>
+                        <span class="card-title">python学习笔记（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据结构与算法基础
+                            python编程进阶
                         
                     </div>
                     <div class="publish-info">
@@ -916,8 +912,8 @@ Consumer(*item,out)
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    计算机基础
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
+                                    编程语言
                                 </a>
                             
                             
@@ -927,16 +923,12 @@ Consumer(*item,out)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
-                        <span class="chip bg-color">计算机基础</span>
+                    <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">编程语言</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">数据结构与算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%8Ahello%E7%AE%97%E6%B3%95%E3%80%8B/">
-                        <span class="chip bg-color">《hello算法》</span>
+                    <a href="/tags/python/">
+                        <span class="chip bg-color">python</span>
                     </a>
                     
                 </div>

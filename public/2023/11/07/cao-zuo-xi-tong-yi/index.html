@@ -486,7 +486,7 @@
 <hr>
 <h3 id="3-进程和线程"><a href="#3-进程和线程" class="headerlink" title="3.进程和线程"></a>3.进程和线程</h3><h4 id="3-1基本概念"><a href="#3-1基本概念" class="headerlink" title="3.1基本概念"></a>3.1基本概念</h4><p><strong>①并发</strong></p>
 <blockquote>
-<p>CPU是<strong>取指执行</strong>，但是有些指令，如<strong>I/O指令</strong>，执行<strong>非常慢</strong>，且执行过程<strong>不使用CPU</strong>，可以在<strong>等待时执行别的指令</strong>，这就是<strong>并发</strong></p>
+<p>CPU是<strong>取指执行</strong>，但是有些指令，如<strong>I&#x2F;O指令</strong>，执行<strong>非常慢</strong>，且执行过程<strong>不使用CPU</strong>，可以在<strong>等待时执行别的指令</strong>，这就是<strong>并发</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 一条I/O指令执行时间为简单指令的10的六次方倍</div>
 
@@ -561,17 +561,17 @@
 <p><code>shell</code><strong>主体代码</strong>如下</p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">int main(int argc,char* argv[])
-{
+&#123;
   while(1)
-  {
-    scanf("%s",cmd);
+  &#123;
+    scanf(&quot;%s&quot;,cmd);
     if(!fork())
-    {
+    &#123;
       exec(cmd);
-    }
+    &#125;
     wait(0);
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p><code>shell</code>通过<strong>读取用户输入创建对应子进程</strong>，</p>
 </blockquote>
@@ -615,30 +615,30 @@
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这样保证正在阻塞的程序的时间片会变得更高，使得被阻塞的程序优先级更高</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 假设一个进程的初始时间片为p，且一开始就一直阻塞，他的时间片最长也不会超过2p（p+p/2+p/4...）</div>
 <pre class="line-numbers language-none"><code class="language-none">woid Schedule(void)
-{
+&#123;
   while(1)
-  {
-    c = -1;
-    next = 0;
-    i = NR_TASKS;
-    p = &amp;task[NR_TASKS];
+  &#123;
+    c &#x3D; -1;
+    next &#x3D; 0;
+    i &#x3D; NR_TASKS;
+    p &#x3D; &amp;task[NR_TASKS];
     while(--i)
-    {
-      //找到任务列表中，处于运行状态且时间片最大的任务
-      if((*p-&gt;state == TASK_RUNNING)&amp;&amp;(*p)-&gt;COUNTER &gt; c)
-      {
-        C = (*p)-&gt;counter;
-        next = i;
-      }
-      //如果找到则调度该程序
+    &#123;
+      &#x2F;&#x2F;找到任务列表中，处于运行状态且时间片最大的任务
+      if((*p-&gt;state &#x3D;&#x3D; TASK_RUNNING)&amp;&amp;(*p)-&gt;COUNTER &gt; c)
+      &#123;
+        C &#x3D; (*p)-&gt;counter;
+        next &#x3D; i;
+      &#125;
+      &#x2F;&#x2F;如果找到则调度该程序
       if(c) break;
-    }
-    //如果所有处于运行状态的任务时间片都为0，则将所有任务的时间片变为（当前时间片/2）+（时间片初值）
-    for(p = &amp;LAST_TASK;p &gt; &amp;FIRST_TASK;--p)
-    (*p)-&gt;counter = ((*p)-&gt;counter&gt;&gt;1)+(*p)-&gt;priotity;
-  }
+    &#125;
+    &#x2F;&#x2F;如果所有处于运行状态的任务时间片都为0，则将所有任务的时间片变为（当前时间片&#x2F;2）+（时间片初值）
+    for(p &#x3D; &amp;LAST_TASK;p &gt; &amp;FIRST_TASK;--p)
+    (*p)-&gt;counter &#x3D; ((*p)-&gt;counter&gt;&gt;1)+(*p)-&gt;priotity;
+  &#125;
   switch_to(next);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>计算机取指执行<br>系统调用也被称为程序的一个标准库<br>虚拟化CPU：将单个CPU转化为多个虚拟CPU<br>虚拟化内存：每个进程都有自己的虚拟地址空间，操作系统将其映射到物理内存上<br>时分共享技术：让一个进程只运行一个时间片，然后切换到其他进程<br>进程的重要组成部分：自己的内存即地址空间，寄存器状态<br>进程创建：将代码和静态数据（初始化变量）加载到进程的地址空间中（从磁盘中读入）只加载需要执行的部分，为程序的运行时栈（存放返局部变量、函数参数和返回地址）和堆（动态分配）分配内存，完成一些初始化任务，跳转到main函数，然后开始执行<br>每个进程都有对应的进程描述符</p>
 <p>程序是一种状态机，执行一条语句就是从一个状态转移到下一个状态<br>gdb vim<br>C语言函数调用，每次调用会产生一个新的栈帧，每个栈中含有变量和pc指针等，返回就是弹栈，C程序的状态就是堆栈的状态</p>
@@ -765,18 +765,18 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/11/07/sou-suo-suan-fa/">
+                <a href="/2023/11/07/hexo-bo-ke-kuang-jia-da-jian-yi-ji-ge-xing-hua/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="搜索算法">
+                        <img src="/medias/featureimages/18.webp" class="responsive-img" alt="Hexo个人博客搭建">
                         
-                        <span class="card-title">搜索算法</span>
+                        <span class="card-title">Hexo个人博客搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            搜索算法
+                            Hexo博客框架搭建、个性化和文章写法
                         
                     </div>
                     <div class="publish-info">
@@ -787,8 +787,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    计算机基础
+                            <a href="/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-category">
+                                    工作流
                                 </a>
                             
                             
@@ -798,16 +798,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
-                        <span class="chip bg-color">计算机基础</span>
+                    <a href="/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">数据结构与算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%8Ahello-%E7%AE%97%E6%B3%95%E3%80%8B/">
-                        <span class="chip bg-color">《hello 算法》</span>
+                    <a href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">静态博客框架</span>
                     </a>
                     
                 </div>
@@ -821,18 +817,18 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/07/cao-zuo-xi-tong-er/">
+                <a href="/2023/11/07/cmake-ying-yong-yi/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/2.webp" class="responsive-img" alt="操作系统（二）">
+                        <img src="/medias/featureimages/23.webp" class="responsive-img" alt="Cmake应用（一）">
                         
-                        <span class="card-title">操作系统（二）</span>
+                        <span class="card-title">Cmake应用（一）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            操作系统概述
+                            Cmake代码构建工具
                         
                     </div>
                     <div class="publish-info">
@@ -843,8 +839,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    计算机基础
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             
@@ -854,16 +850,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
-                        <span class="chip bg-color">计算机基础</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA%E3%80%8B/">
-                        <span class="chip bg-color">《操作系统导论》</span>
+                    <a href="/tags/Cmake/">
+                        <span class="chip bg-color">Cmake</span>
                     </a>
                     
                 </div>

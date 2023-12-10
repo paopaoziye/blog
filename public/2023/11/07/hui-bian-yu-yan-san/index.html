@@ -437,7 +437,7 @@
 </blockquote>
 <p><strong>④CF标志</strong></p>
 <blockquote>
-<p>记录了<strong>无符号运算</strong>时运算结果的<strong>最高有效位</strong>像<strong>更高位</strong>的<strong>进位值/借位值</strong></p>
+<p>记录了<strong>无符号运算</strong>时运算结果的<strong>最高有效位</strong>像<strong>更高位</strong>的<strong>进位值&#x2F;借位值</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> CF的含义取决于其被什么指令设置，如果为加法指令，则表示进位值，如果为减法指令，则表示借位值</div>
 <p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/HB_25.png" alt="有效位"></p>
@@ -604,7 +604,7 @@ start: mov ax,cs
        mov ax,4c00h
        int 21h
 do0：  jmp short do0start
-       db "overflow"
+       db &quot;overflow&quot;
 
 do0start: mov ax,cs
           mov ds,ax   ;将ds:si指向字符串
@@ -675,13 +675,13 @@ mov ax,0[bx+si+3]<span aria-hidden="true" class="line-numbers-rows"><span></span
          ;存放各个标号的地址
          table dw ag0,ag30,ag60,ag90,ag120,ag150,ag180
          ;各个角度对应的sin值的字符串
-         ag0  db '0',0
-         ag30 db '0.5',0
-         ag60 db '0.866',0
-         ag90 db '1',0
-         ag120 db '0.866',0
-         ag150 db '0.5',0
-         ag180 ad '0',0
+         ag0  db &#39;0&#39;,0
+         ag30 db &#39;0.5&#39;,0
+         ag60 db &#39;0.866&#39;,0
+         ag90 db &#39;1&#39;,0
+         ag120 db &#39;0.866&#39;,0
+         ag150 db &#39;0.5&#39;,0
+         ag180 ad &#39;0&#39;,0
 
 show:    push bx
          push es
@@ -742,7 +742,7 @@ sub1:      push bx
            mov bx,0
            mov cx,2000
 
-sub1s:     mov byte ptr es:[bx],' '
+sub1s:     mov byte ptr es:[bx],&#39; &#39;
            add bx,2
            loop sub1s
            pop es
@@ -815,7 +815,7 @@ sub4s:     push cx
            mov cx,80
            mov si,0
 
-sub4s1:    mov byte ptr [160*24+si],' '
+sub4s1:    mov byte ptr [160*24+si],&#39; &#39;
            add si,2
            loop sub4s1
 
@@ -944,6 +944,58 @@ sub4s1:    mov byte ptr [160*24+si],' '
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/2023/11/07/linux-gong-zuo-liu-yi/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/41.webp" class="responsive-img" alt="Linux工作流（一）">
+                        
+                        <span class="card-title">Linux工作流（一）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Linux常见命令
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">
+                        <span class="chip bg-color">工作流</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/2023/11/07/hui-bian-yu-yan-er/">
                     <div class="card-image">
                         
@@ -959,9 +1011,9 @@ sub4s1:    mov byte ptr [160*24+si],' '
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -983,62 +1035,6 @@ sub4s1:    mov byte ptr [160*24+si],' '
                     
                     <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">
                         <span class="chip bg-color">汇编语言</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/11/07/xian-xing-jie-gou/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/10.webp" class="responsive-img" alt="线性结构">
-                        
-                        <span class="card-title">线性结构</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            线性结构
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    计算机基础
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
-                        <span class="chip bg-color">计算机基础</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">数据结构与算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%8Ahello-%E7%AE%97%E6%B3%95%E3%80%8B/">
-                        <span class="chip bg-color">《hello 算法》</span>
                     </a>
                     
                 </div>
