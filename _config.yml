@@ -52,11 +52,7 @@ highlight:
   wrap: true
   hljs: false
 prismjs:
-<<<<<<< HEAD
   enable: true 
-=======
-  enable: true
->>>>>>> 5229087217ae6f060675d57c95d25f033ae64065
   preprocess: true
   line_number: true
   tab_replace: ''
