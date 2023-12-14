@@ -37,7 +37,7 @@ summary: Hexo博客框架搭建、个性化和文章写法
 如果不在，则需要手动将其bin文件夹路径添加到系统变量中的path变量中
 {%endlist%}
 >设置`npm`的**镜像源**
-```
+```shell
 # 查看npm的配置
 npm config list
 # 默认源
@@ -59,7 +59,7 @@ npm config set registry https://registry.npm.taobao.org
 
 **②博客初始化**
 >选择一个**位置**用于存放**博客文件夹**
-```
+```shell
 #新建文件夹
 mkdir <新建文件夹的名称> 
 #初始化文件夹
@@ -84,7 +84,7 @@ npm install
 
 **③修改Hexo配置文件**
 >打开`_config.yml`，滑到**文件最底部**，填入**如下代码**
-```
+```yaml
 type: git
 repo: git@github.com:Github用户名/github用户名.github.io.git  
 //也可使用https地址，如：https://github.com/Github用户名/Github用户名.github.io.git            
@@ -103,7 +103,7 @@ branch: master
 {%list%}
 这里选择的是matery主题，有两个版本，稳定版本和最新版本 (不定期更新优化)，自主选择版本
 {%endlist%}
-```
+```shell
 git clone https://github.com/blinkfox/hexo-theme-matery themes/matery     # 稳定版
 git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery   #最新版(不定期进行优化更新)
 ```
@@ -124,7 +124,7 @@ git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery
 >**下载**：`npm install hexo-generator-search --save`
 
 >**配置**：在**博客配置文件**中，新增以下的**配置项**
-```
+```yaml
 search:
   path: search.xml
   field: post
@@ -133,7 +133,7 @@ search:
 >**下载**：`npm i hexo-permalink-pinyin --save`
 
 >**配置**：在**博客配置文件**中，新增以下的**配置项**
-```
+```yaml
 permalink_pinyin:
   enable: true
   separator: '-' # default: '-'
@@ -142,7 +142,7 @@ permalink_pinyin:
 >**下载**：`npm i --save hexo-wordcount`
 
 >**配置**：在**博客配置文件**中，新增以下的**配置项**
-```
+```yaml
 wordCount:
   enable: false # 将这个值设置为 true 即可.
   postWordCount: true
@@ -152,7 +152,7 @@ wordCount:
 #### 2.3自定义标签设置
 **①步骤**
 >在**主题目录下**新建`scripts`目录，并**此目录下**新建`block.js`文件，填入**以下代码**
-```
+```js
 hexo.extend.tag.register('wrong', function(args, content){
     var className =  args.join(' ');
     var formattedContent = content.replace(/\n/g, '<br>');  // 将换行符替换为 <br> 标签
@@ -178,8 +178,8 @@ hexo.extend.tag.register('wrong', function(args, content){
   }, {ends: true});
 ```
 >在`head.ejs`文件**添加**以下`css`样式：
-```
-    <style type="text/css">
+```html
+<style type="text/css">
         .uk-alert {
             margin-bottom: 5px;
             padding: 5px;
@@ -252,11 +252,22 @@ hexo.extend.tag.register('wrong', function(args, content){
 {%list%}
 列表项
 {%endlist%}
+#### 2.4其他配置
+**①自定义鼠标样式**
+>**概述**：[致美化](https://zhutix.com/)下载**鼠标样式**，放在`source/medias`目录，随后在`themes\matery\source\css`下`my.css`文件添加
+```css
+*{
+    cursor: url("/medias/mouse/Arrow.ico"),auto!important;
+}
+:active{
+    cursor: url("/medias/imgs/Hand.ico"),auto!important;
+}
+```
 ***
 ### 3.博客书写
 #### 3.1Front-matter
 >在**博客根目录**下`scaffolds`文件夹下新增/修改`post.md`文件，即可修改**默认样式**，**详细样式**如下
-```
+```yaml
 title: 文章名称
 seo_title: seo名称
 toc: true            # 是否生成目录
@@ -369,3 +380,5 @@ prismjs:
   line_number: true
   tab_replace: ''
 ```
+### 4.网络优化
+#### 4.1
