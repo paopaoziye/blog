@@ -107,7 +107,11 @@ kernel/memlayout.h中声明了描述内核分布的常量，其中0x80000000:0x8
 {%right%}
 XV6内核地址空间大部分采用的是直接映射，可以简化内核代码，省去虚拟地址的转化
 {%endright%}
+**③源码概述**
+>`main()`调用`kvminit()`,`kvminit()`调用`kvmmake()`创建**内核页表**，此时**还没有分页**，使用**物理地址**
 
+>
+pagetable_t为指向根页表页的指针，可以是一个内核页表，也可以是一个进程页表
 
 为了减少从物理内存加载 PTE 的开销，RISC-V CPU 将页表条目缓存在 Translation Look-aside Buffer 
 为了减少从物理内存加载 PTE 的开销，RISC-V CPU 将页表条目缓存在 Translation Look-aside Buffer (TLB) 中。
@@ -273,7 +277,7 @@ if (fork() == 0) {
 {%right%}
 可以利用unlink创建临时文件
 {%endright%}
-```
+```c
 fd = open("/tmp/xyz", O_CREATE | O_RDWR);
 unlink("/tmp/xyz");
 ```
