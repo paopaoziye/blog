@@ -126,13 +126,20 @@ class iterator_to_special_vector{
 }
 ```
 **②格式**
->`[类名]::iterator [泛型指针名]`：定义了一个**对应类**的泛型指针
+>`[类名]::iterator [泛型指针名]`：定义了一个**对应类**的泛型指针，其**常量指针**形式为`const_iterator`
 {%list%}
-每个标准容器都有对应的泛型指针类，且都统一为iterator，需要使用[类名]::限定，并定义了取得泛型指针的函数
+每个标准容器都有对应的泛型指针类，统一为iterator，需要使用[类名]::限定
 {%endlist%}
+
 >`begin()`：返回指向该容器对象**第一个元素**的`iterator`，如`my_vec.begin()`
 
 >`end()`：返回指向该容器对象**最后一个元素下一个位置**的`iterator`，如`my_vec.end()`
+{%list%}
+begin/end()根据容器对象返回iterator/const_iterator，如果需要专门返回const_iterator，可以使用cbegin/cend()
+{%endlist%}
+{%warning%}
+所有容器为泛型指针定义了==和!=操作符，有些容器没有定义比较操作符，所以使用first != last而不是first < last
+{%endwarning%}
 {%right%}
 使用模板，使得函数既能接收指针，也能接收泛型指针
 {%endright%}
@@ -199,33 +206,41 @@ class less_than
 ### 2.标准容器
 #### 2.1引言
 **①定义**
->**概述**：本质上是**标准库**的**模板类**，使用对应容器需要包含**对应头文件**
-
+>**概述**：本质上是**标准库**的**模板类**，常用的**Cpp容器**有**动态数组**`vector`和**字符串**`string`
+{%list%}
+使用对应容器需要包含对应头文件
+{%endlist%}
 **②统一接口**
 {%list%}
-每个容器都有以下接口的实现
+每个容器都有以下实现
 {%endlist%}
->`empty()`：判断容器**是否为空**，是则返回`ture`，反之`false`
+>**`empty()`**：判断容器**是否为空**，是则返回`ture`，反之`false`
 
->`size()`：返回容器的**元素个数**
+>**`size()`**：返回容器的**元素个数**
+{%list%}
+每个容器的size返回值是每个类中的size_type，本质上还是一种无符号类型
+{%endlist%}
+>如`string::size_type`和`vector<type>::size_type`
 
->`clear()`：**清除**容器**所有元素**
+>**`clear()`**：**清除**容器**所有元素**
 
->`insert()/erase()`：**插入/删除**元素
+>**`insert()/erase()`**：**插入/删除**元素
+
+>**比较操作符**：如`==`、`!=`、`>`、`<`等，按照**字典顺序**比较
 
 **③泛型算法**
 {%list%}
 需要包含functional头文件
 {%endlist%}
->`find()/binary_search()`：**线性/二分**查找对应元素
+>**`find()/binary_search()`**：**线性/二分**查找对应元素
 
->`count()`：返回与数值相符的**元素数目**
+>**`count()`**：返回与数值相符的**元素数目**
 
->`search()`：查找**子序列**，返回其**起始位置的泛型指针**
+>**`search()`**：查找**子序列**，返回其**起始位置的泛型指针**
 
->`sort()`：**排序**，**缺省情况**下为**升序排列**，可以传入`function object`修改
+>**`sort()`**：**排序**，**缺省情况**下为**升序排列**，可以传入`function object`修改
 
->`copy()`：**复制**一个容器内容
+>**`copy()`**：**复制**一个容器内容
 
 #### 2.2动态数组
 **①定义**
@@ -256,12 +271,54 @@ class less_than
 {%list%}
 同样还可以通过my_vec == my_vec2/my_vec != my_vec2判断两者是否相同
 {%endlist%}
+>`vector<int> my_vec{1,2,3}/vector<int> my_vec = {1,2,3}`：类似于**C语言数组**的初始化
+
 **③常用方法**
->`push_back()`：在**末端插入**元素
+>**`push_back()`**：在**末端插入**元素
 
->`pop_back()`：**删除**末端元素
+>**`pop_back()`**：**删除**末端元素
 
-#### 2.3线性容器
+#### 2.3字符串
+**①定义**
+>**格式**：`string [字符串名]`，可以采用**下标访问**其中**字符元素**，从`0`开始
+{%list%}
+Cpp的string是类，同时Cpp也可以使用传统C语言的字符数组
+{%endlist%}
+{%warning%}
+当采用>>写入一个字符串时，所有空白字符（空格、换行和制表符）会被忽略
+{%endwarning%}
+>如`cin>>a_string`，若输入的**全是空白字符**，`a_string`为一**空字符串**
+
+**②初始化**
+>`string a_string;`：创建一个**空字符串**
+
+>`string a_string1(a_string2);`/`string a_string1 = a_string2;`：**拷贝**初始化
+{%list%}
+这里的a_string2也可以是一个字符串字面量，编译器将其自动转化为string
+{%endlist%}
+>`string a_string1(n,'a_char');`：**长度**为`n`，**元素**均为`'a_char'`
+
+**③常用操作**
+>**`getline()`**：保留**输入**中的**空白字符**，直到遇到**换行符**，如`getline(cin，a_string)`
+{%list%}
+该函数会读取换行符，但是不会保留换行符
+{%endlist%}
+{%right%}
+与>>一样，该函数的返回值也表示了流的状态
+{%endright%}
+>**`+`**：**拼接**字符串，其中还可以进行`string`和**字符串字面量**的拼接，如`s2 = s1+"!"`
+{%list%}
+注意+两边不能都为字符串常量，也为字符串常量本质上还是字符数组，无法拼接
+{%endlist%}
+>**`c_str()`**：将`string`实例转化为一个**C风格的字符串**，**返回类型**为`const char *`
+{%list%}
+Cpp允许字符数组转化为string对象，但是string对象需要通过该函数转化为字符数组
+{%endlist%}
+>**`cctype`头文件**：继承自**C语言**的`ctype.h`，用与判断**字符类型**，如`isalnum()`判断字符是否为**字母/数字**
+{%list%}
+Cpp继承了C语言的标准库，但是将对应name.h改写为cname
+{%endlist%}
+#### 2.4线性容器
 **①栈**
 >**定义**：`stack<type> [栈名]`，创建一个**空栈**，如`stack<int> my_stack`
 
@@ -284,6 +341,5 @@ class less_than
 >`pop_back/pop_front()`：将**队尾/队首**元素**弹出**，如`my_deque.pop_back(1)`
 
 >`front/back()`：**访问队首/尾**元素，如`int front = my_deque.front();`
-***
 
 
