@@ -743,3 +743,12 @@ main函数return语句相当将返回值传递给exit()并调用它
 >`LC_NUMERIC`：**格式化非货币值**使用的**相关字符**
 
 >`LC_TIME`：`strftime`**函数的行为**
+
+
+assert(expression)，若表达式为假，则输出信息并终止程序运行，否则就当无事发生
+属于预处理器管理
+只有在定义了DEBUG预处理变量，assert才正常工作
+
+#ifndef DEBUG
+//debug专属代码
+#endif

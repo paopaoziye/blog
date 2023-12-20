@@ -380,10 +380,10 @@ else {
 当执行到匹配到case语句后，执行流会一直往下直到switch语句结束，包括default子句
 {%endlist%}
 {%right%}
-在每个case语句下添加break及时退出，break可以直接退出switch语句
+switch类似于有条件的goto语句，在每个case语句下添加break及时退出，break可以直接退出switch语句
 {%endright%}
 {%warning%}
-switch语句的expression只能是整型常量
+switch语句的expression只能是整型常量表达式
 {%endwarning%}
 ```cpp
 switch (expression)
@@ -441,7 +441,7 @@ for （初始化语句; 条件语句;调整语句）{
 可以通过goto语句跳出嵌套循环
 {%endright%}
 {%warning%}
-非必要不使用goto语句，且不允许跨过变量的初始化语句直接跳转到该变量作用域的另一个位置
+非必要不使用goto语句，且不允许跨过变量的初始化语句直接跳转到该变量作用域的另一个位置，switch语句也类似
 {%endwarning%}
 ```cpp
 goto end;//错误，跳过了a的定义

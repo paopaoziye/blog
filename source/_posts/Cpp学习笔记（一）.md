@@ -144,10 +144,14 @@ extern const int buf_size = size_of_buf();
 extern const int buf_size;
 ```
 **②const与引用**
->**概述**：当**一个引用**指向**const对象**时，其必须也**使用**`const`限定符置于其**定义前**
+>**常量引用**：当**一个引用**指向**const对象**时，其必须也**使用**`const`限定符置于其**定义前**
 {%list%}
-虽不允许非常量引用指向一常量，但允许一常量引用指向一非常量，且常量引用可以指向能转换成引用类型的表达式
+虽不允许非常量引用指向一常量/常量引用，但允许一常量引用指向一非常量
 {%endlist%}
+{%right%}
+常量引用可以指向能转换成引用类型的表达式和字面值，而普通引用只能指向一个对象
+{%endright%}
+>当**常量引用**指向一**字面值/表达式**时，将其存储到一个**引用类型**的**临时变量**，并将该**常量引用**指向它
 {%warning%}
 若使用一常量引用指向一个非常量对象，该对象还是可以被修改的，只是不能通过引用修改
 {%endwarning%}
@@ -191,7 +195,7 @@ const int &a_ref_to_const3 = a_double;//正确
 只有算术类型、指针和引用这种简单类型能被constexpr修饰
 {%endwrong%}
 {%warning%}
-constexpr修饰的指针的初始值必须是nullptr/0，或指向某个处于固定地址的对象，如函数体外的变量以及static变量
+constexpr修饰的指针的初始值必须是nullptr/0，或指向某个处于固定地址的对象，如函数体外的变量/static变量
 {%endwarning%}
 ```cpp
 const int *a_ptr = nullptr;//底层const
@@ -203,7 +207,7 @@ constexpr int *a_ptr = nullptr;//顶层const
 
 >`using [新名称] = [数据类型]`：给数据类型赋予**新名称**
 {%wrong%}
-注意这两种方式和宏定义是不同的，并不是简单的替换，比如以下的rename_to_doubleptr，*已经成为类型的一部分
+注意这两种方式和宏是不同的，并不是简单的替换，比如以下的rename_to_doubleptr，*已经成为类型的一部分
 {%endwrong%}
 ```cpp
 //其中rename_to_double1/2/3都相当于couble，rename_to_doubleptr相当于double*
@@ -214,14 +218,14 @@ typedef rename_to_double rename_to_double2, *rename_to_doubleptr;
 const rename_to_doubleptr a_doubleptr = nullptr;
 ```
 **②`auto`**
->**概述**：使用`auto`取代变量**类型说明符**，**编译器**自动分析**初始值的类型**并将变量定义为**该类型**，并**将其值赋予变量**
+>**概述**：使用`auto`取代变量**类型说明符**，**编译器**自动分析**初始值的类型**并将其定义为**该类型**，并**将其值赋予变量**
 {%list%}
 auto变量必须有初始值，通常为一函数的返回值，不允许使用auto作为数组的数据类型
 {%endlist%}
 {%right%}
 有些初始值的类型会被编译器改写后再赋予变量
 {%endright%}
->如接收一个**引用**，编译器会返回**引用指向对象的类型**
+>如接收一个**引用**，编译器会返回**引用指向对象的类型**，如接收一个**内置数组名**，会返回其 **元素类型指针**
 {%warning%}
 若auto修饰的不是引用，会忽略顶层const，保留底层const，若修饰的是复合类型，则会保留顶层const
 {%endwarning%}
@@ -242,10 +246,11 @@ auto关键字不能用于内置数组
 **③`decltype()`**
 >**概述**：类似于`auto`，但是**不会**使用**初始值**给变量**赋值**，只是**推断类型**
 {%list%}
-不同于auto，decltype不会对类型进行改写，也不会忽略其常量性
+不同于auto，decltype不会对类型进行改写，也不会忽略其顶层const
 {%endlist%}
+>如接收一个**引用/数组名**，返回的是**引用/数组类型**
 {%warning%}
-若decltype()中为表达式，则情况会有所不同，将返回表达式的返回类型
+若decltype()中为表达式，若该表达式返回的为一左值，则类型为返回类型的引用，若为右值，则返回类型
 {%endwarning%}
 ```cpp
 //变量名
@@ -254,20 +259,11 @@ decltype(a_const_int) x = 0;//其中x为一个整型常量
 decltype(ref_to_const_int) y = x;//y为一个整型引用，若不初始化，会报错
 //表达式
 int i = 384,*a_ptr = &i,&a_ref = i;
-
-decltype((i)) a = i;//a为一个整型引用，若不加()，a为一整型
+decltype((i)) a = i;//a为一个整型引用，(i)也为一个表达式
 decltype(*a_ptr) b = i;//*a_ptr为左值，b为一个整型引用
 decltype(&a_ref+1) c;//&a_ref+1为右值，c为一个整型指针
 ```
-int ia[10];
-auto ia2[ia] = ia;ia2为一指针
-decltype(ia) ia3;ia3为一数组
-不能对尾后指针执行解引用和递增
-int *beg = begin(ia)
-int *a_
-end = end(ia)
-两指针相减得到ptrdiff_t类型，一种带符号类型
-比较两个字符数组名是错误的，实际上比较的是两个指针的大小，而这两个指针并不处于同一容器
+
 #### 1.5动态内存分配
 **①引言**
 {%list%}
@@ -370,10 +366,7 @@ char *a_ptr_to_char = reinterpret_cast<char *>(a_ptr_to_int)；
 #### 2.2控制流
 
 
-#### 2.3异常处理
-
-### 3.函数
-#### 1.2输入输出
+#### 2.3输入输出
 {%list%}
 要包含iostream头文件，注意标准库头文件不带后缀
 {%endlist%}
@@ -409,20 +402,60 @@ char *a_ptr_to_char = reinterpret_cast<char *>(a_ptr_to_int)；
 {%endright%}
 >如`while(cin>>tmp)`可以读取**多个数据**，直到**终止**或者**读取数据不合理**
 
-#### 1.4函数特性
-**①默认参数**
+### 3.函数
+#### 3.1函数基础
+**①引言**
+{%list%}
+Cpp的函数与C语言基本一致，在C语言基础上新添了许多特性
+{%endlist%}
+>**返回类型**：若返回类型为**引用**，函数调用**结果**为**左值**，其余一律为为**右值**
+{%right%}
+当函数调用结果为左值，就可以连续调用函数，如size_t = string().size()
+{%endright%}
+>**`return`语句**：以返回一个**花括号包裹的初始值列表**，用于**初始化**函数调用**结果**
+{%warning%}
+如果返回类型为内置类型，则其中只能包含一个值
+{%endwarning%}
+
+>**尾置类型返回**：`auto 函数名(形参列表) -> 返回类型`
+{%right%}
+适用于返回类型较为复杂的函数，当然也可以使用别名简化返回类型
+{%endright%}
+>**函数指针**：除了**C语言的格式**外，还可以使用`decltype(函数名) *函数指针名`
+{%warning%}
+decltype(函数名)返回的是该函数的类型，所以还需要加上*符号
+{%endwarning%}
+>**函数类型**由其**返回类型**和**参数列表**决定，格式为`返回类型 (参数列表)`
+
+
+**②默认参数**
 >**概述**：**与C语言不同**，C++可以给函数设置**缺省情况**下的**默认参数**
 {%list%}
 只能在函数定义或者函数声明默认值，但是不能在两个地方都声明，通常放在函数声明处
 {%endlist%}
 {%warning%}
-如果为某一参数设定默认值，则该参数右侧所有参数都需要有默认值
+如果为某一参数设定默认值，则该参数右侧所有参数都需要有默认值，局部变量不能作为默认实参
 {%endwarning%}
-
-**②inline函数**
+{%right%}
+若使用全局变量作为默认实参，可以在内层作用域修改该变量从而修改默认实参
+{%endright%}
+>若在**内层作用域**定义与**作为默认实参的全局变量**，则只是**覆盖**该变量，并**没有修改**对应默认实参
+{%wrong%}
+在给定作用域中，一个形参只能被赋予一次默认实参
+{%endwrong%}
+```cpp
+/*某头文件中*/
+int a_val = 10;
+void fun(int a = a_val,int b);
+//错误，因为二次赋予默认实参
+void fun(int a = 12,int b);
+//正确，可以添加默认实参
+void fun(int a = a_val,int b = 10);
+```
+**③inline函数**
 >**概述**：在**函数定义之前**添加`inline`关键字即可，通常是一些**简单的函数**
 {%list%}
-对于`inline`函数，编译器在每个函数调用节点上将其展开为函数代码副本（类似于C语言宏函数）
+对于inline函数，编译器在每个函数调用节点上将其展开为函数代码副本（类似于C语言宏函数）
 {%endlist%}
 {%right%}
 内联函数的定义通常放在头文件中（和普通的函数不同，inline函数可以定义多次）
@@ -431,16 +464,100 @@ char *a_ptr_to_char = reinterpret_cast<char *>(a_ptr_to_int)；
 inline函数只是对编译器的一种的请求，编译器不一定会按照inline函数定义处理
 {%endwarning%}
 
-**③函数重载**
->**概述**：**参数列表**或**常量性不同**但是**名称相同**的一系列函数，**编译器**根据**调用时**提供的**参数**判断调用哪一个
+**④constexpr函数**
+>**概述**：：在**函数定义之前**添加`constexpr`关键字即可，能用于**初始化常量表达式**的函数
 {%list%}
-若传入的参数被const修饰，则调用const版本
+该函数的返回类型以及形参类型都必须是字面值，且只能含有一条return语句，通常定义在头文件中
 {%endlist%}
 {%warning%}
-不能仅仅依靠返回类型的不同实现函数重载，因为编译器无法根据返回类型判断你想调用那个函数
+constexpr函数的返回值不一定是常量表达式
 {%endwarning%}
+>如下，如果`cnt`是一个**常量表达式**，则`scale`的**结果**是**常量表达式**，反之则**不是**
+```cpp
+constexpr int new_sz(){return 42;} //返回结果为一常量表达式
+constexpr size_t scale(size_t cnt){return new_sz() * cnt}//返回结果不一定为一常量表达式
+```
 
+**⑤数量未知的形参**
+{%list%}
+除了可以基于C语言的varargs的标准库实现，还可以通过initializer_list头文件实现
+{%endlist%}
+>**概述**：在函数定义时，使用`initializer_list`类作为**一个形参**，用于接收**不确定数量的实参**
+{%right%}
+调用时，使用初始值列表作为实参，用于初始化initializer_list
+{%endright%}
+```cpp
+//函数定义
+void error_msg(initializer_list<string> msg_list){
+  for(auto beg = msg_list.begin();beg != msg_list.end(),++beg)
+      cout<<*beg<<endl
+}
 
+//函数调用
+error_msg({string1,string2,string3})
+``` 
+#### 3.2函数重载
+**①定义**
+>**概述**：名字相同但是**参数数量/类型**不同的一系列函数，**编译器**根据**调用时**提供的**参数**判断调用哪一个
+{%list%}
+不能仅仅依靠返回类型的不同实现函数重载，因为编译器无法根据返回类型判断你想调用那个函数
+{%endlist%}
+{%warning%}
+不能通过形参是否有顶层const区分函数，但是可以通过形参是否有底层const区分函数
+{%endwarning%}
+>通常传入**常量实参**，调用**const版本**的函数，反之调用**非const版本**的函数
+```cpp
+//只有形参是否有顶层const的区别，两者本质上是同一个函数
+//两者可以接收的参数一致
+int fun1(int);
+int fun2(const int);
 
+//有形参是否有底层const的区别，两个不是相同的函数
+int fun3(int &);
+int fun3(const int &) //只有该函数能接收常量对象、字面值和表达式
+```
+{%right%}
+可以利用const_cast，从而基于const版本实现非const版本
+{%endright%}
+```cpp
+//const版本
+const string &shorter_string(const string &s1,const string &s2){
+  return s1.size() <= s2.size() ? s1:s2;
+}
+//非const版本
+string &shorter_string(string s1,string s2){
+  auto &res = shorter_string(const_cast<const string &>(s1),
+                             const_cast<const string &>(s1));
+  return const_cast<string &>(res);
+}
+```
+**②匹配过程**
+>**概述**：首先找到**同名的候选函数**，随后根据**参数数量/类型**的**匹配性**找到**最佳匹配**并调用之
+{%list%}
+详细匹配规则可见《C++ primer》p219
+{%endlist%}
+{%warning%}
+候选函数必须是在调用点可见的，且内层的函数定义/声明会覆盖外层所有的同名函数
+{%endwarning%}
+```cpp
+void fuc1(int a);
+void fun1(int a,int b);
+{
+  void fun1(int a,int b,int c);
+  func1(1); //发生错误，因为只能看见void fun1(int a,int b,int c);而类型不符合
+}
+
+```
+{%wrong%}
+若没有找到最佳匹配，则发生二义性错误
+{%endwrong%}
+```cpp
+//函数声明
+void fun1(int a,int b);
+void fun1(double a,double b);
+
+//该函数调用发生二义性错误，因为对于两个重载函数，都需要发生一次类型转换
+fun1(1,1.0);
+```
 
 
