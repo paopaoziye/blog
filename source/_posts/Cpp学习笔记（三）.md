@@ -261,21 +261,9 @@ class less_than
 {%list%}
 以int类型vector为例
 {%endlist%}
->`vector<int> my_vec`：构建一个**空的**`vector`
 
->`vector<int> my_vec(10)`：`vector`**元素个数**为`10`，且**所有元素**被**初始化**为`0`
 
->`vector<int> my_vec(10，10)`：`vector`**元素个数**为`10`，且**所有元素**被**初始化**为`10`
 
->`vector<int> my_vec(first，last)`：使用**一对泛型指针/指针**给其赋值
-{%right%}
-常常使用数组对其进行复制，如vector<int> my_vec(nums，nums+num_size)
-{%endright%}
->`vector<int> my_vec(my_vec2)`/`vector<int> my_vec = my_vec2`：**复制一份**传入的动态数组
-{%list%}
-同样还可以通过my_vec == my_vec2/my_vec != my_vec2判断两者是否相同
-{%endlist%}
->`vector<int> my_vec{1,2,3}/vector<int> my_vec = {1,2,3}`：类似于**C语言数组**的初始化
 
 **③常用方法**
 >**`push_back()`**：在**末端插入**元素
