@@ -33,8 +33,11 @@ summary: 标准库工具
 连续容器均支持快速随机访问，但是除了在特定位置插入/删除元素之外，效率都较低
 {%endlist%}
 {%right%}
-array可以看作标准化的内置数组，更加安全易用，在声明时需要指明元素类型和大小
+array可以看作标准化的内置数组，更加安全易用
 {%endright%}
+{%warning%}
+array在声明时需要指明元素类型和大小，且不支持任何插入/删除操作
+{%endwarning%}
 
 >**链式容器**：`list`双向链表、`forward_list`单向链表
 {%list%}
@@ -89,17 +92,21 @@ array支持参数列表初始化，但是不支持参数列表赋值
 倒数三种构造方式array不支持
 {%endwarning%}
 **④通用操作**
->`swap()`：**交换**容器元素，如`a.swap(b)`
+>`swap()`：**交换**两个**相同类型**容器元素，如`a.swap(b)`
+{%list%}
+swap()只是交换了两者的内部数据结构（容器壳子），而没有交换元素
+{%endlist%}
+>对于`array`，会直接**交换元素**，其**迭代器**、**引用**和**指针**没有失效，但是**指向元素值**发生了改变
 {%right%}
-交换操作通常比拷贝操作快得多，因为元素值并没有交换，只是交换了两者的内部数据结构（容器壳子）
+交换操作远快于拷贝，且不会破坏容器的迭代器、引用和指针
 {%endright%}
 {%warning%}
-对于string，swap会导致其内部的迭代器、引用和指针失效，对于array，会直接交换元素值，但是不会破坏指针等
+对于string，swap会导致其内部的迭代器、引用和指针失效
 {%endwarning%}
 
 >`assign(first,last)/assign(num,val)`：**替换**容器内元素，类似于**赋值**行为
 {%list%}
-除了array，其他顺序容器均支持assign()，普通的赋值(=)要求较为严苛，而assign()要求较为宽松，就像重新构造
+除了array，其他顺序容器均支持assign()，普通的赋值(=)要求较为严苛，而assign()要求较为宽松，像重新构造
 {%endlist%}
 {%warning%}
 assign()和赋值相关操作会导致左边容器内部的迭代器、引用和指针失效
@@ -114,17 +121,141 @@ forward_list不支持size()
 {%list%}
 所以容器的元素最好至少定义了==和<比较符
 {%endlist%}
-**⑤添加/删除元素**
+
+#### 1.2迭代器
+**①引言**
+>**概述**：本质上是一个**某个类的friend类**，对多种**操作符**进行**重载**，**性质和用法**类似于**指针**，故也称为**泛型指针**
+{%list%}
+如下为一个数列类以及其泛型指针
+{%endlist%}
+{%right%}
+使用typedef关键字将iterator_to_special_vector改为统一的iterator
+{%endright%}
+```cpp
+//泛型指针相关联的类
+class special_vector{
+  public:
+    //一些成员函数
+  friend class iterator_to_special_vector;
+  typedef iterator_to_special_vector iterator;
+
+  iterator begin() const{
+    return iterator(_begin_pos-1)
+  }
+
+  iterator end() const{
+    return iterator(_begin_pos+_len-1)
+  }
+  private:
+      int _begin_pos;
+      int _len;
+      static vector<int> _elems;
+}
+```
+```cpp
+//泛型指针类定义
+class iterator_to_special_vector{
+  public:
+      iterator_to_special_vector(int index):_index(index-1){}
+      bool operator== (const special_vector&) const;
+      int operator*() const;
+      //...一系列操作符函数的重载
+  private:
+      int _index;
+}
+```
+**②分类**
+>`[类名]::iterator [泛型指针名]`：对应类的**普通泛型指针**，其**常量指针**形式为`const_iterator`
+{%list%}
+每个标准容器都有对应的泛型指针类，统一重命名为iterator，需要使用[类名]::指明其所属类
+{%endlist%}
+>`[类名]::reverse_iterator [泛型指针名]`：对应类的**逆序泛型指针**，其**常量指针**形式为`const_reverse_iterator`
+{%list%}
+
+{%endlist%}
+
+**③获取**
+>`begin()/end()`：返回容器对象**首个/尾后元素**的**普通泛型指针**，如`my_vector.begin()`
+
+>`rbegin()/rend()`：返回容器对象**首个/尾后元素**的**逆序泛型指针**，如`my_vector.rbegin()`
+{%list%}
+以上函数会根据容器对象的常量性返回常量版本和非常量版本的泛型指针
+{%endlist%}
+>如果只需要**常量版本**的泛型指针，可以使用`cbegin()/cend()/crbegin()/crend()`
 {%warning%}
-array不支持添加删除元素，因为会改变容器大小
+所有容器为泛型指针定义了==和!=操作符，有些容器没有定义比较操作符，所以使用first != last而不是first < last
 {%endwarning%}
->`insert()/emplace()`：**插入**元素，前者是**将参数拷贝进容器**，后者是**对参数调用对应构造函数**再添加进容器
+{%wrong%}
+不能对尾后指针执行解引用和递增
+{%endwrong%}
+{%right%}
+也可以用于内置数组，获得其头指针和尾后指针，使用模板，使得函数可以同时处理指针/泛型指针
+{%endright%}
+```cpp
+template<typename Iterator_Type,typename Elem_Type>
+Iterator_Type
+find(Iterator_Type first,Iterator_Type last,const Elem_Type &value)
+{
+  for(;first!=last;++first)
+      if(*first!=value)
+      return first;
+  
+  return last;
+}
+```
+#### 1.3顺序容器操作
+**①添加元素**
+>`push_front(val)/push_back(val)`：在容器**头/尾部**插入值为`val`的元素
+{%warning%}
+vector和string不支持push_front(val)和push_back(val)
+{%endwarning%}
+>`emplace_front(args)/emplace_back(args)/emplace(p,args)`：在容器**头/尾/p指向元素前**插入**由`args`创建**的元素
+{%list%}
+push创建一个临时元素对象，并将其拷贝到容器，emplace在容器中直接构造元素，返回值均为void
+{%endlist%}
+{%right%}
+emplace相关函数在容器中直接构造元素，所以args需要与对应元素的构造函数相匹配
+{%endright%}
+>`insert(p,n,val)/insert(p,il)/insert(p,val)`：在`p`**指向元素前**插入`n`个值为`val`/**元素值列表**`il`的元素
 
->`erase()/clear()`：**删除**指定的元素/**清空**容器
+>`insert(p,first,last)`：在`p`**指向元素前**插入迭代器`[first,last)`范围内的元素，迭代器**不能属于被插入容器**
+{%list%}
+insert返回指向新添加的第一个元素的迭代器
+{%endlist%}
+{%warning%}
+向vector、string和deque中插入元素会导致该容器的迭代器、引用和指针失效
+{%endwarning%}
 
-forward_list的迭代器不支持--运算
-反向迭代器rbegin，crbegin
+**②删除元素**
+>`pop_front()/pop_back()`：删除**首/尾元素**，返回`void`
+{%list%}
+forward_list不支持pop_back()，vector和string不支持pop_front()
+{%endlist%}
+>`erase(p)/erase(first,last)`：删除`p`指向元素/迭代器`[first,last)`范围内的元素
+{%list%}
+返回最后一个被删除元素后一个位置的迭代器
+{%endlist%}
+{%warning%}
+删除deque元素会导致其迭代器等失效，删除vector和string元素，删除点后的迭代器等会失效
+{%endwarning%}
+{%wrong%}
+删除元素必须确保它们是存在的
+{%endwrong%}
+>`clear()`：**清空容器**，返回`void`
+
+**③其他操作**
+>`front()/back()/at(n)`：访问容器**头/尾/下标为n**的元素的**引用**，若**容器为常量**，返回的是**常量引用**
+{%list%}
+back不适用于forwar_list，at只适用于vector、string、array和deque
+{%endlist%}
+{%warning%}
+访问容器元素前，需要保证容器非空，且注意下标越界问题
+{%endwarning%}
+>`resize(n)/resize(n,t)`：调整**容器大小**为`n`，若`n`大于容器大小，则**新增加的元素**默认初始化/初始化为`t`
 
 ### 2.关联容器
 
 ### 3.内存管理
+
+
+forward_list的迭代器不支持--运算
