@@ -417,8 +417,97 @@ a_string可以是string，也可以是C风格字符串
 
 **③搜索**
 >
-### 3.内存管理
+### 2.泛型算法
+#### 2.1引言
+大部分定义在algorithm中，一部分数值泛型算法定义在numeric中
+遍历两个迭代器的范围
+要求元素支持==和<操作符算法不会改变容器的大小
+第一个元素和为尾后元素
+只读算法
+find count 
+accumulate(first,last,val)求和，val为初值，决定了该函数使用哪个加法运算符以及返回值的类型
+accumulate(vec.cbegin(),vec.cend(),"");""缺省为一字符数组指针，没有定义对应的加法，是错误的
+equal(afirst,alast,bfirst)：确定两个序列是否具有相同的值，b序列至少和a序列一样长
+
+写容器操作
+fill(first,last,val)将对应范围内的元素全部改为val
+fill_n(first,n,val)：将first，first+n范围内的元素改写为val
+注意算法不会改变容器大小所以保证容器大小足够是程序员自己的责任
+保证输出空间足够的一个方法是采用插入迭代器
+通常情况下，通过迭代器向容器元素赋值时，值被赋予迭代器指向的元素，
+当通过插入迭代器赋值时，对应值的元素被插入到容器中
+back_inserter接收一个容器的引用，返回一个插入迭代器，向该迭代器赋值时，会调用该容器的push_back()。常常作为目的容器使用，fill_n(back_inserter(vec),10,0)
+
+copy(afirst,alast,bfirst)将a范围的元素复制到bfirst开始处，返回其目的容器目的位置后的迭代器
+
+replace(first,last,val1,val2)：将序列中所有的val1替换为val2
+replace_copy(afirst,alast,bfirst,val1,val2)不在原本容器上改变，将结果存储在b容器中
+sort(first,last)将对应序列从小到大排序
+unique(first,last)接收一个有序序列，消除重复元素，将其移动到容器末尾，返回不重复值范围末尾的迭代器
+想要真正删除容器元素，还是需要调用erase
+sort(words.begin(),words.end(),is_shorter);
+stable_sort()会维持相等元素的原有顺序
+使用自己的操作替代默认运算符
+谓词：一个可调用的表达式，返回结果是一个可以作为条件的值
+函数、函数指针、lambda表达式和function object
+find_if(first,last,func)对序列的每个元素调用func，返回使得func返回非0值元素的迭代器，否则返回尾迭代器，但是func必须为一元谓词
+
+lambda表达式
+一个可调用的代码单元，类似于未命名的内联函数
+
+捕捉列表为lambda表达式所在函数的局部变量的列表
+必须采用尾置返回
+可以省略参数列表和返回类型
+auto f = [捕捉列表](参数列表) -> 返回类型{函数体}
+f()即可调用lambda表达式
+
+如果忽略返回类型，则自动从返回的表达式类型推断出来
+不能有默认参数
+捕获列表只会使用明确指明的变量，逗号分隔
+`[sz](const string &s){return s.size()<sz}`
+可以直接使用定义在当前函数之外的名字和局部static变量
+for_each(first，last，a_func)：对序列的每个对象调用a_func
+
+当定义一个lambda表达式时，编译器会生成一个对应的未命名的类，该lambda表达式对象就是该类的实例
+包含捕获变量的数据成员
 
 
+采用引用方式捕获`[&sz](const string &s){return s.size()<sz}`可以修改sz的值
+保证lambda表达式执行时，指向对象依旧存在
+
+还可以让编译器从lambda表达式函数体中的代码推断我们需要捕获哪些变量，详细见C++ primer p351
+
+一般情况下，对于一个值被拷贝的变量，lambda表达式不会改变其值，如果想要改变该变量，则需要使用
+`[sz](const string &s) mutable {return s.size()<sz++}`
+
+如果lambda表达式除了return语句还有其他语句，且省略了尾置返回，编译器默认其返回void
+
+bind()
+functional头文件中
+auto new_func = bind(func,arg_list);
+调用new_func时，会调用func并将arg_list传递给他
+
+其中arg_list可能包含_n，为一占位符，标识传递给new_func的参数的位置
+auto new_func = bind(func,_1,sz)标识将func的第二个参数绑定为sz
+new_func(a) = func(a,sz)
+using namespace std::placeholders
+还可以重新安排参数顺序详细见《C++ Primer》p356
+
+对一个插入迭代器赋值时，在指定位置插入一个元素
+
+对插入迭代器进行*，递增和递减都只会返回插入迭代器，不会做任何事情
+back_inserter 调用push_back
+front_inserter 调用push_front
+inserter 调用insert(c,p)调用inset在p之前插入元素，且之后该插入迭代器会指向原来的元素，而非插入元素
+注意front_inserter会导致元素顺序颠倒
+
+反向迭代器
+尾元素向首元素反向移动的迭代器，++/--操作的含义会颠倒过来
+rebegin()：返回指向尾元素的反向迭代器
+rend()：返回指向首前元素的反向迭代器
+sort(a.begin(),a.end())：从小到大排列
+sort(a.rbegin(),a.rend())从大到小排列
+不能再forward_list和流创建反向迭代器
+可以将反向迭代器转化为正常的迭代器，但是转化过后指向元素不同了，详细见《C++ primer》p364
 forward_list的迭代器不支持--运算
 关联容器的迭代器都是双向的
