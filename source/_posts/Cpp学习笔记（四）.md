@@ -417,97 +417,155 @@ a_string可以是string，也可以是C风格字符串
 
 **③搜索**
 >
-### 2.泛型算法
-#### 2.1引言
-大部分定义在algorithm中，一部分数值泛型算法定义在numeric中
-遍历两个迭代器的范围
-要求元素支持==和<操作符算法不会改变容器的大小
-第一个元素和为尾后元素
-只读算法
-find count 
-accumulate(first,last,val)求和，val为初值，决定了该函数使用哪个加法运算符以及返回值的类型
-accumulate(vec.cbegin(),vec.cend(),"");""缺省为一字符数组指针，没有定义对应的加法，是错误的
-equal(afirst,alast,bfirst)：确定两个序列是否具有相同的值，b序列至少和a序列一样长
 
-写容器操作
-fill(first,last,val)将对应范围内的元素全部改为val
-fill_n(first,n,val)：将first，first+n范围内的元素改写为val
-注意算法不会改变容器大小所以保证容器大小足够是程序员自己的责任
-保证输出空间足够的一个方法是采用插入迭代器
-通常情况下，通过迭代器向容器元素赋值时，值被赋予迭代器指向的元素，
-当通过插入迭代器赋值时，对应值的元素被插入到容器中
-back_inserter接收一个容器的引用，返回一个插入迭代器，向该迭代器赋值时，会调用该容器的push_back()。常常作为目的容器使用，fill_n(back_inserter(vec),10,0)
+### 2.内存管理
+####
+静态内存保存局部static、类static和定义在函数之外的变量，在使用之前分配
+智能指针，自动释放指向的对象
+定义在memory头文件中
 
-copy(afirst,alast,bfirst)将a范围的元素复制到bfirst开始处，返回其目的容器目的位置后的迭代器
+shared_ptr，是模板类，所以需要指明其指向类型
+shared_ptr<int> p1
+默认初始化的智能指针包含一个空指针
+大部分行为类似于普通指针
+while(p1)可以检查其是否包含空指针
+p.get()返回p中保存的指针
+swap(p,q)交换p和q中的指针
+make_shared<T>(args)返回一个shared_ptr，指向一个动态分配的类型为T的对象，使用args初始化此对象，类似于容器的emplace
+shared_ptr<T>p(q)p是shared_ptr q的拷贝，此操作会递增q的计数器，q中的指针必须能转化为T*
+p = q 会递减p的引用计数，递增q的引用计数
+p.use_count()返回和p共享对象的智能指针数量
 
-replace(first,last,val1,val2)：将序列中所有的val1替换为val2
-replace_copy(afirst,alast,bfirst,val1,val2)不在原本容器上改变，将结果存储在b容器中
-sort(first,last)将对应序列从小到大排序
-unique(first,last)接收一个有序序列，消除重复元素，将其移动到容器末尾，返回不重复值范围末尾的迭代器
-想要真正删除容器元素，还是需要调用erase
-sort(words.begin(),words.end(),is_shorter);
-stable_sort()会维持相等元素的原有顺序
-使用自己的操作替代默认运算符
-谓词：一个可调用的表达式，返回结果是一个可以作为条件的值
-函数、函数指针、lambda表达式和function object
-find_if(first,last,func)对序列的每个元素调用func，返回使得func返回非0值元素的迭代器，否则返回尾迭代器，但是func必须为一元谓词
+每当进行拷贝和赋值操作时，每个shared_ptr都会记录有多少个其他的shared_ptr指向相同的对象
+当拷贝一个shared_ptr，如利用一个shared_ptr初始化另一个shared_ptr，将其作为一个参数传递给函数、作为函数的返回值，其计数器都会增加
+当给shared_ptr赋予一个新值或者shared_ptr被销毁，其计数器会递减
+当被指向对象没有shared_ptr指向时，该对象会被释放，调用其析构函数
 
-lambda表达式
-一个可调用的代码单元，类似于未命名的内联函数
+shared_ptr要及时删除
 
-捕捉列表为lambda表达式所在函数的局部变量的列表
-必须采用尾置返回
-可以省略参数列表和返回类型
-auto f = [捕捉列表](参数列表) -> 返回类型{函数体}
-f()即可调用lambda表达式
+如果想要某几个类对象共享一个数据对象，可以该类的数据成员定义为一个智能指针
+new和delete是运算符
+自由空间分配的内存是无名的
+默认初始化
+vector<int> *pv = new vector<int>(10,10);
+vector<int> *pv = new vector<int>{0,1,2,3};
 
-如果忽略返回类型，则自动从返回的表达式类型推断出来
-不能有默认参数
-捕获列表只会使用明确指明的变量，逗号分隔
-`[sz](const string &s){return s.size()<sz}`
-可以直接使用定义在当前函数之外的名字和局部static变量
-for_each(first，last，a_func)：对序列的每个对象调用a_func
+可以动态分配一个const对象
+const string *pcs = new const string;
+如果该对象没有定义默认构造函数，则必须显式初始化
 
-当定义一个lambda表达式时，编译器会生成一个对应的未命名的类，该lambda表达式对象就是该类的实例
-包含捕获变量的数据成员
+如果内存不够，new可能会抛出一个bad_alloc异常
+int *p = new (nothrow) int;如果分配失败，不会抛出异常，而是返回一个空指针
+
+只能delete一块动态分配的内存，但是编译器不会帮你判断
+可以在delete一个指针后将其变为空指针
+注意多个指针指向相同的动态内存
+
+不能进行内置指针和智能指针的隐式转换，必须使用直接初始化形式
+shared_ptr<int> p1(new int(10));
+shared_ptr<int> p1 = new int(10);错误
+
+避免将同一块内存绑定到多个独立创建的shared_ptr上
+
+不要使用临时`shared_ptr`指针对象，否则可能会产生空悬指针
+```cpp
+//假设process是一个接收指针指针的函数
+int *x = new int(10);
+process(x);//错误，内置指针不能隐式转换为智能指针
+//可以调用，但是实参为一临时对象，process(shared_ptr<int>(x));结束时其就被销毁
+//当函数调用结束，shared_ptr引用计数变为0，会释放对应对象，导致x变为一个空悬指针
+process(shared_ptr<int>(x));
+int y = *x;//错误，x已经称为一个空悬指针
+```
+注意，不能将新的shared_ptr指向一个get返回的指针
+独立的shared_ptr的计数器不是共享的
+使用get获得内置指针的代码不能delete该指针
+
+函数发生异常时，会直接退出，局部对象会被直接销毁，如果使用new分配的指针，可能会导致内存泄漏，而使用智能指针则不会
+
+可以定义自己的行为取代shared_ptr的delete，如释放资源，尤其是对于一些没有定义析构函数的对象（C和C++都支持的类）
+`shared_ptr<aclass> pc(&a_aclass,end_connection)`
 
 
-采用引用方式捕获`[&sz](const string &s){return s.size()<sz}`可以修改sz的值
-保证lambda表达式执行时，指向对象依旧存在
+unique_ptr
+某个时刻只能有一个unique_ptr指向一个给定对象，当一个unique_ptr被销毁时，其指向对象也被销毁
+类似的，初始化unique_ptr也需要直接初始化
+不支持普通的拷贝和赋值
+```cpp
+unique_ptr<int> p1(new int(10));
+//错误，不支持拷贝
+unique_ptr<int> p2(p1);
+//错误，不支持赋值
+unique_ptr<int> p3;
+p3 = p1;
+//将p1置空后，会释放对应的对象
+p1 = nullptr;
+```
+`release()`：返回内置指针，并将对应unique_ptr置为空，注意release并不会释放对应对象
+`reset()/reset(p)`：释放unique_prt指向的对象，并将其指向内置指针p
+p1.reset(p2.realse());可以将p2的内置指针转移到p1中
+可以拷贝/赋值一个即将要被销毁的unique_ptr，如从函数返回一个unique_ptr
+```cpp
+//可以成功拷贝
+unique_ptr<int> clone(int p){
+  return unique_ptr<int>(new int(p));
+}
+```
+auto_ptr具有unique_ptr的部分特性，但是不能被保存在容器中，也不能从函数中返回
+unique_ptr<connection,decltype(end_connection)*> p (&c,end_connection);
 
-还可以让编译器从lambda表达式函数体中的代码推断我们需要捕获哪些变量，详细见C++ primer p351
+weak_ptr
+一种不控制指向对象生存周期的智能指针，指向有shared_ptr管理的对象，不会改变对应shared_ptr的引用计数
+当shared_ptr引用计数变为0，即使有一个weak_ptr指向对应对象，还是会被释放
 
-一般情况下，对于一个值被拷贝的变量，lambda表达式不会改变其值，如果想要改变该变量，则需要使用
-`[sz](const string &s) mutable {return s.size()<sz++}`
+weak_ptr<T> wp(sp)：sp为一个shared_ptr，两者指向相同的对象，T必须能转化为sp指向对象的类型
+w = p：p可以是一个shared_ptr/weak_ptr，两者指向共同的对象
+reset()：将weak_ptr置为空
+use_count()：和对应weak_ptr共享对象的shared_ptr的数量
+lock()：如果use_count()的值不为0，则返回一个指向w的对象的shared_ptr，反之返回一个空的shared_ptr
+由于weak_ptr指向的对象可能不存在，所以在使用其访问对象是，必须使用lock对其进行检查
+while(shared_ptr<int> sp = wp.lock());
+weak_ptr不会影响一个对象的生存期，但是可以阻止用户访问一个不存在的对象
 
-如果lambda表达式除了return语句还有其他语句，且省略了尾置返回，编译器默认其返回void
+new int[size]size只需要是一个整型即可，不必是一个常量，甚至可以是0，会获得一个合法的非空指针，类似于尾后指针
+逆序销毁
+注意返回的是对应元素类型的指针，而不是数组的指针，所以不能使用begin、end和for范围语句
+默认初始化
+new int[size]()值初始化 
+new int[size]{0,1,2,3}列表初始化
+为了使用智能指针管理动态分配的数组，在创建智能指针时，需要指明其类型是数组
+unique_ptr<int[]> up(new int[10])
+可以使用下标访问数组元素
+shared_ptr不支持直接管理动态分配的数组，如果需要管理一个动态分配的数组，必须定义自己的删除器
+不支持下标运算符，也不支持指针的算数运算，必须使用get获得其内置指针访问数组元素
+```cpp
+shared_ptr<int> sp(new int[10],[](int *p){delete [] p;});
+for(int i = 0;i < 10;++i){
+  *(sp.get()+i) = i;
+}
+```
+allocator类
+可以将内存分配和对象构造分离
+根据给定的对象类型确定内存大小和对齐位置
 
-bind()
-functional头文件中
-auto new_func = bind(func,arg_list);
-调用new_func时，会调用func并将arg_list传递给他
+allocator<string> alloc_string;
+alloc_string.allocate(n);分配一段原始的内存，足以容纳n个string，返回一个对应类型的指针
+alloc_string.deallocate(p,n)，释放对应内存，p必须指向对应内存的初始位置，n必须为其整体大小
+且在调用该函数前，对应内存的每个对象都应该被销毁
+所以最开始获得的指针应该被保留，创建一个拷贝使用
+alloc_string.construct(p,args)，在p指向的内存处利用args构造一个对象
+alloc_string.destroy(p)销毁p指向的对象
+```cpp
+allocator<string> alloc_string;
+auto p = alloc_string.allocate(10);
+auto q = p;
+for(int i = 0;i < 10; ++i){
+   alloc_string.construct(q++);
+}
+while(q != p){
+  alloc_string.destroy(--q);
+}
+alloc_string.deallocate(p,10);
+```
 
-其中arg_list可能包含_n，为一占位符，标识传递给new_func的参数的位置
-auto new_func = bind(func,_1,sz)标识将func的第二个参数绑定为sz
-new_func(a) = func(a,sz)
-using namespace std::placeholders
-还可以重新安排参数顺序详细见《C++ Primer》p356
-
-对一个插入迭代器赋值时，在指定位置插入一个元素
-
-对插入迭代器进行*，递增和递减都只会返回插入迭代器，不会做任何事情
-back_inserter 调用push_back
-front_inserter 调用push_front
-inserter 调用insert(c,p)调用inset在p之前插入元素，且之后该插入迭代器会指向原来的元素，而非插入元素
-注意front_inserter会导致元素顺序颠倒
-
-反向迭代器
-尾元素向首元素反向移动的迭代器，++/--操作的含义会颠倒过来
-rebegin()：返回指向尾元素的反向迭代器
-rend()：返回指向首前元素的反向迭代器
-sort(a.begin(),a.end())：从小到大排列
-sort(a.rbegin(),a.rend())从大到小排列
-不能再forward_list和流创建反向迭代器
-可以将反向迭代器转化为正常的迭代器，但是转化过后指向元素不同了，详细见《C++ primer》p364
-forward_list的迭代器不支持--运算
-关联容器的迭代器都是双向的
+uninitialized_copy(first,last,p)
