@@ -568,4 +568,5 @@ while(q != p){
 alloc_string.deallocate(p,10);
 ```
 
-uninitialized_copy(first,last,p)
+uninitialized_copy(first,last,p)：将迭代器范围内元素拷贝到p开始处，p的指向属于一块原始内存，返回p++
+uninitialized_fill(first,last,t)：将迭代器范围内的元素全部初始化为t
