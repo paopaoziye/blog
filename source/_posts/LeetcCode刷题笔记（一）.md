@@ -239,7 +239,160 @@ public:
     }
 };
 ```
-#### 2.2字符串
+#### 2.2链表
+**①简介**
+>**概述**：由**一系列节点**组成，每个节点包含**指向其他节点的指针**（通常是下一节点），将节点链接为**链状结构**
+
+>**哨兵节点**：通常位于**链表头部**，它的值**没有任何意义**（通常为`0`），**其后节点**才开始保存有意义的信息
+{%right%}
+哨兵节点简化了代码逻辑，不用判断链表是否为空，不用考虑创建/删除链表头节点的特殊情况
+{%endright%}
+{%list%}
+所以在刷题过程中，第一件事情就是给要处理的链表创建哨兵节点，真正的头节点位于哨兵节点之后
+{%endlist%}
+
+>**环**：链表的**最后一个节点**的`next`指针不为空，而是指向**链表中的某个节点**
+{%list%}
+注意有环的链表，环的入口节点也就是尾节点
+{%endlist%}
+
+**②常用方法**
+>**前后双指针**：第一个指针在链表中**提前移动k步**，随后移动第二个指针，两者**速度一致**
+
+>**快慢双指针**：**快指针**一次移动**两步**，**慢指针**一次移动**一步**
+{%list%}
+前后双指针通常用于寻找倒数第k个节点，快慢双指针通常用于寻找环的入口/链表中间节点
+{%endlist%}
+{%right%}
+前后双指针通常用于寻找倒数第k个节点，快慢双指针通常用于寻找环的入口/链表中间节点
+{%endright%}
+>详细见可见[LCR21题](https://leetcode.cn/problems/SLwz0R/description/)和[LCR22题](https://leetcode.cn/problems/SLwz0R/description/)
+
+**③经典例题**
+>**相交链表**：给定两个**单链表**的头节点，请找出并返回两个单链表**相交的起始节点**，详细见可见[LCR23题](https://leetcode.cn/problems/3u1WK4/description/)
+```cpp
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        //考虑极端情况
+        if(headA == nullptr || headB == nullptr)
+        return nullptr;
+
+        //建立两个cur指针以遍历链表
+        //假设a的非公共部分有a个节点，b的非公共部分有b个节点，公共部分有c个节点
+        //cur_a一直后移，当第一次到结尾时，移动了a+c个节点，然后将其设置为b链表的起始节点
+        //cur_b一直后移，第一次到结尾时，移动了b+c个节点，同上将其设置为a链表的起始节点
+        //随后cur_a向后移动b个节点，cur_b向后移动a个节点，两个节点正好都移动了a+b+c个节点
+        //正好在相交处相遇
+        ListNode *cur_a = headA,*cur_b = headB;
+        while(cur_a != cur_b){
+            cur_a = cur_a == nullptr ? headB : cur_a->next;
+            cur_b = cur_b == nullptr ? headA : cur_b->next;
+        }
+        return cur_a;
+        
+    }
+};
+```
+>**链表相加**：给定两个**非空链表**`l1`和`l2`来代表两个**非负整数**，将相加结果存储到新链表中，详细见可见[LCR25题](https://leetcode.cn/problems/lMSNwu/description/)
+{%warning%}
+如果将两个链表转化为整数，可能会出现溢出问题，所以还是需要模拟加法逻辑进行运算
+{%endwarning%}
+```c
+class Solution {
+public:
+    ListNode* rev_list(ListNode* list){
+        ListNode *pre = nullptr,*cur = list;
+        while(cur != nullptr){
+            ListNode *tmp = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = tmp;
+        }
+        return pre;
+    }
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        //创建结果链表
+        ListNode *res_dummy = new ListNode(0);
+        ListNode *res_cur = res_dummy;
+        //翻转两个链表，便于模拟加法逻辑
+        l1 = rev_list(l1);
+        l2 = rev_list(l2);
+        int carry = 0,sum = 0;
+        while(l1 != nullptr || l2 != nullptr){
+            //模拟加法逻辑，将短的那条链表剩余位置用0补充
+            sum = (l1 == nullptr ? 0 :l1->val)+(l2 == nullptr ? 0 : l2->val)+carry;
+            carry = sum >= 10 ? 1 : 0;
+            sum = sum >= 10 ? sum-10 :sum;
+            //创建新节点保存对应位的值
+            ListNode *newnode = new ListNode(sum);
+            res_cur->next = newnode;
+
+            //为一下步做准备，注意这里如果l1，l2已经为空指针就不能向后移动了
+            l1 = l1==nullptr ? nullptr : l1->next;
+            l2 = l2==nullptr ? nullptr : l2->next;
+            res_cur = res_cur->next;
+        }
+        //考虑是否会有最新的最高位
+        if(carry == 1)
+        res_cur->next = new ListNode(1);
+
+        ListNode *res = res_dummy->next;
+        delete res_dummy;
+        return rev_list(res);
+    }
+};
+```
+>**重排链表**：详细见可见[LCR26题](https://leetcode.cn/problems/LGjMqU/description/)，使用了**快慢双指针**将链表分为两部分，类似的还有[LCR27题](https://leetcode.cn/problems/aMhZSa/)
+
+```cpp
+class Solution {
+public:
+    ListNode* rev_list(ListNode *list){
+        ListNode *pre = nullptr,*cur = list;
+        while(cur != nullptr){
+            ListNode *tmp = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = tmp;
+        } 
+        return pre;
+    }
+    void reorderList(ListNode* head) {
+
+        //创建哨兵节点
+        ListNode *dummy = new ListNode(0,head);
+        //记住这里fast和slow都不能初始化为head，而是初始化为哨兵节点
+        ListNode *fast = dummy,*slow = dummy;
+        //当链表节点数为偶数时，slow将链表对半分开
+        //当链表节点数为奇数时，slow将链表分为两部分，前部分比后部分多一个节点
+        while(fast != nullptr&& fast->next != nullptr){
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        //将链表分为两部分
+        ListNode *later = slow->next;
+        slow->next = nullptr;
+        later = rev_list(later);
+
+        //链接两个链表
+        //注意拼接两个链表时，需要考虑一个链表长度提前耗尽的情况
+        ListNode *cur = head;
+        while(cur != nullptr){
+            ListNode *tmp1 = cur->next,*tmp2 = later ==nullptr ? 0 : later->next;
+            //注意，这里只有在后半部分链表没有走到尽头时，才能插入
+            if(later != nullptr)
+            later->next = cur->next;
+            cur->next = later;
+            cur = tmp1;
+            later = tmp2;
+        }
+        return ;
+    }
+};
+
+```
+#### 2.3字符串
 **①简介**
 >**概述**：本质上是一个**字符数组**，C++提供了字符串类型`string`
 {%right%}
@@ -247,19 +400,73 @@ public:
 {%endright%}
 
 **②常用概念**
-
 >**变位词**：组成单词的**字母类别**以及**对应字母的个数**相同，只是**排列不同**，如`abc`和`acb`
 {%list%}
-一组变位词长度相同，可以使用该条件作为必要条件
+一组变位词长度相同，可以使用该条件作为先决条件
 {%endlist%}
 {%right%}
 可以使用哈希表记录单词对应字母出现的次数，一组变位词对应的哈希表是相同的
 {%endright%}
->**回文**：**从头到尾**和**从尾到头**读取回文，得到的**内容是一样**的
+>可见[LCR14题](https://leetcode.cn/problems/MPnaiL/description/)和[LCR15题](https://leetcode.cn/problems/VabMRr/description/)
 
-#### 2.3链表
-①每个节点包含指向其他节点（通常是下一节点）的指针，这些指针将节点链接为链状结构，可以实现灵活的动态内存管理，充分利用计算机内存资源
-哨兵节点：通常位于链表的头部，通常哨兵节点的下一个节点才是链表真正的节点，有了哨兵节点，链表不会为空，简化了代码逻辑（不用判断链表是否为空，不用创建删除链表头节点的特殊情况）
-双指针
-前后双指针：一个指针在链表中提前移动k步，随后移动第二个指针
-快慢双指针：快的指针一次移动两步，慢的指针一次移动一步
+>**回文**：**从头到尾**和**从尾到头**读取回文，得到的**内容是一样**的
+{%list%}
+可以使用方向相反速度相同的双指针判断一个字符串是否是回文，一种是从两端到中心，一种是从中心到两端
+{%endlist%}
+>可见[LCR18题](https://leetcode.cn/problems/XltzEq/description/)和[LCR19题](https://leetcode.cn/problems/RQku0D/description/)
+{%warning%}
+注意后者回文中心可能是一个也可能是两个，即两个指针重合或者两个指针相邻
+{%endwarning%}
+**③经典例题**
+>**最长子串**：给定一个字符串`s`，请你找出其中**不含有重复字符**的**最长连续子字符串**的长度，详细见可见[LCR16题](https://leetcode.cn/problems/wtcaE1/description/)
+```cpp
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        
+        //使用无序集合判断字符是否重复出现
+        unordered_set<char> a_set;
+        int s_len = s.size();
+
+        //使用双指针定位子字符串，均初始化为-1，表示未开始遍历
+        int r_ptr = -1,res = 0;
+        for(int l_ptr = 0;l_ptr < s_len;++l_ptr){
+            //除了第一次进入该循环，之后每次循环的左指针都向右移动，缩小子串
+            if(l_ptr!=0){
+                a_set.erase(s[l_ptr-1]);
+            }
+            //在满足条件的情况下，不断右移右指针，扩大子串
+            while(r_ptr+1 < s_len && !a_set.count(s[r_ptr+1])){
+                a_set.insert(s[r_ptr+1]);
+                ++r_ptr;
+            }
+
+            res = max(res,r_ptr-l_ptr+1);
+        }
+
+        return res;
+    }
+};
+```
+
+>**回文子串**：给定一个**字符串**`s`，请计算这个**字符串**中有多少个**回文子字符串**，详细见可见[LCR20题](https://leetcode.cn/problems/a7VOhD/description/)
+```cpp
+class Solution {
+public:
+    int countSubstrings(string s) {
+
+        //回文中心可能是一个，也可能是两个，对于一个长度为n的字符串，总共由2n-1个回文中心
+        //用两个下标left和right表示回文中心，当left和right相等时，表示回文中心只有一个
+        int n = s.size(),res = 0;
+        for(int i = 0; i < 2*n-1;++i){
+            int left = i/2,right = i/2+i%2;
+            while(left >= 0 && right < n && s[left] == s[right]){
+                ++res;
+                --left;
+                ++right;
+            }
+        }
+        return res;
+    }
+};
+```
