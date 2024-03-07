@@ -449,7 +449,7 @@ public:
 };
 ```
 
->**回文子串**：给定一个**字符串**`s`，请计算这个**字符串**中有多少个**回文子字符串**，详细见可见[LCR20题](https://leetcode.cn/problems/a7VOhD/description/)
+>**回文子串**：给定一个**字符串**`s`，请计算这个**字符串**中有多少个**回文子字符串**，详细可见[LCR20题](https://leetcode.cn/problems/a7VOhD/description/)
 ```cpp
 class Solution {
 public:
@@ -470,3 +470,73 @@ public:
     }
 };
 ```
+### 3.线性结构
+#### 3.1哈希表
+**①简介**
+>**概述**：一种常见的数据结构，在哈希表中进行**增删查改**都只需要`O(1)`的时间，本质上是**空间换时间**
+{%list%}
+在cpp中常用的哈希表类为unordered_map和unordered_set，前者保存键值对，后者只保存键
+{%endlist%}
+
+**②类的实现**
+>**`RandomizedSet`类**：设计一个数据结构，**插入、删除和随机访问**操作的**时间复杂度**都是`O(1)`，详细见[LCR30题](https://leetcode.cn/problems/FortPu/description/)
+{%list%}
+能在O(1)实现随机访问的数据结构只有数组，为了使得插入和删除时间复杂度也是O(1)，添加哈希表结构快速定位
+{%endlist%}
+{%right%}
+注意在不要求排序的情况下从数组中快速删除一个元素，可以将待删除元素和末尾元素互换，删除尾元素即可
+{%endright%}
+```cpp
+class RandomizedSet {
+
+public:
+    RandomizedSet() {
+        srand((unsigned)time(NULL));
+    }
+    
+    bool insert(int val) {
+        //如果已经添加过这个值
+        if(indices.count(val)){
+            return false;
+        }
+        //如果没有添加过这个值，则将其插入到数组末尾
+        int index = nums.size();
+        nums.emplace_back(val);
+        indices[val] = index;
+        return true;
+    }
+    
+    bool remove(int val) {
+        //如果没有添加对应值
+        if(!indices.count(val)){
+            return false;
+        }
+        //将待删除元素的位置用末尾元素顶替，随后删除末尾元素即可
+        //否则如果val对应元素在数组的中间，删除操作的时间复杂度为O(n)
+        int index = indices[val];
+        int last = nums.back(); //back()用于返回最后一个元素
+        nums[index] = last;
+        indices[last] = index;
+        nums.pop_back();
+        indices.erase(val);
+        return true;
+    }
+    
+    int getRandom() {
+        int random_index = rand()%nums.size();
+        return nums[random_index];
+    }
+
+private:
+    vector<int> nums;
+    unordered_map<int,int> indices;
+};
+```
+>**LUR缓存**：设计并实现一个满足`LRU`**缓存约束**的数据结构，详细见[LCR31题](https://leetcode.cn/problems/FortPu/description/)
+```
+
+
+
+```
+
+**③经典例题**
