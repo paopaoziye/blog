@@ -29,7 +29,7 @@ summary: LeetCode刷题
 **①简介**
 >**概述**：每种编程语言都会提供**不同内存空间**的整数类型
 {%list%}
-64位系统，C/C++的char通常占据1个字节，short通常占据2个字节，int通常占据4个字节，long通常占据8个字节
+64位系统，C/C++char通常占据1个字节，short通常占据2个字节，int通常占据4个字节，long通常占据8个字节
 {%endlist%}
 {%warning%}
 注意计算机中的任何数据类型都有其范围，32位整型的表示范围为-2^31~2^31-1，注意溢出问题
@@ -294,7 +294,7 @@ public:
     }
 };
 ```
->**链表相加**：给定两个**非空链表**`l1`和`l2`来代表两个**非负整数**，将相加结果存储到新链表中，详细见可见[LCR25题](https://leetcode.cn/problems/lMSNwu/description/)
+>**链表相加**：给定两个**非空链表**`l1`和`l2`来代表两个**非负整数**，将相加结果存储到新链表中，详细可见[LCR25题](https://leetcode.cn/problems/lMSNwu/description/)
 {%warning%}
 如果将两个链表转化为整数，可能会出现溢出问题，所以还是需要模拟加法逻辑进行运算
 {%endwarning%}
@@ -418,7 +418,7 @@ public:
 注意后者回文中心可能是一个也可能是两个，即两个指针重合或者两个指针相邻
 {%endwarning%}
 **③经典例题**
->**最长子串**：给定一个字符串`s`，请你找出其中**不含有重复字符**的**最长连续子字符串**的长度，详细见可见[LCR16题](https://leetcode.cn/problems/wtcaE1/description/)
+>**最长子串**：给定一个字符串`s`，请你找出其中**不含有重复字符**的**最长连续子字符串**的长度，详细见[LCR16题](https://leetcode.cn/problems/wtcaE1/description/)
 ```cpp
 class Solution {
 public:
