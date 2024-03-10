@@ -479,7 +479,7 @@ public:
 {%endlist%}
 
 **②类的实现**
->**`RandomizedSet`类**：设计一个数据结构，**插入、删除和随机访问**操作的**时间复杂度**都是`O(1)`，详细见[LCR30题](https://leetcode.cn/problems/FortPu/description/)
+>**`RandomizedSet`类**：设计一个数据结构，**插入、删除和随机访问**的**时间复杂度**都是`O(1)`，详细见[LCR30题](https://leetcode.cn/problems/FortPu/description/)
 {%list%}
 能在O(1)实现随机访问的数据结构只有数组，为了使得插入和删除时间复杂度也是O(1)，添加哈希表结构快速定位
 {%endlist%}
