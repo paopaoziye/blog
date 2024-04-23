@@ -533,10 +533,5 @@ private:
 };
 ```
 >**LUR缓存**：设计并实现一个满足`LRU`**缓存约束**的数据结构，详细见[LCR31题](https://leetcode.cn/problems/FortPu/description/)
-```
-
-
-
-```
 
 **③经典例题**
